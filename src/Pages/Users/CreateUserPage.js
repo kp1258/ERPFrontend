@@ -1,6 +1,11 @@
 import React from "react";
+import { CreateUserForm } from "../../Components/Forms";
 const CreateUserPage = () => {
-  return <div>Create User Page</div>;
+  return (
+    <div>
+      <CreateUserForm />
+    </div>
+  );
 };
 
 export default CreateUserPage;

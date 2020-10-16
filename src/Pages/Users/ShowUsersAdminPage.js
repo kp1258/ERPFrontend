@@ -1,5 +1,6 @@
 import React from "react";
-import UserInfoCard from "../../Components/Cards/UserInfoCard";
+import { Row, Col, Container } from "react-bootstrap";
+import UserAdminCard from "../../Components/Cards/UserAdminCard";
 var users = [
   {
     id: 1,
@@ -23,9 +24,15 @@ var users = [
 const ShowUsersAdminPage = () => {
   return (
     <div>
-      {users.map((user) => (
-        <UserInfoCard {...user} />
-      ))}
+      <Container fluid>
+        <Col>
+          <Row>
+            {users.map((user) => (
+              <UserAdminCard id={user.id} {...user} />
+            ))}
+          </Row>
+        </Col>
+      </Container>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import React from "react";
+import "./index.css";
 import {
   AdministratorNavMenu,
   SalesmanNavMenu,
@@ -9,13 +10,13 @@ import {
 
 const NavigationMenu = () => {
   return (
-    <>
+    <div className="navigationMenu">
       <AdministratorNavMenu />
       <SalesmanNavMenu />
       <TechnologistNavMenu />
       <ProductionManagerNavMenu />
       <WarehousemanNavMenu />
-    </>
+    </div>
   );
 };
 

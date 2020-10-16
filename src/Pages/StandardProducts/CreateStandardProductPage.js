@@ -1,6 +1,11 @@
 import React from "react";
+import { CreateStandardProductFrom } from "../../Components/Forms";
 const CreateStandardProductPage = () => {
-  return <div>Create Standard Product Page</div>;
+  return (
+    <div>
+      <CreateStandardProductFrom />
+    </div>
+  );
 };
 
 export default CreateStandardProductPage;

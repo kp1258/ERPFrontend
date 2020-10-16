@@ -1,41 +1,77 @@
 import React from "react";
-import { Nav, NavDropdown, Dropdown, NavItem, NavLink } from "react-bootstrap";
+import {
+  Nav,
+  NavDropdown,
+  Dropdown,
+  NavItem,
+  NavLink,
+  ListGroup,
+  Button,
+  Card,
+  Accordion,
+} from "react-bootstrap";
 import "./index.css";
+import Collapsible from "react-collapsible";
+const style = {
+  backgroundColor: "15px",
+};
 const AdministratorNavMenu = () => {
   return (
     <>
       <div className="navMenu">
-        <Nav className="flex-column">
-          <Nav.Link href="/home">Active</Nav.Link>
-          <Dropdown>
-            <Dropdown.Toggle variant="black" id="dropdown-basic">
-              Użytkownicy
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-          <Dropdown>
-            <Dropdown.Toggle variant="black" id="dropdown-basic">
-              Magazyn
-            </Dropdown.Toggle>
+        {/* <Nav className="flex-column"> */}
+        {/* <div className="collapseItem">
+          <Collapsible trigger="Pracownicy" triggerStyle={style}>
+            <NavItem>
+              <NavLink>Przeglądaj</NavLink>
+            </NavItem>
+            <NavItem>
+              <Button>Dodaj</Button>
+            </NavItem>
+          </Collapsible>
+        </div>
+        <div className="collapseItem">
+          <Collapsible trigger="Magazyn"></Collapsible>
+        </div>
 
-            <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">Produkty</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Materiały</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-          <Dropdown as={NavItem}>
-            <Dropdown.Toggle as={NavLink}>Click to see more…</Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item>Hello there!</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-          ;
-        </Nav>
+        <div className="collapseItem">
+          <Collapsible trigger="Zamówienia">
+            <NavLink>Nav</NavLink>
+          </Collapsible>
+        </div>
+
+        <div className="collapseItem">
+          <Collapsible trigger="Produkty standardowe">
+            <NavLink>Nav</NavLink>
+          </Collapsible>
+        </div>
+
+        <div className="collapseItem">
+          <Collapsible trigger="Produkty na zamówienie">
+            <NavLink>Nav</NavLink>
+          </Collapsible>
+        </div> */}
+
+        {/* </Nav> */}
+
+        <Accordion>
+          <Card>
+            <Accordion.Toggle as={Card.Header} eventKey="0">
+              Click me!
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="0">
+              <Card.Body>Hello! I'm the body</Card.Body>
+            </Accordion.Collapse>
+          </Card>
+          <Card>
+            <Accordion.Toggle as={Card.Header} eventKey="1">
+              Click me!
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="1">
+              <Card.Body>Hello! I'm another body</Card.Body>
+            </Accordion.Collapse>
+          </Card>
+        </Accordion>
       </div>
     </>
   );

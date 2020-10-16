@@ -23,6 +23,7 @@ import {
   CreateStandardProductPage,
   EditStandardProductPage,
   ShowStandardProductsPage,
+  StandardProductCategoryPage,
 } from "../Pages/StandardProducts";
 import {
   ShowCustomProductsPage,
@@ -33,10 +34,10 @@ import {
   ShowProductWarehousePage,
 } from "../Pages/Warehouse";
 import { NotFoundPage, SignInPage, UnauthorizedPage } from "../Pages/Others";
-
+import "./index.css";
 const Page = () => {
   return (
-    <>
+    <div className="page">
       <Switch>
         {/* Home pages */}
         <Route exact path="/" component={HomePage} />
@@ -74,6 +75,10 @@ const Page = () => {
           path="/standard_products/create"
           component={CreateStandardProductPage}
         />
+        <Route
+          path="/standard_products/category"
+          component={StandardProductCategoryPage}
+        />
 
         {/* Custom products pages */}
         <Route
@@ -102,7 +107,7 @@ const Page = () => {
         <Route path="/unauthorized" component={UnauthorizedPage} />
         <Route component={NotFoundPage} />
       </Switch>
-    </>
+    </div>
   );
 };
 
