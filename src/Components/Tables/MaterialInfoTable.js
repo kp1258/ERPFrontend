@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBBtn, MDBDataTableV5 } from "mdbreact";
+import { MDBBtn, MDBDataTableV5, MDBCard } from "mdbreact";
 const MaterialInfoTable = (props) => {
   var data = {
     columns: [
@@ -27,14 +27,15 @@ const MaterialInfoTable = (props) => {
         return {
           ...row,
           handle: (
-            <MDBBtn
+            <button
+              class="btn btn-primary"
               size="sm"
               onClick={() => {
                 props.handleClick(row.id);
               }}
             >
               Edit
-            </MDBBtn>
+            </button>
           ),
         };
       }),
@@ -42,16 +43,18 @@ const MaterialInfoTable = (props) => {
   };
   return (
     <div class="d-flex justify-content-center">
-      <MDBDataTableV5
-        hover
-        entriesOptions={[5, 20, 25]}
-        entries={5}
-        pagesAmount={4}
-        data={data}
-        pagingTop
-        searchTop
-        searchBottom={false}
-      />
+      <MDBCard>
+        <MDBDataTableV5
+          hover
+          entriesOptions={[5, 20, 25]}
+          entries={5}
+          pagesAmount={4}
+          data={data}
+          pagingTop
+          searchTop
+          searchBottom={false}
+        />
+      </MDBCard>
     </div>
   );
 };

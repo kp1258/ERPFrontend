@@ -1,8 +1,9 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
+import { Card, Form, Button, Input } from "antd";
+import { layout } from "../../Utils/FormLayout";
 import "./index.css";
 
 const schema = yup.object().shape({
@@ -11,7 +12,7 @@ const schema = yup.object().shape({
 });
 
 const SignInForm = () => {
-  const { register, handleSubmit, errors, reset } = useForm({
+  const { control, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
@@ -19,46 +20,35 @@ const SignInForm = () => {
     reset();
   };
   return (
-    <Container>
-      <div class="d-flex justify-content-center">
-        <Row>
-          <Col>
-            <Card>
-              <Card.Header>Formularz logowania</Card.Header>
-              <Card.Body>
-                <Form onSubmit={handleSubmit(onSubmit)}>
-                  <Form.Group>
-                    <Form.Label>Login</Form.Label>
-                    <Form.Control
-                      name="login"
-                      type="text"
-                      placeholder="Podaj login"
-                      ref={register}
-                    />
-                    <div className="errorMessage">{errors.login?.message}</div>
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Hasło</Form.Label>
-                    <Form.Control
-                      name="password"
-                      type="password"
-                      placeholder="Podaj hasło"
-                      ref={register}
-                    />
-                    <div className="errorMessage">
-                      {errors.password?.message}
-                    </div>
-                  </Form.Group>
-                  <Button variant="primary" type="submit">
-                    Zaloguj
-                  </Button>
-                </Form>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-      </div>
-    </Container>
+    <div class="d-flex justify-content-center">
+      <Card title="Formularz logowania">
+        <Form onFinish={handleSubmit(onSubmit)} {...layout}>
+          <Form.Item label="Login">
+            <Controller
+              name="login"
+              control={control}
+              as={<Input />}
+              defaultValue=""
+              placeHolder="Podaj login"
+            />
+            <div className="errorMessage">{errors.login?.message}</div>
+          </Form.Item>
+          <Form.Item label="Hasło">
+            <Controller
+              name="password"
+              control={control}
+              as={<Input.Password />}
+              defaultValue=""
+              placeHolder="Podaj hasło"
+            />
+            <div className="errorMessage">{errors.password?.message}</div>
+          </Form.Item>
+          <Button type="primary" htmlType="submit">
+            Zaloguj
+          </Button>
+        </Form>
+      </Card>
+    </div>
   );
 };
 

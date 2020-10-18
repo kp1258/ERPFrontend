@@ -1,17 +1,15 @@
 import React from "react";
-import { Button, Modal, Form } from "antd";
+import { Modal, Form } from "antd";
 import { useState, useEffect } from "react";
-import { EditUserForm } from "../Forms";
+import { EditCategoryForm } from "../Forms";
 
-const EditUserModal = (props) => {
+const EditCategoryModal = (props) => {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
-
   useEffect(() => {
     setVisible(props.visible);
   }, [props.visible]);
-
   const handleSend = () => {
     setLoading(true);
     setTimeout(() => {
@@ -28,6 +26,7 @@ const EditUserModal = (props) => {
   };
   const handleCancel = () => {
     setVisible(false);
+    form.resetFields();
     props.hideModal();
   };
   return (
@@ -49,16 +48,11 @@ const EditUserModal = (props) => {
             });
         }}
         onCancel={handleCancel}
-        // footer={[
-        //   <Button onClick={handleSend} loading={loading}>
-        //     Wyślij
-        //   </Button>,
-        // ]}
       >
-        <EditUserForm user={props.user} form={form} />
+        <EditCategoryForm category={props.category} form={form} />
       </Modal>
     </>
   );
 };
 
-export default EditUserModal;
+export default EditCategoryModal;

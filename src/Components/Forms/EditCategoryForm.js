@@ -1,57 +1,48 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
+import { Form, Input } from "antd";
+import { layout } from "../../Utils/FormLayout";
+import { useEffect, useState } from "react";
 
 const schema = yup.object().shape({
   name: yup.string().required("Nazwa kategorii jest wymagana"),
 });
 
 const EditCategoryForm = (props) => {
-  const { register, handleSubmit, errors, reset } = useForm({
+  const [category, setCategory] = useState(props.category);
+  useEffect(() => {
+    setCategory(props.category);
+  }, [props.category]);
+  const { control, errors, reset } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      id: props.category.id,
-      name: props.category.name,
+      id: category.id,
+      name: category.name,
     },
   });
+
   const onSubmit = (data) => {
     console.log(data);
     reset();
     props.changeVisibility();
   };
   return (
-    <Container>
-      <div class="d-flex justify-content-center">
-        <Row>
-          <Col>
-            <Card>
-              <Card.Header>Formularz edycji kategorii produktów</Card.Header>
-
-              <Card.Body>
-                <Card.Text>Wybrana kategoria: {props.category.name}</Card.Text>
-                <Form onSubmit={handleSubmit(onSubmit)}>
-                  <Form.Group>
-                    <Form.Label>Nazwa kategorii</Form.Label>
-                    <Form.Control
-                      name="name"
-                      type="text"
-                      placeholder="Podaj nazwę kategorii"
-                      ref={register}
-                    />
-                    <div className="errorMessage">{errors.name?.message}</div>
-                  </Form.Group>
-                  <Button variant="primary" type="submit">
-                    Edytuj
-                  </Button>
-                </Form>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-      </div>
-    </Container>
+    <>
+      <Form form={props.form} {...layout}>
+        <Form.Item label="Nazwa kategorii">
+          <Controller
+            name="name"
+            control={control}
+            as={<Input />}
+            defaultValue=""
+            placeHolder="Podaj nazwę kategorii"
+          />
+          <div className="errorMessage">{errors.name?.message}</div>
+        </Form.Item>
+      </Form>
+    </>
   );
 };
 

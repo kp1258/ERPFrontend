@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { CreateCategoryForm, EditCategoryForm } from "../../Components/Forms";
+import { Row, Col } from "antd";
+import { CreateCategoryForm } from "../../Components/Forms";
+import { EditCategoryModal } from "../../Components/Modals";
 
 import { CategoryTable } from "../../Components/Tables";
 const categoriesData = [
@@ -29,34 +30,26 @@ const StandardProductCategoryPage = () => {
   };
   return (
     <div>
-      <Container>
-        <Row>
-          <Col>
-            <div class="d-flex justify-content-center">
-              <CategoryTable
-                data={categoriesData}
-                handleClick={handleChooseCategory}
-              />
-            </div>
-          </Col>
-          <Col>
-            <div class="d-flex justify-content-center">
-              <CreateCategoryForm />
-            </div>
-          </Col>
-        </Row>
-        <div></div>
-        <Row>
-          <Col>
-            {category.id !== 0 && visible === true && (
-              <EditCategoryForm
-                category={category}
-                changeVisibility={changeVisibility}
-              />
-            )}
-          </Col>
-        </Row>
-      </Container>
+      <Row>
+        <Col span={6}>
+          <div class="d-flex justify-content-center">
+            <CategoryTable
+              data={categoriesData}
+              handleClick={handleChooseCategory}
+            />
+          </div>
+        </Col>
+        <Col span={6}>
+          <div class="d-flex justify-content-center">
+            <CreateCategoryForm />
+          </div>
+        </Col>
+      </Row>
+      <EditCategoryModal
+        visible={visible}
+        category={category}
+        hideModal={changeVisibility}
+      />
     </div>
   );
 };

@@ -1,3 +1,4 @@
 import EditUserModal from "./EditUserModal";
+import EditCategoryModal from "./EditCategoryModal";
 
-export { EditUserModal };
+export { EditUserModal, EditCategoryModal };

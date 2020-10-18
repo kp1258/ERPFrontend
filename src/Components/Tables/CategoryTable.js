@@ -1,5 +1,11 @@
 import React from "react";
-import { MDBTable, MDBBtn, MDBTableHead, MDBTableBody } from "mdbreact";
+import {
+  MDBTable,
+  MDBCard,
+  MDBBtn,
+  MDBTableHead,
+  MDBTableBody,
+} from "mdbreact";
 
 const CategoryTable = (props) => {
   var data = {
@@ -28,14 +34,15 @@ const CategoryTable = (props) => {
         return {
           ...row,
           handle: (
-            <MDBBtn
+            <button
+              class="btn btn-primary"
               size="sm"
               onClick={() => {
                 props.handleClick(row.id);
               }}
             >
               Edit
-            </MDBBtn>
+            </button>
           ),
         };
       }),
@@ -43,10 +50,12 @@ const CategoryTable = (props) => {
   };
   return (
     <div class="d-flex justify-content-center">
-      <MDBTable responsiveSm>
-        <MDBTableHead columns={data.columns} />
-        <MDBTableBody rows={data.rows} />
-      </MDBTable>
+      <MDBCard>
+        <MDBTable responsiveSm>
+          <MDBTableHead columns={data.columns} />
+          <MDBTableBody rows={data.rows} />
+        </MDBTable>
+      </MDBCard>
     </div>
   );
 };

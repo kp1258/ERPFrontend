@@ -1,14 +1,15 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
+import { Card, Form, Button, Input } from "antd";
+import { layout } from "../../Utils/FormLayout";
 
 const schema = yup.object().shape({
   name: yup.string().required("Nazwa kategorii jest wymagana"),
 });
 const CreateCategoryForm = () => {
-  const { register, handleSubmit, errors, reset } = useForm({
+  const { control, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
@@ -16,34 +17,25 @@ const CreateCategoryForm = () => {
     reset();
   };
   return (
-    <Container>
-      <div class="d-flex justify-content-center">
-        <Row>
-          <Col>
-            <Card>
-              <Card.Header>Formularz dodawania kategorii produktów</Card.Header>
-              <Card.Body>
-                <Form onSubmit={handleSubmit(onSubmit)}>
-                  <Form.Group>
-                    <Form.Label>Nazwa kategorii</Form.Label>
-                    <Form.Control
-                      name="name"
-                      type="text"
-                      placeholder="Podaj nazwę kategorii"
-                      ref={register}
-                    />
-                    <div className="errorMessage">{errors.name?.message}</div>
-                  </Form.Group>
-                  <Button variant="primary" type="submit">
-                    Dodaj
-                  </Button>
-                </Form>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-      </div>
-    </Container>
+    <div class="d-flex justify-content-center">
+      <Card title="Formularz dodawania kategorii produktów">
+        <Form onFinish={handleSubmit(onSubmit)} {...layout}>
+          <Form.Item label="Nazwa kategorii">
+            <Controller
+              name="name"
+              control={control}
+              as={<Input />}
+              defaultValue=""
+              placeHolder="Podaj nazwę kategorii"
+            />
+            <div className="errorMessage">{errors.name?.message}</div>
+          </Form.Item>
+          <Button type="primary" htmlType="submit">
+            Dodaj
+          </Button>
+        </Form>
+      </Card>
+    </div>
   );
 };
 
