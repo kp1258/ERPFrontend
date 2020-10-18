@@ -15,6 +15,12 @@ const MaterialInfoTable = (props) => {
         sort: "asc",
         width: 150,
       },
+      {
+        label: "Akcja",
+        field: "handle",
+        sort: "asc",
+        width: 150,
+      },
     ],
     rows: [
       ...props.data.map((row) => {

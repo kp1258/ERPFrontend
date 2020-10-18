@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
-import { propTypes } from "react-bootstrap/esm/Image";
 
 const schema = yup.object().shape({
   name: yup.string().required("Nazwa materiału jest wymagana"),
@@ -41,7 +40,7 @@ const EditMaterialForm = (props) => {
                     <div className="errorMessage">{errors.name?.message}</div>
                   </Form.Group>
                   <Button variant="primary" type="submit">
-                    Dodaj
+                    Edytuj
                   </Button>
                 </Form>
               </Card.Body>

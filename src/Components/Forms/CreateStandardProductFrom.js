@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
+import UploadButton from "../Buttons/UploadButton";
 
 const schema = yup.object().shape({
   name: yup.string().required("Nazwa jest wymagana"),
@@ -64,7 +65,7 @@ const CreateStandardProductForm = () => {
                     </div>
                   </Form.Group>
                   <div className="mb-3">
-                    <Form.File id="formcheck-api-custom" custom>
+                    {/* <Form.File id="formcheck-api-custom" custom>
                       <Form.File.Input isValid />
                       <Form.File.Label data-browse="Button text">
                         Zdjęcie produktu
@@ -72,7 +73,8 @@ const CreateStandardProductForm = () => {
                       <Form.Control.Feedback type="valid">
                         Poprawnie dodanu plik
                       </Form.Control.Feedback>
-                    </Form.File>
+                    </Form.File> */}
+                    <UploadButton limit={2} />
                   </div>
                   <Button variant="primary" type="submit">
                     Dodaj

@@ -10,7 +10,7 @@ import {
 
 const NavigationMenu = () => {
   return (
-    <div className="navigationMenu">
+    <div>
       <AdministratorNavMenu />
       <SalesmanNavMenu />
       <TechnologistNavMenu />

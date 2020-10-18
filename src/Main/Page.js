@@ -33,6 +33,7 @@ import {
   ShowMaterialWarehousePage,
   ShowProductWarehousePage,
 } from "../Pages/Warehouse";
+import { EditMaterialsPage } from "../Pages/Materials";
 import { NotFoundPage, SignInPage, UnauthorizedPage } from "../Pages/Others";
 import "./index.css";
 const Page = () => {
@@ -101,7 +102,8 @@ const Page = () => {
           path="/warehouse/products"
           component={ShowProductWarehousePage}
         />
-
+        {/* Material Pages */}
+        <Route path="/materials/edit" component={EditMaterialsPage} />
         {/* Other pages */}
         <Route path="/signin" component={SignInPage} />
         <Route path="/unauthorized" component={UnauthorizedPage} />

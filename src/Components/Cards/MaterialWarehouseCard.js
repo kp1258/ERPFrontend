@@ -8,11 +8,11 @@ import {
 } from "react-bootstrap";
 import "./index.css";
 
-const MaterialInfoCard = (props) => {
+const MaterialWarehouseCard = (props) => {
   return (
     <div class="d-flex justify-content-center">
       <Card>
-        <Card.Header>props.material.name</Card.Header>
+        <Card.Header>{props.material.name}</Card.Header>
         <ListGroup className="list-group-flush">
           <ListGroupItem>Ilość: {props.material.quantity}</ListGroupItem>
         </ListGroup>
@@ -21,4 +21,4 @@ const MaterialInfoCard = (props) => {
   );
 };
 
-export default MaterialInfoCard;
+export default MaterialWarehouseCard;

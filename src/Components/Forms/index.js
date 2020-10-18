@@ -5,6 +5,7 @@ import CreateMaterialForm from "./CreateMaterialForm";
 import SignInForm from "./SignInForm";
 import EditCategoryForm from "./EditCategoryForm";
 import EditMaterialForm from "./EditMaterialForm";
+import EditUserForm from "./EditUserForm";
 
 export {
   CreateUserForm,
@@ -14,4 +15,5 @@ export {
   SignInForm,
   EditCategoryForm,
   EditMaterialForm,
+  EditUserForm,
 };

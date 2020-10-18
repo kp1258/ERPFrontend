@@ -11,9 +11,9 @@ const materialsData = [
     name: "Materiał 2",
   },
 ];
-const EditMaterialPage = () => {
+const EditMaterialsPage = () => {
   const [visible, setVisible] = useState(false);
-  const [material, setMaterial] = useState();
+  const [material, setMaterial] = useState({ id: 0, name: "" });
   const handleChooseMaterial = (id) => {
     let materials = [...materialsData];
     let chosenMaterial = materials.find((material) => {
@@ -31,12 +31,14 @@ const EditMaterialPage = () => {
         data={materialsData}
         handleClick={handleChooseMaterial}
       />
-      <EditMaterialForm
-        material={material}
-        changeVisibility={changeVisibility}
-      />
+      {material.id !== 0 && visible === true && (
+        <EditMaterialForm
+          material={material}
+          changeVisibility={changeVisibility}
+        />
+      )}
     </div>
   );
 };
 
-export default EditMaterialPage;
+export default EditMaterialsPage;

@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, Container } from "react-bootstrap";
-import UserAdminCard from "../../Components/Cards/UserAdminCard";
+import { UserAdminCard } from "../../Components/Cards";
 var users = [
   {
     id: 1,
@@ -28,7 +28,7 @@ const ShowUsersAdminPage = () => {
         <Col>
           <Row>
             {users.map((user) => (
-              <UserAdminCard id={user.id} {...user} />
+              <UserAdminCard id={user.id} user={user} />
             ))}
           </Row>
         </Col>

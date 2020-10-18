@@ -1,19 +1,29 @@
 import React from "react";
-import { Card, CardImg, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Card, List } from "antd";
+
+import UserIcon from "../../assets/userIcon.png";
 const UserInfoCard = (props) => {
+  const data = [
+    `Numer telefonu: ${props.phoneNumber}`,
+    `E-Mail: ${props.eMail}`,
+    `Stanowisko: ${props.role}`,
+  ];
+  const title = `${props.firstName} ${props.lastName}`;
   return (
     <div className="userCard">
-      <Card>
-        <CardImg variant="top" />
-        <Card.Header>
-          {props.firstName} {props.lastName}
-        </Card.Header>
-
-        <ListGroup className="list-group-flush">
-          <ListGroupItem>Numer telefonu: {props.phoneNumber}</ListGroupItem>
-          <ListGroupItem>E-Mail: {props.eMail}</ListGroupItem>
-          <ListGroupItem>Stanowisko: {props.role}</ListGroupItem>
-        </ListGroup>
+      <Card
+        title={title}
+        style={{ fontSize: "150%" }}
+        cover={<img alt="example" src={UserIcon} />}
+      >
+        <List
+          dataSource={data}
+          renderItem={(item) => (
+            <>
+              <List.Item>{item}</List.Item>
+            </>
+          )}
+        />
       </Card>
     </div>
   );
