@@ -1,6 +1,6 @@
 import React from "react";
-import { Row, Col, Container } from "react-bootstrap";
-import { UserAdminCard } from "../../Components/Cards";
+import { Container, Row, Col } from "react-bootstrap";
+import { UserInfoCard } from "../../Components/Cards";
 var users = [
   {
     id: 1,
@@ -21,14 +21,14 @@ var users = [
     status: "Active",
   },
 ];
-const ShowUsersAdminPage = () => {
+const UsersPage = () => {
   return (
     <div>
       <Container fluid>
         <Col>
           <Row>
             {users.map((user) => (
-              <UserAdminCard id={user.id} user={user} />
+              <UserInfoCard id={user.id} {...user} />
             ))}
           </Row>
         </Col>
@@ -37,4 +37,4 @@ const ShowUsersAdminPage = () => {
   );
 };
 
-export default ShowUsersAdminPage;
+export default UsersPage;

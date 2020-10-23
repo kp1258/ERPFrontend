@@ -1,4 +1,11 @@
-import ShowMaterialWarehousePage from "./ShowMaterialWarehousePage";
-import ShowProductWarehousePage from "./ShowProductWarehousePage";
+import ChangeStockMaterialWarehousePage from "./ChangeStockMWPage";
+import ChangeStockProductWarehousePage from "./ChangeStockPWPage";
+import ShowMaterialWarehousePage from "./ShowMWPage";
+import ShowProductWarehousePage from "./ShowPWPage";
 
-export { ShowMaterialWarehousePage, ShowProductWarehousePage };
+export {
+  ChangeStockMaterialWarehousePage,
+  ChangeStockProductWarehousePage,
+  ShowMaterialWarehousePage,
+  ShowProductWarehousePage,
+};

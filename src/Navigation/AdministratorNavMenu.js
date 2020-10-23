@@ -9,7 +9,7 @@ const options = [
     subsections: [
       {
         id: 1,
-        name: "Przeglądaj admin",
+        name: "Przeglądaj (a)",
         ref: "/users/admin",
       },
       {
@@ -19,58 +19,75 @@ const options = [
       },
       {
         id: 3,
-        name: "Dodaj",
+        name: "Dodaj (a)",
         ref: "/users/create",
       },
     ],
   },
   {
     id: 2,
-    sectionName: "Zamówienia",
+    sectionName: "Klienci",
     subsections: [
       {
         id: 5,
-        name: "Przeglądaj",
-        ref: "/orders",
+        name: "Przeglądaj (a)",
+        ref: "/clients",
       },
       {
         id: 6,
-        name: "Złóż zamówienie",
-        ref: "/orders/place_order",
+        name: "Przeglądaj (h)",
+        ref: "/clients/salesman",
       },
       {
-        //Salesman
         id: 7,
-        name: "Moje zamówienia",
-        ref: "/orders/my_orders",
-      },
-      {
-        //Warehouseman
-        id: 8,
-        name: "Zrealizuj zamówienie",
-        ref: "/orders/complete",
+        name: "Dodaj (h)",
+        ref: "/clients/create",
       },
     ],
   },
   {
     id: 3,
-    sectionName: "Magazyn Materiałów",
+    sectionName: "Zamówienia",
     subsections: [
       {
         id: 10,
-        name: "Przeglądaj",
-        ref: "/warehouse/materials",
+        name: "Aktywne zamówienia (h)",
+        ref: "/orders/active/salesman",
       },
       {
-        //Warehouseman
         id: 11,
-        name: "Zmień stan",
-        ref: "/warehouse/materials/edit",
+        name: "Historia (h)",
+        ref: "/orders/history/salesman",
       },
       {
         id: 12,
-        name: "Edytuj materiały",
-        ref: "/materials/edit",
+        name: "Złóż zamówienie (h)",
+        ref: "/orders/create",
+      },
+      {
+        id: 13,
+        name: "Do zrealizowania (m)",
+        ref: "/orders/to-realize",
+      },
+      {
+        id: 14,
+        name: "W realizacji (m)",
+        ref: "/orders/in-realization",
+      },
+      {
+        id: 50,
+        name: "Historia (m)",
+        ref: "/orders/history/warehouseman",
+      },
+      {
+        id: 51,
+        name: "Aktywne zamówienia (a)",
+        ref: "/orders/active/admin",
+      },
+      {
+        id: 52,
+        name: "Historia (a)",
+        ref: "/orders/history/admin",
       },
     ],
   },
@@ -80,69 +97,127 @@ const options = [
     subsections: [
       {
         id: 15,
-        name: "Przeglądaj",
+        name: "Przeglądaj (h,kp,a)",
         ref: "/warehouse/products",
       },
       {
-        //Warehouseman
         id: 16,
-        name: "Zmień stan",
-        ref: "/warehouse/products/edit",
+        name: "Zmień stan (m)",
+        ref: "/warehouse/products/change-stock",
       },
     ],
   },
   {
     id: 5,
-    sectionName: "Produkty Standardowe",
+    sectionName: "Magazyn Materiałów",
     subsections: [
       {
         id: 20,
-        name: "Przeglądaj",
-        ref: "/standard_products",
+        name: "Przeglądaj (kp, a)",
+        ref: "/warehouse/materials",
       },
       {
         id: 21,
-        name: "Dodaj",
-        ref: "/standard_products/create",
-      },
-      {
-        id: 22,
-        name: "Edytuj",
-        ref: "/standard_products/edit",
-      },
-      {
-        id: 23,
-        name: "Kategorie produktów",
-        ref: "/standard_products/category",
+        name: "Zmień stan (m)",
+        ref: "/warehouse/materials/change-stock",
       },
     ],
   },
   {
     id: 6,
-    sectionName: "Produkty Na Zamówienie",
+    sectionName: "Produkty Standardowe",
     subsections: [
       {
         id: 25,
-        name: "Przeglądaj",
-        ref: "/custom_products",
+        name: "Przeglądaj katalog (h,t)",
+        ref: "/standard-products",
       },
       {
-        //Technologist
         id: 26,
-        name: "Dodaj rozwiązanie",
-        ref: "/custom_products/solution",
+        name: "Przeglądaj (kP, a)",
+        ref: "/standard-products/manage",
       },
       {
-        //Technologist
         id: 27,
-        name: "Moje rozwiązania",
-        ref: "/custom_products/my_solutions",
+        name: "Dodaj (kp)",
+        ref: "/standard-products/create",
       },
       {
-        //Production Manager
         id: 28,
-        name: "Do wykonania",
-        ref: "/custom_products/to_be_produced",
+        name: "Do wykonania (kp)",
+        ref: "/standard-products/missing",
+      },
+      {
+        id: 29,
+        name: "Kategorie produktów",
+        ref: "/standard-products/category",
+      },
+    ],
+  },
+  {
+    id: 7,
+    sectionName: "Produkty Na Zamówienie",
+    subsections: [
+      {
+        id: 30,
+        name: "Z moich zamówień (h)",
+        ref: "/custom-products/salesman",
+      },
+      {
+        id: 31,
+        name: "Historia (h)",
+        ref: "/custom-products/history/salesman",
+      },
+      {
+        id: 32,
+        name: "Do wykonania (kp)",
+        ref: "/custom-products/ordered/production-manager",
+      },
+      {
+        id: 33,
+        name: "W realizacji (kp)",
+        ref: "/custom-products/in-production",
+      },
+      {
+        id: 34,
+        name: "Historia (kp)",
+        ref: "/custom-products/history/production-manager",
+      },
+      {
+        id: 35,
+        name: "Do wykonania (t)",
+        ref: "/custom-products/ordered/technologist",
+      },
+      {
+        id: 36,
+        name: "W realizacji (t)",
+        ref: "/custom-products/in-preparation",
+      },
+      {
+        id: 37,
+        name: "Moje rozwiązania (t)",
+        ref: "/custom-products/technologist",
+      },
+      {
+        id: 38,
+        name: "Historia (t)",
+        ref: "/custom-products/history/technologist",
+      },
+    ],
+  },
+  {
+    id: 8,
+    sectionName: "Materiały",
+    subsections: [
+      {
+        id: 40,
+        name: "Przeglądaj",
+        ref: "/materials",
+      },
+      {
+        id: 41,
+        name: "Dodaj",
+        ref: "/materials/create",
       },
     ],
   },

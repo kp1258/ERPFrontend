@@ -1,9 +1,9 @@
-import AdminHomePage from "./AdminHomePage";
+import AdminHomePage from "./AdminHP";
 import HomePage from "./HomePage";
-import ProductionManagerHomePage from "./ProductionManagerHomePage";
-import SalesmanHomePage from "./SalesmanHomePage";
-import TechnologistHomePage from "./TechnologistHomePage";
-import WarehousemanHomePage from "./WarehousemanHomePage";
+import ProductionManagerHomePage from "./ProductionManagerHP";
+import SalesmanHomePage from "./SalesmanHP";
+import TechnologistHomePage from "./TechnologistHP";
+import WarehousemanHomePage from "./WarehousemanHP";
 
 export {
   AdminHomePage,

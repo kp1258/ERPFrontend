@@ -1,6 +1,5 @@
-import ShowUsersAdminPage from "./ShowUsersAdminPage";
+import UsersAdminPage from "./UsersAdminPage";
 import CreateUserPage from "./CreateUserPage";
-import ShowUsersPage from "./ShowUsersPage";
-import EditUserPage from "./EditUserPage";
+import UsersPage from "./UsersPage";
 
-export { ShowUsersAdminPage, CreateUserPage, ShowUsersPage, EditUserPage };
+export { UsersAdminPage, CreateUserPage, UsersPage };

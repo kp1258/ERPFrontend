@@ -14,7 +14,7 @@ const categoriesData = [
     name: "Sito",
   },
 ];
-const StandardProductCategoryPage = () => {
+const StandardProductCategoriesPage = () => {
   const [visible, setVisible] = useState(false);
   const [category, setCategory] = useState({ id: 0, name: "" });
   const handleChooseCategory = (id) => {
@@ -54,4 +54,4 @@ const StandardProductCategoryPage = () => {
   );
 };
 
-export default StandardProductCategoryPage;
+export default StandardProductCategoriesPage;

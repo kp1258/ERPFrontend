@@ -11,7 +11,7 @@ const materialsData = [
     name: "Materiał 2",
   },
 ];
-const EditMaterialsPage = () => {
+const MaterialsPage = () => {
   const [visible, setVisible] = useState(false);
   const [material, setMaterial] = useState({ id: 0, name: "" });
   const handleChooseMaterial = (id) => {
@@ -41,4 +41,4 @@ const EditMaterialsPage = () => {
   );
 };
 
-export default EditMaterialsPage;
+export default MaterialsPage;

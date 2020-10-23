@@ -1,3 +1,4 @@
-import EditMaterialsPage from "./EditMaterialsPage";
+import MaterialsPage from "./MaterialsPage";
+import CreateMaterialPage from "./CreateMaterialPage";
 
-export { EditMaterialsPage };
+export { MaterialsPage, CreateMaterialPage };

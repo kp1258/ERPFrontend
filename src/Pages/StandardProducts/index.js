@@ -1,11 +1,13 @@
-import CreateStandardProductPage from "./CreateStandardProductPage";
-import EditStandardProductPage from "./EditStandardProductPage";
-import ShowStandardProductsPage from "./ShowStandardProductsPage";
-import StandardProductCategoryPage from "./StandardProductCategoryPage";
+import CreateStandardProductPage from "./CreateSPPage";
+import MissingStandardProductsPage from "./MissingSPPage";
+import StandardProductsPage from "./SPPage";
+import StandardProductsManagerPage from "./SPManagerPage";
+import StandardProductCategoriesPage from "./SPCategoriesPage";
 
 export {
   CreateStandardProductPage,
-  EditStandardProductPage,
-  ShowStandardProductsPage,
-  StandardProductCategoryPage,
+  MissingStandardProductsPage,
+  StandardProductsPage,
+  StandardProductsManagerPage,
+  StandardProductCategoriesPage,
 };
