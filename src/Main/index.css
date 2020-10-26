@@ -1,12 +1,13 @@
 .page {
   position: absolute;
-  margin: auto;
-  width: 70vw;
+  margin-left: 50px;
+  width: 87vw;
   height: 95vh;
-  display: flex;
   flex-grow: 1;
   margin-top: 50px;
   display: block;
+  left: 30;
+  right: 0;
 }
 .appBar {
   position: fixed;

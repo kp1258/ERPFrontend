@@ -2,26 +2,25 @@ import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Form, Card, Button, Input, Select } from "antd";
-import { roles } from "../../Utils/UserRoles";
+import { Form, Card, Button, Input } from "antd";
 import { layout } from "../../Utils/FormLayout";
-import "./index.css";
 
-const { Option } = Select;
 const schema = yup.object().shape({
-  firstName: yup.string().required("Imie jest wymagane"),
+  companyName: yup.string().required("Nazwa firmy jest wymagana"),
+  firstName: yup.string().required("Imię jest wymagane"),
   lastName: yup.string().required("Nazwisko jest wymagane"),
-  login: yup.string().required("Login jest wymagany"),
-  password: yup.string().required("Hasło jest wymagane"),
   phoneNumber: yup.string().required("Numer telefonu jest wymagany"),
-  eMail: yup
+  email: yup
     .string()
-    .email("Niepoprawny adres E-Mail")
-    .required("E-Mail jest wymagany"),
-  role: yup.string().required("Wybór stanowiska jest wymagany"),
+    .email("Niepoprawny adres e-mail")
+    .required("Adres email jest wymagany"),
+  address: yup.object().shape({
+    street: yup.string().required("Ulica jest wymagana"),
+    postalCode: yup.string().required("Kod pocztowy jest wymagany"),
+    city: yup.string().required("Miasto jest wymagane"),
+  }),
 });
-
-const CreateUserForm = () => {
+const CreateClientForm = () => {
   const { control, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
   });
@@ -31,8 +30,18 @@ const CreateUserForm = () => {
   };
   return (
     <div>
-      <Card title="Formularz tworzenia pracownika">
+      <Card title="Formularz tworzenia klienta">
         <Form {...layout} onFinish={handleSubmit(onSubmit)}>
+          <Form.Item label="Nazwa firmy">
+            <Controller
+              name="companyName"
+              control={control}
+              as={<Input />}
+              defaultValue=""
+              placeHolder="Podaj nazwę firmy"
+            />
+            <div className="errorMessage">{errors.companyName?.message}</div>
+          </Form.Item>
           <Form.Item label="Imię">
             <Controller
               name="firstName"
@@ -53,27 +62,6 @@ const CreateUserForm = () => {
             />
             <div className="errorMessage">{errors.lastName?.message}</div>
           </Form.Item>
-          <Form.Item label="Login">
-            <Controller
-              name="login"
-              control={control}
-              as={<Input />}
-              defaultValue=""
-              placeHolder="Podaj login"
-            />
-            <div className="errorMessage">{errors.login?.message}</div>
-          </Form.Item>
-          <Form.Item label="Hasło">
-            <Controller
-              name="password"
-              control={control}
-              as={<Input.Password />}
-              defaultValue=""
-              placeHolder="Podaj hasło"
-            />
-            <div className="errorMessage">{errors.password?.message}</div>
-          </Form.Item>
-
           <Form.Item label="Numer telefonu">
             <Controller
               name="phoneNumber"
@@ -84,31 +72,49 @@ const CreateUserForm = () => {
             />
             <div className="errorMessage">{errors.phoneNumber?.message}</div>
           </Form.Item>
-          <Form.Item label="Adres E-Mail">
+          <Form.Item label="Adres e-mail">
             <Controller
-              name="eMail"
+              name="email"
               control={control}
               as={<Input />}
               defaultValue=""
-              placeHolder="Podaj adres E-Mail"
+              placeHolder="Podaj adres e-mail"
             />
-            <div className="errorMessage">{errors.eMail?.message}</div>
+            <div className="errorMessage">{errors.email?.message}</div>
           </Form.Item>
-          <Form.Item label="Stanowisko">
+          <Form.Item label="Ulica i numer">
             <Controller
-              name="role"
+              name="address.street"
               control={control}
-              as={
-                <Select>
-                  {roles.map((role) => (
-                    <Option value={role.value}>{role.name}</Option>
-                  ))}
-                </Select>
-              }
-              placeholder="Wybierz stanowisko"
+              as={<Input />}
               defaultValue=""
+              placeHolder="Podaj ulicę i numer"
             />
-            <div className="errorMessage">{errors.role?.message}</div>
+            <div className="errorMessage">
+              {errors.address?.street?.message}
+            </div>
+          </Form.Item>
+          <Form.Item label="Kod pocztowy">
+            <Controller
+              name="address.postalCode"
+              control={control}
+              as={<Input />}
+              defaultValue=""
+              placeHolder="Podaj kod pocztowy"
+            />
+            <div className="errorMessage">
+              {errors.address?.postalCode?.message}
+            </div>
+          </Form.Item>
+          <Form.Item label="Miasto">
+            <Controller
+              name="address.city"
+              control={control}
+              as={<Input />}
+              defaultValue=""
+              placeHolder="Podaj miasto"
+            />
+            <div className="errorMessage">{errors.address?.city?.message}</div>
           </Form.Item>
           <Button type="primary" htmlType="submit">
             Dodaj
@@ -119,4 +125,4 @@ const CreateUserForm = () => {
   );
 };
 
-export default CreateUserForm;
+export default CreateClientForm;

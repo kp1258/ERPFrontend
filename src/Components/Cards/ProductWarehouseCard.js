@@ -3,14 +3,15 @@ import { Card, List } from "antd";
 
 const ProductWarehouseCard = (props) => {
   const { product } = props;
+  const { standardProduct } = product;
   const data = [
-    `Wymiary: ${product.dimensions}`,
-    `Kategoria: ${product.category.name}`,
+    `Wymiary: ${standardProduct.dimensions}`,
+    `Kategoria: ${standardProduct.standardProductCategory.name}`,
     `Ilość: ${product.quantity}`,
   ];
   return (
-    <div class="d-flex justify-content-center">
-      <Card title={product.name} style={{ fontSize: "150%" }}>
+    <div>
+      <Card title={standardProduct.name} style={{ fontSize: "150%" }}>
         <List
           dataSource={data}
           renderItem={(item) => (
@@ -19,6 +20,7 @@ const ProductWarehouseCard = (props) => {
             </>
           )}
         />
+        {props.footer ? props.footer : ""}
       </Card>
     </div>
   );

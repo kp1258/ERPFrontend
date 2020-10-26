@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Menu } from "antd";
 import { Link } from "react-router-dom";
 
 const { SubMenu } = Menu;
 
 const NavMenu2 = (props) => {
+  // const [openKeys, setOpenKeys] = useState();
+
+  // const onOpenChange = (openKeysProp) => {
+  //   const latestOpenKey = openKeysProp.find(
+  //     (key) => openKeys.indexOf(key) === -1
+  //   );
+  //   if (props.options.indexOf(latestOpenKey) === -1) {
+  //     setOpenKeys({ openKeysProp });
+  //   } else {
+  //     setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+  //   }
+  // };
   const handleClick = (e) => {
     console.log("click", e);
   };
@@ -12,6 +24,8 @@ const NavMenu2 = (props) => {
     <>
       <Menu
         onClick={handleClick}
+        // openKeys={openKeys}
+        // onOpenChange={onOpenChange}
         theme="dark"
         mode="inline"
         style={{ height: "100%", borderRight: 0, width: "250px" }}

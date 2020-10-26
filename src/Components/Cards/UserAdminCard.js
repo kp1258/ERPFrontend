@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, List, Button } from "antd";
-import UserIcon from "../../assets/userIcon.png";
+import UserIcon from "../../Assets/userIcon.png";
 import EditUserModal from "../Modals/EditUserModal";
 import { useState } from "react";
 import "./index.css";
@@ -19,7 +19,7 @@ const UserAdminCard = (props) => {
   };
   const data = [
     `Numer telefonu: ${user.phoneNumber}`,
-    `E-Mail: ${user.eMail}`,
+    `E-mail: ${user.email}`,
     `Login: ${user.login}`,
     `Stanowisko: ${user.role}`,
     `Status: ${user.status}`,

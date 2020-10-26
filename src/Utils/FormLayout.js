@@ -1,9 +1,9 @@
 export const layout = {
   labelCol: {
-    span: 10,
+    span: 6,
   },
   wrapperCol: {
-    span: 16,
+    span: 10,
   },
 };
 

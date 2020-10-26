@@ -38,7 +38,7 @@ const CategoryTable = (props) => {
               class="btn btn-primary"
               size="sm"
               onClick={() => {
-                props.handleClick(row.id);
+                props.handleClick(row.standardProductCategoryId);
               }}
             >
               Edit
@@ -49,7 +49,7 @@ const CategoryTable = (props) => {
     ],
   };
   return (
-    <div class="d-flex justify-content-center">
+    <div>
       <MDBCard>
         <MDBTable responsiveSm>
           <MDBTableHead columns={data.columns} />

@@ -1,6 +1,17 @@
 import React from "react";
+import { Space } from "antd";
+import { CustomOrderItemCard } from "../../Components/Cards";
+import { customOrderItems } from "../../Utils/Data";
 const CustomProductsHistoryManagerPage = () => {
-  return <div>Custom Products History Manager Page</div>;
+  return (
+    <div>
+      <Space>
+        {customOrderItems.map((item) => (
+          <CustomOrderItemCard item={item} />
+        ))}
+      </Space>
+    </div>
+  );
 };
 
 export default CustomProductsHistoryManagerPage;

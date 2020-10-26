@@ -17,7 +17,7 @@ const CreateCategoryForm = () => {
     reset();
   };
   return (
-    <div class="d-flex justify-content-center">
+    <div>
       <Card title="Formularz dodawania kategorii produktów">
         <Form onFinish={handleSubmit(onSubmit)} {...layout}>
           <Form.Item label="Nazwa kategorii">

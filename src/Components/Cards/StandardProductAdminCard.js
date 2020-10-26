@@ -1,15 +1,15 @@
 import React from "react";
-import { Button, Card } from "antd";
+import { Button, Card, Space } from "antd";
+import StandardProductCard from "./StandardProductCard";
 const StandardProductAdminCard = (props) => {
   const { product } = props;
-  const data = {};
-  return (
-    <div class="d-flex justify-content-center">
-      <Card title={product.name}>
-        <Button type="primary">Edytuj</Button>
-      </Card>
-    </div>
+  const footer = (
+    <Space>
+      <Button type="primary">Edytuj dane</Button>
+      <Button type="primary">Zmień status</Button>
+    </Space>
   );
+  return <StandardProductCard product={product} footer={footer} />;
 };
 
 export default StandardProductAdminCard;

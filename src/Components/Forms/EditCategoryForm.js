@@ -4,23 +4,20 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Form, Input } from "antd";
 import { layout } from "../../Utils/FormLayout";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const schema = yup.object().shape({
   name: yup.string().required("Nazwa kategorii jest wymagana"),
 });
 
 const EditCategoryForm = (props) => {
-  const [category, setCategory] = useState(props.category);
+  const { category } = props;
   useEffect(() => {
-    setCategory(props.category);
-  }, [props.category]);
+    reset({ id: category.standardProductCategoryId, name: category.name });
+  }, [category]);
+
   const { control, errors, reset } = useForm({
     resolver: yupResolver(schema),
-    defaultValues: {
-      id: category.id,
-      name: category.name,
-    },
   });
 
   const onSubmit = (data) => {

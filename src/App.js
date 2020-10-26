@@ -8,17 +8,6 @@ const { Header, Footer, Sider, Content } = Layout;
 function App() {
   return (
     <div className="App">
-      {/* <Container>
-        <Col>
-          <Row>
-            <AppBar />
-          </Row>
-          <Row>
-            <NavigationMenu />
-            <Page />
-          </Row>
-        </Col>
-      </Container> */}
       <Layout>
         <Header
           style={{
@@ -43,11 +32,10 @@ function App() {
         >
           <NavigationMenu />
         </Sider>
-        <Layout style={{ marginLeft: 200 }}>
+        <Layout style={{ marginLeft: "200px" }}>
           <Content
             style={{
               padding: 24,
-              margin: 0,
               minHeight: 600,
               height: "100vh",
             }}

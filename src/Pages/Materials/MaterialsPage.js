@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MaterialInfoTable } from "../../Components/Tables";
 import { EditMaterialForm } from "../../Components/Forms";
+import { EditMaterialModal } from "../../Components/Modals";
 const materialsData = [
   {
     id: 1,
@@ -32,10 +33,7 @@ const MaterialsPage = () => {
         handleClick={handleChooseMaterial}
       />
       {material.id !== 0 && visible === true && (
-        <EditMaterialForm
-          material={material}
-          changeVisibility={changeVisibility}
-        />
+        <EditMaterialModal visible={visible} material={material} />
       )}
     </div>
   );

@@ -4,26 +4,22 @@ import { CreateCategoryForm } from "../../Components/Forms";
 import { EditCategoryModal } from "../../Components/Modals";
 
 import { CategoryTable } from "../../Components/Tables";
-const categoriesData = [
-  {
-    id: 1,
-    name: "Nóż",
-  },
-  {
-    id: 2,
-    name: "Sito",
-  },
-];
+import { categories as categoriesData } from "../../Utils/Data";
+
 const StandardProductCategoriesPage = () => {
   const [visible, setVisible] = useState(false);
-  const [category, setCategory] = useState({ id: 0, name: "" });
+  const [category, setCategory] = useState({
+    standardProductCategoryId: 0,
+    name: "",
+  });
   const handleChooseCategory = (id) => {
     let categories = [...categoriesData];
     let chosenCategory = categories.find((category) => {
-      return category.id === id;
+      return category.standardProductCategoryId === id;
     });
     setVisible(true);
     setCategory(chosenCategory);
+    console.log(chosenCategory);
   };
   const changeVisibility = () => {
     setVisible(false);
@@ -31,16 +27,16 @@ const StandardProductCategoriesPage = () => {
   return (
     <div>
       <Row>
-        <Col span={6}>
-          <div class="d-flex justify-content-center">
+        <Col flex={6}>
+          <div>
             <CategoryTable
               data={categoriesData}
               handleClick={handleChooseCategory}
             />
           </div>
         </Col>
-        <Col span={6}>
-          <div class="d-flex justify-content-center">
+        <Col flex={6}>
+          <div>
             <CreateCategoryForm />
           </div>
         </Col>

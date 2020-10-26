@@ -1,11 +1,11 @@
 import React from "react";
 import { Card, List } from "antd";
 
-import UserIcon from "../../assets/userIcon.png";
+import UserIcon from "../../Assets/userIcon.png";
 const UserInfoCard = (props) => {
   const data = [
     `Numer telefonu: ${props.phoneNumber}`,
-    `E-Mail: ${props.eMail}`,
+    `E-mail: ${props.email}`,
     `Stanowisko: ${props.role}`,
   ];
   const title = `${props.firstName} ${props.lastName}`;

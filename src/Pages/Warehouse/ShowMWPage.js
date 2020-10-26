@@ -1,18 +1,16 @@
 import React from "react";
+import { Space } from "antd";
 import { MaterialWarehouseCard } from "../../Components/Cards";
-const materials = [
-  {
-    id: 1,
-    name: "Materiał",
-    quantity: 50,
-  },
-];
+import { materialWarehouse } from "../../Utils/Data";
+
 const ShowMaterialWarehousePage = () => {
   return (
     <div>
-      {materials.map((material) => (
-        <MaterialWarehouseCard id={material.id} material={material} />
-      ))}
+      <Space>
+        {materialWarehouse.map((material) => (
+          <MaterialWarehouseCard id={material.id} material={material} />
+        ))}
+      </Space>
     </div>
   );
 };

@@ -23,25 +23,21 @@ const EditMaterialForm = (props) => {
     props.changeVisibility();
   };
   return (
-    <div class="d-flex justify-content-center">
-      <Card title="Formularz edycji materiału">
-        <Form onSubmit={handleSubmit(onSubmit)} {...layout}>
-          <Form.Item label="Nazwa materiału">
-            <Controller
-              name="name"
-              control={control}
-              as={<Input />}
-              defaultValue=""
-              placeHolder="Podaj nazwę materiału"
-            />
-            <div className="errorMessage">{errors.name?.message}</div>
-          </Form.Item>
-          <Button type="primary" htmlType="submit">
-            Edytuj
-          </Button>
-        </Form>
-      </Card>
-    </div>
+    <Form onSubmit={handleSubmit(onSubmit)} {...layout}>
+      <Form.Item label="Nazwa materiału">
+        <Controller
+          name="name"
+          control={control}
+          as={<Input />}
+          defaultValue=""
+          placeHolder="Podaj nazwę materiału"
+        />
+        <div className="errorMessage">{errors.name?.message}</div>
+      </Form.Item>
+      <Button type="primary" htmlType="submit">
+        Edytuj
+      </Button>
+    </Form>
   );
 };
 
