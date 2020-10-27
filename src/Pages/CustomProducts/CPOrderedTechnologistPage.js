@@ -1,6 +1,17 @@
 import React from "react";
-const CustomProductsOrderedTechnologistPage = () => {
-  return <div>Custom Products Ordered Technologist Page</div>;
+import { Space } from "antd";
+import { CustomProductOrderedCard } from "../../Components/Cards";
+import { customProducts } from "../../Utils/Data";
+const CustomProductsOrderedPage = () => {
+  return (
+    <div>
+      <Space>
+        {customProducts.map((customProduct) => (
+          <CustomProductOrderedCard customProduct={customProduct} />
+        ))}
+      </Space>
+    </div>
+  );
 };
 
-export default CustomProductsOrderedTechnologistPage;
+export default CustomProductsOrderedPage;

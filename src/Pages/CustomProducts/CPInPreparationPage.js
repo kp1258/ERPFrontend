@@ -1,6 +1,17 @@
 import React from "react";
+import { Space } from "antd";
+import { CustomProductInPreparationCard } from "../../Components/Cards";
+import { customProducts } from "../../Utils/Data";
 const CustomProductsInPreparationPage = () => {
-  return <div>Custom Products In Preparation Page</div>;
+  return (
+    <div>
+      <Space>
+        {customProducts.map((customProduct) => (
+          <CustomProductInPreparationCard customProduct={customProduct} />
+        ))}
+      </Space>
+    </div>
+  );
 };
 
 export default CustomProductsInPreparationPage;

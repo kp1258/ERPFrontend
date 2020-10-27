@@ -6,6 +6,7 @@ import { Form, Card, Button, Input, Select } from "antd";
 import { roles } from "../../Utils/UserRoles";
 import { layout } from "../../Utils/FormLayout";
 import "./index.css";
+import { propTypes } from "react-bootstrap/esm/Image";
 
 const { Option } = Select;
 const schema = yup.object().shape({
@@ -21,12 +22,12 @@ const schema = yup.object().shape({
   role: yup.string().required("Wybór stanowiska jest wymagany"),
 });
 
-const CreateUserForm = () => {
+const CreateUserForm = (props) => {
   const { control, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
-    console.log(data);
+    props.handleSubmit(data);
     reset();
   };
   return (

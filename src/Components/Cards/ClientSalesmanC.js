@@ -1,6 +1,6 @@
 import React from "react";
 import { Space, Button } from "antd";
-import ClientAdminCard from "./ClientAdminCard";
+import ClientAdminCard from "./ClientAdminC";
 const ClientSalesmanCard = (props) => {
   const { client } = props;
   const footer = (

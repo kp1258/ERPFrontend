@@ -1,28 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { materialWarehouse } from "../../Utils/Data";
 import { MaterialWarehouseChangeStockCard } from "../../Components/Cards";
 import { ChangeStockModal } from "../../Components/Modals";
 import { Space } from "antd";
+import { PageLoader } from "../../Components/Others";
+import useFetch from "../../Utils/useFetch";
+
 const ChangeStockMaterialWarehousePage = () => {
+  const { response, error, isLoading } = useFetch({
+    method: "get",
+    url: "/material-warehouse",
+  });
+  console.log(response);
   const [visible, setVisible] = useState(false);
-  const [material, setMaterial] = useState();
+  const [item, setItem] = useState();
   const [type, setType] = useState();
 
-  const handleChooseMaterial = (id) => {
-    let materials = [...materialWarehouse];
-    let chosenMaterial = materials.find((material) => {
-      return material.id === id;
+  const handleChooseItem = (id) => {
+    let items = [...response];
+    let chosenItem = items.find((item) => {
+      return item.materialWarehouseItemId === id;
     });
-    setMaterial(chosenMaterial);
+    setItem(chosenItem);
     setVisible(true);
-    console.log(chosenMaterial);
+    console.log(chosenItem);
   };
   const handleEntry = (id) => {
-    handleChooseMaterial(id);
+    handleChooseItem(id);
     setType("entry");
   };
   const handleWithdrawal = (id) => {
-    handleChooseMaterial(id);
+    handleChooseItem(id);
     setType("withdrawal");
   };
   const hideModal = () => {
@@ -30,27 +38,34 @@ const ChangeStockMaterialWarehousePage = () => {
   };
   return (
     <div>
-      <Space>
-        {materialWarehouse.map((material) => (
-          <MaterialWarehouseChangeStockCard
-            id={material.id}
-            material={material}
-            handleEntry={handleEntry}
-            handleWithdrawal={handleWithdrawal}
-          />
-        ))}
-      </Space>
-      {material ? (
-        <ChangeStockModal
-          visible={visible}
-          title="Zmień stan materiału"
-          material={material}
-          type={type}
-          hideModal={hideModal}
-          buttonLabel={type === "entry" ? "Przyjmij" : "Wydaj"}
-        />
+      {isLoading === false ? (
+        <>
+          <Space>
+            {response.map((item) => (
+              <MaterialWarehouseChangeStockCard
+                key={item.materialWarehouseItemId}
+                item={item}
+                handleEntry={handleEntry}
+                handleWithdrawal={handleWithdrawal}
+              />
+            ))}
+          </Space>
+          {item ? (
+            <ChangeStockModal
+              visible={visible}
+              title="Zmień stan materiału"
+              name={item.material.name}
+              item={item}
+              type={type}
+              hideModal={hideModal}
+              buttonLabel={type === "entry" ? "Przyjmij" : "Wydaj"}
+            />
+          ) : (
+            ""
+          )}
+        </>
       ) : (
-        ""
+        <PageLoader />
       )}
     </div>
   );

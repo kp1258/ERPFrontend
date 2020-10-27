@@ -1,6 +1,17 @@
 import React from "react";
-const OrdersHistoryAdminPAge = () => {
-  return <div>Orders history admin page</div>;
+import { OrderHistoryCard } from "../../Components/Cards";
+import { warehousemanOrders } from "../../Utils/Data";
+import { Space } from "antd";
+const OrdersHistoryAdminPage = () => {
+  return (
+    <div>
+      <Space>
+        {warehousemanOrders.map((order) => (
+          <OrderHistoryCard order={order} />
+        ))}
+      </Space>
+    </div>
+  );
 };
 
-export default OrdersHistoryAdminPAge;
+export default OrdersHistoryAdminPage;

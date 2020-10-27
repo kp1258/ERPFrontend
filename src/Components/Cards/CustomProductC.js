@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, List, Divider, Timeline, Space } from "antd";
-import { CustomProductTimeline } from "../../Components/Timelines";
+import { CustomProductTimeline } from "../Timelines";
 import { customProducts } from "../../Utils/Data";
 const CustomProductCard = (props) => {
   const { customProduct } = props;
@@ -23,7 +23,7 @@ const CustomProductCard = (props) => {
         )}
         <Divider>Status</Divider>
         <span>{customProduct.status}</span>
-        <CustomProductTimeline customProduct={customProduct} />
+        {props.footer ? props.footer : ""}
       </Card>
     </div>
   );

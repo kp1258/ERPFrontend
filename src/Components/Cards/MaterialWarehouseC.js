@@ -3,10 +3,10 @@ import { Button, Card, List } from "antd";
 import "./index.css";
 
 const MaterialWarehouseCard = (props) => {
-  const { material } = props;
-  const data = [`Ilość: ${material.quantity}`];
+  const { item } = props;
+  const data = [`Ilość: ${item.quantity}`];
   return (
-    <Card title={material.name}>
+    <Card title={item.material.name}>
       <List
         dataSource={data}
         renderItem={(item) => (

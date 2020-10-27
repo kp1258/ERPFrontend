@@ -1,6 +1,6 @@
 import React from "react";
 import { Space, Button, Divider } from "antd";
-import StandardProductCard from "./StandardProductCard";
+import StandardProductCard from "./StandardProductC";
 const StandardProductMissingCard = (props) => {
   const { product } = props;
   const footer = (

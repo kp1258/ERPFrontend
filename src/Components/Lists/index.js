@@ -1,2 +1,4 @@
 import ClientsList from "./ClientsList";
-export { ClientsList };
+import CustomOrderItemList from "./CustomOrderItemList";
+import StandardOrderItemList from "./StandardOrderItemList";
+export { ClientsList, CustomOrderItemList, StandardOrderItemList };

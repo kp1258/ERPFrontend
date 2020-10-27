@@ -1,20 +1,25 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Space } from "antd";
 import { UserInfoCard } from "../../Components/Cards";
-import { users } from "../../Utils/Data";
+import { PageLoader } from "../../Components/Others";
+import useFetch from "../../Utils/useFetch";
 
 const UsersPage = () => {
+  const { response, error, isLoading } = useFetch({
+    method: "get",
+    url: "/users",
+  });
   return (
     <div>
-      <Container fluid>
-        <Col>
-          <Row>
-            {users.map((user) => (
-              <UserInfoCard key={user.id} {...user} />
-            ))}
-          </Row>
-        </Col>
-      </Container>
+      {isLoading === false ? (
+        <Space>
+          {response.map((user) => (
+            <UserInfoCard key={user.userId} {...user} />
+          ))}
+        </Space>
+      ) : (
+        <PageLoader />
+      )}
     </div>
   );
 };

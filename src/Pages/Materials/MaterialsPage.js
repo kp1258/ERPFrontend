@@ -1,22 +1,18 @@
 import React, { useState } from "react";
 import { MaterialInfoTable } from "../../Components/Tables";
-import { EditMaterialForm } from "../../Components/Forms";
 import { EditMaterialModal } from "../../Components/Modals";
-const materialsData = [
-  {
-    id: 1,
-    name: "Materiał 1",
-  },
-  {
-    id: 2,
-    name: "Materiał 2",
-  },
-];
+import { PageLoader } from "../../Components/Others";
+import useFetch from "../../Utils/useFetch";
+
 const MaterialsPage = () => {
+  const { response, error, isLoading } = useFetch({
+    method: "get",
+    url: "/materials",
+  });
   const [visible, setVisible] = useState(false);
   const [material, setMaterial] = useState({ id: 0, name: "" });
   const handleChooseMaterial = (id) => {
-    let materials = [...materialsData];
+    let materials = [...response];
     let chosenMaterial = materials.find((material) => {
       return material.id === id;
     });
@@ -28,12 +24,18 @@ const MaterialsPage = () => {
   };
   return (
     <div>
-      <MaterialInfoTable
-        data={materialsData}
-        handleClick={handleChooseMaterial}
-      />
-      {material.id !== 0 && visible === true && (
-        <EditMaterialModal visible={visible} material={material} />
+      {isLoading === false ? (
+        <>
+          <MaterialInfoTable
+            data={response}
+            handleClick={handleChooseMaterial}
+          />
+          {material.id !== 0 && visible === true && (
+            <EditMaterialModal visible={visible} material={material} />
+          )}
+        </>
+      ) : (
+        <PageLoader />
       )}
     </div>
   );

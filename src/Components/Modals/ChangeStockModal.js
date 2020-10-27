@@ -1,7 +1,7 @@
 import { Modal, Form, Input } from "antd";
-import React, { useState, useEffect } from "react";
+import React from "react";
 const ChangeStockModal = (props) => {
-  const { title, type, item, visible, hideModal } = props;
+  const { title, type, name, item, visible, hideModal } = props;
 
   const changeQuantity = (quantity) => {
     if (type === "entry") {
@@ -15,7 +15,7 @@ const ChangeStockModal = (props) => {
   };
   return (
     <Modal title={title} visible={visible} onCancel={handleCancel}>
-      <div>{item.name}</div>
+      <div>{name}</div>
       <div>Obecna ilosć: {item.quantity}</div>
       <Form>
         <Input name="quantity" />

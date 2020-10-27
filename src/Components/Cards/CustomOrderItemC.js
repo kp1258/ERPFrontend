@@ -1,7 +1,6 @@
 import React from "react";
 import { Card, Divider } from "antd";
-import { CustomOrderItemTimeline } from "../../Components/Timelines";
-import { customProducts } from "../../Utils/Data";
+
 const CustomOrderItemCard = (props) => {
   const { item } = props;
   const { customProduct } = item;
@@ -25,7 +24,7 @@ const CustomOrderItemCard = (props) => {
         <div>{item.quantity}</div>
         <Divider>Status</Divider>
         <div>{item.status}</div>
-        <CustomOrderItemTimeline item={item} />
+        {props.footer ? props.footer : ""}
       </Card>
     </div>
   );

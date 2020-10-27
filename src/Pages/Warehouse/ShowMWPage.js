@@ -1,16 +1,29 @@
 import React from "react";
 import { Space } from "antd";
 import { MaterialWarehouseCard } from "../../Components/Cards";
-import { materialWarehouse } from "../../Utils/Data";
+import { PageLoader } from "../../Components/Others";
+import useFetch from "../../Utils/useFetch";
 
 const ShowMaterialWarehousePage = () => {
+  const { response, error, isLoading } = useFetch({
+    method: "get",
+    url: "/material-warehouse",
+  });
+
   return (
     <div>
-      <Space>
-        {materialWarehouse.map((material) => (
-          <MaterialWarehouseCard id={material.id} material={material} />
-        ))}
-      </Space>
+      {isLoading === false ? (
+        <Space>
+          {response.map((item) => (
+            <MaterialWarehouseCard
+              key={item.materialWarehouseItemId}
+              item={item}
+            />
+          ))}
+        </Space>
+      ) : (
+        <PageLoader />
+      )}
     </div>
   );
 };

@@ -2,12 +2,12 @@ import React from "react";
 import { Card, List } from "antd";
 
 const ProductWarehouseCard = (props) => {
-  const { product } = props;
-  const { standardProduct } = product;
+  const { item } = props;
+  const { standardProduct } = item;
   const data = [
     `Wymiary: ${standardProduct.dimensions}`,
     `Kategoria: ${standardProduct.standardProductCategory.name}`,
-    `Ilość: ${product.quantity}`,
+    `Ilość: ${item.quantity}`,
   ];
   return (
     <div>

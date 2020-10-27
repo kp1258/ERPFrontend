@@ -1,5 +1,5 @@
 import React from "react";
-import { CustomProductCard } from "../../Components/Cards";
+import { CustomProductHistoryCard } from "../../Components/Cards";
 import { customProducts } from "../../Utils/Data";
 import { Space } from "antd";
 const CustomProductsHistoryTechnologistsPage = () => {
@@ -7,7 +7,7 @@ const CustomProductsHistoryTechnologistsPage = () => {
     <div>
       <Space>
         {customProducts.map((customProduct) => (
-          <CustomProductCard customProduct={customProduct} />
+          <CustomProductHistoryCard customProduct={customProduct} />
         ))}
       </Space>
     </div>

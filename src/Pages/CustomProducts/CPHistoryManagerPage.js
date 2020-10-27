@@ -1,13 +1,13 @@
 import React from "react";
 import { Space } from "antd";
-import { CustomOrderItemCard } from "../../Components/Cards";
+import { CustomOrderItemHistoryCard } from "../../Components/Cards";
 import { customOrderItems } from "../../Utils/Data";
 const CustomProductsHistoryManagerPage = () => {
   return (
     <div>
       <Space>
         {customOrderItems.map((item) => (
-          <CustomOrderItemCard item={item} />
+          <CustomOrderItemHistoryCard item={item} />
         ))}
       </Space>
     </div>

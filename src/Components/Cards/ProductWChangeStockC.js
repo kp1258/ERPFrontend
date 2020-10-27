@@ -1,13 +1,13 @@
 import React from "react";
 import { Button, Space } from "antd";
-import ProductWarehouseCard from "./ProductWarehouseCard";
+import ProductWarehouseCard from "./ProductWarehouseC";
 const ProductWarehouseChangeStockCard = (props) => {
-  const { product, handleEntry, handleWithdrawal } = props;
+  const { item, handleEntry, handleWithdrawal } = props;
   const footer = (
     <Space>
       <Button
         onClick={() => {
-          handleEntry(product.id);
+          handleEntry(item.productWarehouseItemId);
         }}
         type="primary"
       >
@@ -15,7 +15,7 @@ const ProductWarehouseChangeStockCard = (props) => {
       </Button>
       <Button
         onClick={() => {
-          handleWithdrawal(product.id);
+          handleWithdrawal(item.productWarehouseItemId);
         }}
         type="primary"
       >
@@ -25,7 +25,7 @@ const ProductWarehouseChangeStockCard = (props) => {
   );
   return (
     <div>
-      <ProductWarehouseCard product={product} footer={footer} />
+      <ProductWarehouseCard item={item} footer={footer} />
     </div>
   );
 };
