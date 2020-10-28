@@ -4,30 +4,11 @@ import { useState, useEffect } from "react";
 import { EditUserForm } from "../Forms";
 
 const EditUserModal = (props) => {
-  const [visible, setVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const { visible } = props;
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    setVisible(props.visible);
-  }, [props.visible]);
-
-  const handleSend = () => {
-    setLoading(true);
-    setTimeout(() => {
-      form
-        .validateFields()
-        .then((values) => {
-          form.resetFields();
-          console.log(values);
-        })
-        .catch((info) => {
-          console.log("Validate Failed:", info);
-        });
-    }, 2000);
-  };
   const handleCancel = () => {
-    setVisible(false);
     props.hideModal();
   };
   return (
@@ -35,27 +16,17 @@ const EditUserModal = (props) => {
       <Modal
         title="Edytuj dane"
         visible={visible}
-        onOk={() => {
-          form
-            .validateFields()
-            .then((values) => {
-              form.resetFields();
-              console.log(values);
-              setVisible(false);
-              props.hideModal();
-            })
-            .catch((info) => {
-              console.log("Validate Failed:", info);
-            });
-        }}
+        onOk={form.submit}
         onCancel={handleCancel}
-        // footer={[
-        //   <Button onClick={handleSend} loading={loading}>
-        //     Wyślij
-        //   </Button>,
-        // ]}
+        isSubmitting={isSubmitting}
       >
-        <EditUserForm user={props.user} form={form} />
+        <EditUserForm
+          key={props.user.userId}
+          user={props.user}
+          form={form}
+          hideModal={props.hideModal}
+          toggleUpdate={props.toggleUpdate}
+        />
       </Modal>
     </>
   );

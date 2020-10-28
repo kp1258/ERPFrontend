@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Form, Card, Button, Input } from "antd";
 import { layout } from "../../Utils/FormLayout";
+import { clients } from "../../Api/erpApi";
 
 const schema = yup.object().shape({
   companyName: yup.string().required("Nazwa firmy jest wymagana"),
@@ -21,12 +22,25 @@ const schema = yup.object().shape({
   }),
 });
 const CreateClientForm = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { control, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
     console.log(data);
-    reset();
+    setIsSubmitting(true);
+    clients
+      .create(data)
+      .then((res) => {
+        console.log(res);
+        reset();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
   return (
     <div>
@@ -116,7 +130,10 @@ const CreateClientForm = () => {
             />
             <div className="errorMessage">{errors.address?.city?.message}</div>
           </Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Form.Item>
+            <Controller control={control} name="salesmanId" defaultValue={2} />
+          </Form.Item>
+          <Button type="primary" htmlType="submit" loading={isSubmitting}>
             Dodaj
           </Button>
         </Form>

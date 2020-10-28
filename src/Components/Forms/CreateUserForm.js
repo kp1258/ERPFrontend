@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -6,7 +6,7 @@ import { Form, Card, Button, Input, Select } from "antd";
 import { roles } from "../../Utils/UserRoles";
 import { layout } from "../../Utils/FormLayout";
 import "./index.css";
-import { propTypes } from "react-bootstrap/esm/Image";
+import { users } from "../../Api/erpApi";
 
 const { Option } = Select;
 const schema = yup.object().shape({
@@ -15,7 +15,7 @@ const schema = yup.object().shape({
   login: yup.string().required("Login jest wymagany"),
   password: yup.string().required("Hasło jest wymagane"),
   phoneNumber: yup.string().required("Numer telefonu jest wymagany"),
-  eMail: yup
+  email: yup
     .string()
     .email("Niepoprawny adres E-Mail")
     .required("E-Mail jest wymagany"),
@@ -23,12 +23,24 @@ const schema = yup.object().shape({
 });
 
 const CreateUserForm = (props) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { control, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
-    props.handleSubmit(data);
-    reset();
+    setIsSubmitting(true);
+    users
+      .create(data)
+      .then((res) => {
+        console.log(res);
+        reset();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
   return (
     <div>
@@ -87,13 +99,13 @@ const CreateUserForm = (props) => {
           </Form.Item>
           <Form.Item label="Adres E-Mail">
             <Controller
-              name="eMail"
+              name="email"
               control={control}
               as={<Input />}
               defaultValue=""
               placeHolder="Podaj adres E-Mail"
             />
-            <div className="errorMessage">{errors.eMail?.message}</div>
+            <div className="errorMessage">{errors.email?.message}</div>
           </Form.Item>
           <Form.Item label="Stanowisko">
             <Controller
@@ -111,7 +123,7 @@ const CreateUserForm = (props) => {
             />
             <div className="errorMessage">{errors.role?.message}</div>
           </Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={isSubmitting}>
             Dodaj
           </Button>
         </Form>

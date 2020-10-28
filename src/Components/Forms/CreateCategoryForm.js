@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Card, Form, Button, Input } from "antd";
 import { layout } from "../../Utils/FormLayout";
+import { categories } from "../../Api/erpApi";
 
 const schema = yup.object().shape({
   name: yup.string().required("Nazwa kategorii jest wymagana"),

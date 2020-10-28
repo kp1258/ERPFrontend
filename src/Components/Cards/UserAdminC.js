@@ -1,22 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, List, Button } from "antd";
 import UserIcon from "../../Assets/userIcon.png";
-import EditUserModal from "../Modals/EditUserModal";
-import { useState } from "react";
+import { EditUserModal } from "../../Components/Modals";
+import { PopconfirmButton } from "../../Components/Buttons";
+import { users } from "../../Api/erpApi";
+
 import "./index.css";
 const btnStyle = {
   marginRight: "10px",
-  marginBottom: "10px",
 };
 const UserAdminCard = (props) => {
   const { user } = props;
-  const [visibleEdit, setVisibleEdit] = useState(false);
-  const showEditModal = () => {
-    setVisibleEdit(true);
-  };
-  const hideEditModal = () => {
-    setVisibleEdit(false);
-  };
+  const [visible, setVisible] = useState(false);
   const data = [
     `Numer telefonu: ${user.phoneNumber}`,
     `E-mail: ${user.email}`,
@@ -25,6 +20,10 @@ const UserAdminCard = (props) => {
     `Status: ${user.status}`,
   ];
   const title = `${user.firstName} ${user.lastName}`;
+  const handleClick = () => {
+    var patch = {};
+    users.changeStatus(user.userId);
+  };
   return (
     <div className="userCard">
       <Card
@@ -40,21 +39,35 @@ const UserAdminCard = (props) => {
             </>
           )}
         />
-        <Button type="primary" style={btnStyle} onClick={showEditModal}>
+        <Button
+          type="primary"
+          style={btnStyle}
+          onClick={() => {
+            setVisible(true);
+          }}
+        >
           Edytuj dane
         </Button>
-        <Button type="primary" style={btnStyle}>
-          Zmień status
-        </Button>
+        <PopconfirmButton
+          handleClick={() => handleClick()}
+          style={btnStyle}
+          name="Zmień status"
+        />
         <Button type="primary" style={btnStyle}>
           Zmień hasło
         </Button>
+        {user ? (
+          <EditUserModal
+            key={user.userId}
+            visible={visible}
+            user={user}
+            hideModal={() => setVisible(false)}
+            toggleUpdate={props.toggleUpdate}
+          />
+        ) : (
+          ""
+        )}
       </Card>
-      <EditUserModal
-        visible={visibleEdit}
-        user={user}
-        hideModal={hideEditModal}
-      />
     </div>
   );
 };

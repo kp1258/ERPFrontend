@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ComponentLoader from "./ComponentLoader";
 import { CategoryTable } from "../Tables";
 import { EditCategoryModal } from "../Modals";
-import useFetch from "../../Utils/useFetch";
+import useFetch from "../../Api/useFetch";
 
 const CategoryTableWithModal = () => {
   const { response, error, isLoading } = useFetch({
@@ -30,7 +30,10 @@ const CategoryTableWithModal = () => {
     <div>
       {isLoading === false ? (
         <>
-          <CategoryTable data={response} handleClick={handleChooseCategory} />
+          <CategoryTable
+            data={[...response]}
+            handleClick={handleChooseCategory}
+          />
           <EditCategoryModal
             visible={visible}
             category={category}
