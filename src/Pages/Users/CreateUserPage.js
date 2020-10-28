@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CreateUserForm } from "../../Components/Forms";
-import useFetch from "../../Utils/useFetch";
+import useFetch from "../../Api/useFetch";
 const CreateUserPage = () => {
   const [data, setData] = useState();
   const createUser = (userData) => {

@@ -2,7 +2,8 @@ import React from "react";
 import { Space } from "antd";
 import { UserInfoCard } from "../../Components/Cards";
 import { PageLoader } from "../../Components/Others";
-import useFetch from "../../Utils/useFetch";
+import useFetch from "../../Api/useFetch";
+import { NoDataAlert } from "../../Components/Alerts";
 
 const UsersPage = () => {
   const { response, error, isLoading } = useFetch({
@@ -12,11 +13,15 @@ const UsersPage = () => {
   return (
     <div>
       {isLoading === false ? (
-        <Space>
-          {response.map((user) => (
-            <UserInfoCard key={user.userId} {...user} />
-          ))}
-        </Space>
+        response !== "" ? (
+          <Space>
+            {[...response].map((user) => (
+              <UserInfoCard key={user.userId} {...user} />
+            ))}
+          </Space>
+        ) : (
+          <NoDataAlert content="Brak pracowników" />
+        )
       ) : (
         <PageLoader />
       )}

@@ -1,23 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Space } from "antd";
 import { UserAdminCard } from "../../Components/Cards";
 import { PageLoader } from "../../Components/Others";
-import useFetch from "../../Utils/useFetch";
+import useFetch from "../../Api/useFetch";
+import { NoDataAlert } from "../../Components/Alerts";
 
 const UsersAdminPage = () => {
-  const { response, error, isLoading } = useFetch({
+  const [triggerUpdate, setTriggerUpdate] = useState(false);
+  const [user, setUser] = useState();
+  const { response, isLoading, refetch } = useFetch({
     method: "get",
     url: "/users",
   });
-  console.log(response);
+  useEffect(() => {
+    console.log("use effect triggered");
+  }, [triggerUpdate]);
+
+  const toggleTrigger = () => {
+    refetch({});
+    setTriggerUpdate(!triggerUpdate);
+  };
+
+  const handleChooseUser = (id) => {
+    let users = [...response];
+    let chosenUser = users.find((user) => {
+      return user.userId === id;
+    });
+    setUser(chosenUser);
+    console.log({ chosenUser });
+    console.log({ user });
+  };
+
   return (
     <div>
       {isLoading === false ? (
-        <Space>
-          {response.map((user) => (
-            <UserAdminCard key={user.userId} user={user} />
-          ))}
-        </Space>
+        response !== "" ? (
+          <>
+            <Space>
+              {[...response].map((user) => (
+                <UserAdminCard
+                  key={user.userId}
+                  user={user}
+                  handleChooseUser={handleChooseUser}
+                  toggleUpdate={toggleTrigger}
+                />
+              ))}
+            </Space>
+          </>
+        ) : (
+          <NoDataAlert content="Brak pracowników w bazie" />
+        )
       ) : (
         <PageLoader />
       )}
