@@ -1,15 +1,31 @@
 import React from "react";
 import { Space } from "antd";
 import { CustomOrderItemHistoryCard } from "../../Components/Cards";
-import { customOrderItems } from "../../Utils/Data";
+import useFetch from "../../Api/useFetch";
+import { PageLoader } from "../../Components/Others";
+import { NoDataAlert } from "../../Components/Alerts";
+
 const CustomProductssalesmanPage = () => {
+  const { response, error, isLoading } = useFetch({
+    method: "get",
+    url: "/custom-order-items/active?SelesmanId=2",
+  });
+  console.log(response);
   return (
     <div>
-      <Space>
-        {customOrderItems.map((item) => (
-          <CustomOrderItemHistoryCard item={item} />
-        ))}
-      </Space>
+      {isLoading === false ? (
+        response !== "" ? (
+          <Space>
+            {[...response].map((item) => (
+              <CustomOrderItemHistoryCard item={item} />
+            ))}
+          </Space>
+        ) : (
+          <NoDataAlert content="Brak produktów na zamówienie na aktywnych zamówieniach" />
+        )
+      ) : (
+        <PageLoader />
+      )}
     </div>
   );
 };

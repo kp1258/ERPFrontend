@@ -3,7 +3,8 @@ import { ChangeStockModal } from "../../Components/Modals";
 import { ProductWarehouseChangeStockCard } from "../../Components/Cards";
 import { Space } from "antd";
 import { PageLoader } from "../../Components/Others";
-import useFetch from "../../Utils/useFetch";
+import useFetch from "../../Api/useFetch";
+import { NoDataAlert } from "../../Components/Alerts";
 
 const ChangeStockProductWarehousePage = () => {
   const { response, error, isLoading } = useFetch({
@@ -37,16 +38,20 @@ const ChangeStockProductWarehousePage = () => {
     <div>
       {isLoading === false ? (
         <div>
-          <Space>
-            {response.map((item) => (
-              <ProductWarehouseChangeStockCard
-                key={item.productWarehouseItemId}
-                item={item}
-                handleEntry={handleEntry}
-                handleWithdrawal={handleWithdrawal}
-              />
-            ))}
-          </Space>
+          {response !== "" ? (
+            <Space>
+              {[...response].map((item) => (
+                <ProductWarehouseChangeStockCard
+                  key={item.productWarehouseItemId}
+                  item={item}
+                  handleEntry={handleEntry}
+                  handleWithdrawal={handleWithdrawal}
+                />
+              ))}
+            </Space>
+          ) : (
+            <NoDataAlert content="Brak produktów w magazynie" />
+          )}
           {item ? (
             <ChangeStockModal
               visible={visible}

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { materialWarehouse } from "../../Utils/Data";
 import { MaterialWarehouseChangeStockCard } from "../../Components/Cards";
 import { ChangeStockModal } from "../../Components/Modals";
 import { Space } from "antd";
 import { PageLoader } from "../../Components/Others";
-import useFetch from "../../Utils/useFetch";
+import useFetch from "../../Api/useFetch";
+import { NoDataAlert } from "../../Components/Alerts";
 
 const ChangeStockMaterialWarehousePage = () => {
   const { response, error, isLoading } = useFetch({
@@ -40,16 +40,20 @@ const ChangeStockMaterialWarehousePage = () => {
     <div>
       {isLoading === false ? (
         <>
-          <Space>
-            {response.map((item) => (
-              <MaterialWarehouseChangeStockCard
-                key={item.materialWarehouseItemId}
-                item={item}
-                handleEntry={handleEntry}
-                handleWithdrawal={handleWithdrawal}
-              />
-            ))}
-          </Space>
+          {response !== "" ? (
+            <Space>
+              {[...response].map((item) => (
+                <MaterialWarehouseChangeStockCard
+                  key={item.materialWarehouseItemId}
+                  item={item}
+                  handleEntry={handleEntry}
+                  handleWithdrawal={handleWithdrawal}
+                />
+              ))}
+            </Space>
+          ) : (
+            <NoDataAlert content="Brak materiałów w magazynie" />
+          )}
           {item ? (
             <ChangeStockModal
               visible={visible}

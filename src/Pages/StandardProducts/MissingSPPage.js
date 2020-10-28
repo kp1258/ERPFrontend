@@ -1,9 +1,9 @@
 import React from "react";
 import { StandardProductMissingCard } from "../../Components/Cards";
-import { managerMissingProducts } from "../../Utils/Data";
 import { Space } from "antd";
 import { PageLoader } from "../../Components/Others";
-import useFetch from "../../Utils/useFetch";
+import useFetch from "../../Api/useFetch";
+import { NoDataAlert } from "../../Components/Alerts";
 
 const MissingStandardProductsPage = () => {
   const { response, error, isLoading } = useFetch({
@@ -13,11 +13,15 @@ const MissingStandardProductsPage = () => {
   return (
     <div>
       {isLoading === false ? (
-        <Space>
-          {response.map((product) => (
-            <StandardProductMissingCard product={product} />
-          ))}
-        </Space>
+        response !== "" ? (
+          <Space>
+            {[...response].map((product) => (
+              <StandardProductMissingCard product={product} />
+            ))}
+          </Space>
+        ) : (
+          <NoDataAlert content="W magazynie nie brakuje produktów standardowych" />
+        )
       ) : (
         <PageLoader />
       )}

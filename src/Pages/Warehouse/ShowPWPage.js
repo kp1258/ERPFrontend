@@ -1,9 +1,9 @@
 import React from "react";
 import { ProductWarehouseCard } from "../../Components/Cards";
-import { productWarehouse } from "../../Utils/Data";
 import { Space } from "antd";
 import { PageLoader } from "../../Components/Others";
-import useFetch from "../../Utils/useFetch";
+import useFetch from "../../Api/useFetch";
+import { NoDataAlert } from "../../Components/Alerts";
 
 const ShowProductWarehousePage = () => {
   const { response, error, isLoading } = useFetch({
@@ -13,14 +13,18 @@ const ShowProductWarehousePage = () => {
   return (
     <div>
       {isLoading === false ? (
-        <Space>
-          {response.map((item) => (
-            <ProductWarehouseCard
-              key={item.productWarehouseItemId}
-              item={item}
-            />
-          ))}
-        </Space>
+        response !== "" ? (
+          <Space>
+            {[...response].map((item) => (
+              <ProductWarehouseCard
+                key={item.productWarehouseItemId}
+                item={item}
+              />
+            ))}
+          </Space>
+        ) : (
+          <NoDataAlert content="Brak produktów w magazynie" />
+        )
       ) : (
         <PageLoader />
       )}

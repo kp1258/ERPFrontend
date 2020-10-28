@@ -3,7 +3,8 @@ import { Space } from "antd";
 import { standardProducts } from "../../Utils/Data";
 import { StandardProductAdminCard } from "../../Components/Cards";
 import { PageLoader } from "../../Components/Others";
-import useFetch from "../../Utils/useFetch";
+import useFetch from "../../Api/useFetch";
+import { NoDataAlert } from "../../Components/Alerts";
 
 const StandardProductsManagerPage = () => {
   const { response, error, isLoading } = useFetch({
@@ -13,16 +14,20 @@ const StandardProductsManagerPage = () => {
   return (
     <div>
       {isLoading === false ? (
-        <Space>
-          {response.map((product) => {
-            return (
-              <StandardProductAdminCard
-                key={product.standardProductId}
-                product={product}
-              />
-            );
-          })}
-        </Space>
+        response !== "" ? (
+          <Space>
+            {[...response].map((product) => {
+              return (
+                <StandardProductAdminCard
+                  key={product.standardProductId}
+                  product={product}
+                />
+              );
+            })}
+          </Space>
+        ) : (
+          <NoDataAlert content="Brak produktów standardowych" />
+        )
       ) : (
         <PageLoader />
       )}

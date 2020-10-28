@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { MaterialInfoTable } from "../../Components/Tables";
 import { EditMaterialModal } from "../../Components/Modals";
 import { PageLoader } from "../../Components/Others";
-import useFetch from "../../Utils/useFetch";
+import useFetch from "../../Api/useFetch";
+import { NoDataAlert } from "../../Components/Alerts";
 
 const MaterialsPage = () => {
   const { response, error, isLoading } = useFetch({
@@ -25,15 +26,19 @@ const MaterialsPage = () => {
   return (
     <div>
       {isLoading === false ? (
-        <>
-          <MaterialInfoTable
-            data={response}
-            handleClick={handleChooseMaterial}
-          />
-          {material.id !== 0 && visible === true && (
-            <EditMaterialModal visible={visible} material={material} />
-          )}
-        </>
+        response !== "" ? (
+          <>
+            <MaterialInfoTable
+              data={[...response]}
+              handleClick={handleChooseMaterial}
+            />
+            {material.id !== 0 && visible === true && (
+              <EditMaterialModal visible={visible} material={material} />
+            )}
+          </>
+        ) : (
+          <NoDataAlert content="Brak materiałów w bazie" />
+        )
       ) : (
         <PageLoader />
       )}

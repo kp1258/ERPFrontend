@@ -2,7 +2,8 @@ import React from "react";
 import { Space } from "antd";
 import { MaterialWarehouseCard } from "../../Components/Cards";
 import { PageLoader } from "../../Components/Others";
-import useFetch from "../../Utils/useFetch";
+import useFetch from "../../Api/useFetch";
+import { NoDataAlert } from "../../Components/Alerts";
 
 const ShowMaterialWarehousePage = () => {
   const { response, error, isLoading } = useFetch({
@@ -13,14 +14,18 @@ const ShowMaterialWarehousePage = () => {
   return (
     <div>
       {isLoading === false ? (
-        <Space>
-          {response.map((item) => (
-            <MaterialWarehouseCard
-              key={item.materialWarehouseItemId}
-              item={item}
-            />
-          ))}
-        </Space>
+        response !== "" ? (
+          <Space>
+            {[...response].map((item) => (
+              <MaterialWarehouseCard
+                key={item.materialWarehouseItemId}
+                item={item}
+              />
+            ))}
+          </Space>
+        ) : (
+          <NoDataAlert content="Brak materiałów w magazynie" />
+        )
       ) : (
         <PageLoader />
       )}

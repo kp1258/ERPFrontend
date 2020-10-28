@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Row, Col } from "antd";
 import { ClientsList } from "../../Components/Lists";
 import { ClientAdminCard } from "../../Components/Cards";
-import { clients as clientsData } from "../../Utils/Data";
-import useFetch from "../../Utils/useFetch";
+import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Others";
+import { NoDataAlert } from "../../Components/Alerts";
 
 const ClientsPage = () => {
   const { response, error, isLoading } = useFetch({
@@ -24,17 +24,21 @@ const ClientsPage = () => {
     <div>
       {isLoading === false ? (
         <>
-          <Row>
-            <Col flex="auto">
-              {client.address ? <ClientAdminCard client={client} /> : ""}
-            </Col>
-            <Col flex="300px">
-              <ClientsList
-                items={clientsData}
-                handleClick={handleChooseClient}
-              />
-            </Col>
-          </Row>
+          {response !== "" ? (
+            <Row>
+              <Col flex="auto">
+                {client.address ? <ClientAdminCard client={client} /> : ""}
+              </Col>
+              <Col flex="300px">
+                <ClientsList
+                  items={[...response]}
+                  handleClick={handleChooseClient}
+                />
+              </Col>
+            </Row>
+          ) : (
+            <NoDataAlert content="Brak klientów w bazie" />
+          )}
         </>
       ) : (
         <PageLoader />

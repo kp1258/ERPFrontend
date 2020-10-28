@@ -2,7 +2,8 @@ import React from "react";
 import { Space } from "antd";
 import { StandardProductCard } from "../../Components/Cards";
 import { PageLoader } from "../../Components/Others";
-import useFetch from "../../Utils/useFetch";
+import useFetch from "../../Api/useFetch";
+import { NoDataAlert } from "../../Components/Alerts";
 
 const StandardProductsPage = () => {
   const { response, error, isLoading } = useFetch({
@@ -12,16 +13,20 @@ const StandardProductsPage = () => {
   return (
     <div>
       {isLoading === false ? (
-        <Space>
-          {response.map((product) => {
-            return (
-              <StandardProductCard
-                key={product.standardProductId}
-                product={product}
-              />
-            );
-          })}
-        </Space>
+        response !== "" ? (
+          <Space>
+            {[...response].map((product) => {
+              return (
+                <StandardProductCard
+                  key={product.standardProductId}
+                  product={product}
+                />
+              );
+            })}
+          </Space>
+        ) : (
+          <NoDataAlert content="Brak produtków standardowych" />
+        )
       ) : (
         <PageLoader />
       )}

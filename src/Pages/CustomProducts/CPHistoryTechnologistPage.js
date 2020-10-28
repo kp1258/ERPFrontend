@@ -1,15 +1,30 @@
 import React from "react";
 import { CustomProductHistoryCard } from "../../Components/Cards";
-import { customProducts } from "../../Utils/Data";
 import { Space } from "antd";
+import useFetch from "../../Api/useFetch";
+import { PageLoader } from "../../Components/Others";
+import { NoDataAlert } from "../../Components/Alerts";
+
 const CustomProductsHistoryTechnologistsPage = () => {
+  const { response, error, isLoading } = useFetch({
+    method: "get",
+    url: "/custom-products/prepared",
+  });
   return (
     <div>
-      <Space>
-        {customProducts.map((customProduct) => (
-          <CustomProductHistoryCard customProduct={customProduct} />
-        ))}
-      </Space>
+      {isLoading === false ? (
+        response !== "" ? (
+          <Space>
+            {[...response].map((customProduct) => (
+              <CustomProductHistoryCard customProduct={customProduct} />
+            ))}
+          </Space>
+        ) : (
+          <NoDataAlert content="Brak produktów na zamówienie w historii" />
+        )
+      ) : (
+        <PageLoader />
+      )}
     </div>
   );
 };
