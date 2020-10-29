@@ -40,3 +40,11 @@ export const clientSchema = yup.object().shape({
     city: yup.string().required("Miasto jest wymagane"),
   }),
 });
+
+export const warehouseSchema = yup.object().shape({
+  enteredQuantity: yup
+    .number("Ilość musi być liczbą")
+    .integer("Ilość musi być liczbą całkowitą")
+    .min(1, "Minimalna liczba to 1")
+    .max(100, "Maksymalna liczba to 100"),
+});

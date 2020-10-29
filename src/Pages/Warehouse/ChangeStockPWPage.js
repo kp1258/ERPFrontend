@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChangeStockModal } from "../../Components/Modals";
 import { ProductWarehouseChangeStockCard } from "../../Components/Cards";
 import { Space } from "antd";
@@ -7,14 +7,21 @@ import useFetch from "../../Api/useFetch";
 import { NoDataAlert } from "../../Components/Alerts";
 
 const ChangeStockProductWarehousePage = () => {
-  const { response, error, isLoading } = useFetch({
-    method: "get",
-    url: "/product-warehouse",
-  });
+  const [triggerUpdate, setTriggerUpdate] = useState(false);
   const [visible, setVisible] = useState(false);
   const [item, setItem] = useState();
   const [type, setType] = useState();
-
+  const { response, error, isLoading, refetch } = useFetch({
+    method: "get",
+    url: "/product-warehouse",
+  });
+  useEffect(() => {
+    console.log("use effect triggered");
+  }, [triggerUpdate, response]);
+  const toggleTrigger = () => {
+    refetch({});
+    setTriggerUpdate(!triggerUpdate);
+  };
   const handleChooseItem = (id) => {
     let items = [...response];
     let chosenItem = items.find((item) => {
@@ -59,8 +66,10 @@ const ChangeStockProductWarehousePage = () => {
               name={item.standardProduct.name}
               item={item}
               type={type}
+              warehouseType="product"
               hideModal={hideModal}
-              buttonLabel={type === "entry" ? "Przyjmij" : "Wydaj"}
+              toggleUpdate={toggleTrigger}
+              titleLabel={type === "entry" ? "Przyjmij" : "Wydaj"}
             />
           ) : (
             ""

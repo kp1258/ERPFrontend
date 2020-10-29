@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MaterialWarehouseChangeStockCard } from "../../Components/Cards";
 import { ChangeStockModal } from "../../Components/Modals";
 import { Space } from "antd";
@@ -7,14 +7,21 @@ import useFetch from "../../Api/useFetch";
 import { NoDataAlert } from "../../Components/Alerts";
 
 const ChangeStockMaterialWarehousePage = () => {
-  const { response, error, isLoading } = useFetch({
-    method: "get",
-    url: "/material-warehouse",
-  });
-  console.log(response);
+  const [triggerUpdate, setTriggerUpdate] = useState(false);
   const [visible, setVisible] = useState(false);
   const [item, setItem] = useState();
   const [type, setType] = useState();
+  const { response, error, isLoading, refetch } = useFetch({
+    method: "get",
+    url: "/material-warehouse",
+  });
+  useEffect(() => {
+    console.log("use effect triggered");
+  }, [triggerUpdate, response]);
+  const toggleTrigger = () => {
+    refetch({});
+    setTriggerUpdate(!triggerUpdate);
+  };
 
   const handleChooseItem = (id) => {
     let items = [...response];
@@ -61,8 +68,10 @@ const ChangeStockMaterialWarehousePage = () => {
               name={item.material.name}
               item={item}
               type={type}
+              warehouseType="material"
               hideModal={hideModal}
-              buttonLabel={type === "entry" ? "Przyjmij" : "Wydaj"}
+              toggleUpdate={toggleTrigger}
+              titleLabel={type === "entry" ? "Przyjmij" : "Wydaj"}
             />
           ) : (
             ""
