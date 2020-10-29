@@ -1,34 +1,35 @@
 import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { roles } from "../../Utils/UserRoles";
 import { layout } from "../../Utils/FormLayout";
-import { Form, Select, Input } from "antd";
-import { users } from "../../Api/erpApi";
-import { editUserSchema } from "../../Utils/yupSchemas";
+import { Form, Select, Button, Input } from "antd";
+import { clients } from "../../Api/erpApi";
+import { clientSchema } from "../../Utils/yupSchemas";
 
-const { Option } = Select;
-
-const EditUserForm = (props) => {
-  const { user } = props;
+const EditClientForm = (props) => {
+  const { client, toggleSubmitting } = props;
   const { control, errors, handleSubmit, setValue } = useForm({
-    resolver: yupResolver(editUserSchema),
+    resolver: yupResolver(clientSchema),
     defaultValues: {
-      ...user,
+      ...client,
     },
   });
   useEffect(() => {
-    setValue("firstName", `${user.firstName}`);
-    setValue("lastName", `${user.lastName}`);
-    setValue("phoneNumber", `${user.phoneNumber}`);
-    setValue("email", `${user.email}`);
-    setValue("login", `${user.login}`);
-    setValue("password", `${user.password}`);
-  }, [props.user]);
+    setValue("companyName", `${client.companyName}`);
+    setValue("firstName", `${client.firstName}`);
+    setValue("lastName", `${client.lastName}`);
+    setValue("phoneNumber", `${client.phoneNumber}`);
+    setValue("email", `${client.email}`);
+    setValue("address.street", `${client.address.street}`);
+    setValue("address.postalCode", `${client.address.postalCode}`);
+    setValue("address.city", `${client.address.city}`);
+  }, [client]);
   const onSubmit = (data) => {
     console.log(data);
-    users
-      .update(user.userId, data)
+    console.log("submitting");
+    toggleSubmitting(true);
+    clients
+      .update(client.clientId, data)
       .then((res) => {
         console.log(res);
         props.hideModal();
@@ -36,11 +37,22 @@ const EditUserForm = (props) => {
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => toggleSubmitting(false));
   };
   return (
     <>
       <Form form={props.form} {...layout} onFinish={handleSubmit(onSubmit)}>
+        <Form.Item label="Nazwa firmy">
+          <Controller
+            name="companyName"
+            control={control}
+            as={<Input />}
+            defaultValue=""
+            placeHolder="Podaj nazwę firmy"
+          />
+          <div className="errorMessage">{errors.companyName?.message}</div>
+        </Form.Item>
         <Form.Item label="Imię">
           <Controller
             name="firstName"
@@ -61,7 +73,6 @@ const EditUserForm = (props) => {
           />
           <div className="errorMessage">{errors.lastName?.message}</div>
         </Form.Item>
-
         <Form.Item label="Numer telefonu">
           <Controller
             name="phoneNumber"
@@ -72,48 +83,54 @@ const EditUserForm = (props) => {
           />
           <div className="errorMessage">{errors.phoneNumber?.message}</div>
         </Form.Item>
-        <Form.Item label="Adres E-Mail">
+        <Form.Item label="Adres e-mail">
           <Controller
             name="email"
             control={control}
             as={<Input />}
             defaultValue=""
-            placeHolder="Podaj adres E-Mail"
+            placeHolder="Podaj adres e-mail"
           />
           <div className="errorMessage">{errors.email?.message}</div>
         </Form.Item>
-        <Form.Item label="Login">
+        <Form.Item label="Ulica i numer">
           <Controller
-            name="login"
+            name="address.street"
             control={control}
             as={<Input />}
             defaultValue=""
-            placeHolder="Podaj login"
+            placeHolder="Podaj ulicę i numer"
           />
-          <div className="errorMessage">{errors.login?.message}</div>
+          <div className="errorMessage">{errors.address?.street?.message}</div>
         </Form.Item>
-        <Form.Item label="Stanowisko">
+        <Form.Item label="Kod pocztowy">
           <Controller
-            name="role"
+            name="address.postalCode"
             control={control}
-            as={
-              <Select>
-                {roles.map((role) => (
-                  <Option value={role.value}>{role.name}</Option>
-                ))}
-              </Select>
-            }
-            placeholder="Wybierz stanowisko"
+            as={<Input />}
             defaultValue=""
+            placeHolder="Podaj kod pocztowy"
           />
-          <div className="errorMessage">{errors.role?.message}</div>
+          <div className="errorMessage">
+            {errors.address?.postalCode?.message}
+          </div>
+        </Form.Item>
+        <Form.Item label="Miasto">
+          <Controller
+            name="address.city"
+            control={control}
+            as={<Input />}
+            defaultValue=""
+            placeHolder="Podaj miasto"
+          />
+          <div className="errorMessage">{errors.address?.city?.message}</div>
         </Form.Item>
         <Form.Item>
           <Controller
-            control={control}
-            name="password"
             as={<div />}
-            defaultValue={props.user.password}
+            control={control}
+            name="salesmanId"
+            defaultValue={2}
           />
         </Form.Item>
       </Form>
@@ -121,4 +138,4 @@ const EditUserForm = (props) => {
   );
 };
 
-export default EditUserForm;
+export default EditClientForm;

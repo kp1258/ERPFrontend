@@ -1,31 +1,19 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { Form, Card, Button, Input, Select } from "antd";
 import { roles } from "../../Utils/UserRoles";
 import { layout } from "../../Utils/FormLayout";
 import "./index.css";
 import { users } from "../../Api/erpApi";
+import { userSchema } from "../../Utils/yupSchemas";
 
 const { Option } = Select;
-const schema = yup.object().shape({
-  firstName: yup.string().required("Imie jest wymagane"),
-  lastName: yup.string().required("Nazwisko jest wymagane"),
-  login: yup.string().required("Login jest wymagany"),
-  password: yup.string().required("Hasło jest wymagane"),
-  phoneNumber: yup.string().required("Numer telefonu jest wymagany"),
-  email: yup
-    .string()
-    .email("Niepoprawny adres E-Mail")
-    .required("E-Mail jest wymagany"),
-  role: yup.string().required("Wybór stanowiska jest wymagany"),
-});
 
 const CreateUserForm = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { control, handleSubmit, errors, reset } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(userSchema),
   });
   const onSubmit = (data) => {
     setIsSubmitting(true);

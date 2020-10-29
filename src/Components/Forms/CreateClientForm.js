@@ -1,30 +1,15 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { Form, Card, Button, Input } from "antd";
 import { layout } from "../../Utils/FormLayout";
 import { clients } from "../../Api/erpApi";
+import { clientSchema } from "../../Utils/yupSchemas";
 
-const schema = yup.object().shape({
-  companyName: yup.string().required("Nazwa firmy jest wymagana"),
-  firstName: yup.string().required("Imię jest wymagane"),
-  lastName: yup.string().required("Nazwisko jest wymagane"),
-  phoneNumber: yup.string().required("Numer telefonu jest wymagany"),
-  email: yup
-    .string()
-    .email("Niepoprawny adres e-mail")
-    .required("Adres email jest wymagany"),
-  address: yup.object().shape({
-    street: yup.string().required("Ulica jest wymagana"),
-    postalCode: yup.string().required("Kod pocztowy jest wymagany"),
-    city: yup.string().required("Miasto jest wymagane"),
-  }),
-});
 const CreateClientForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { control, handleSubmit, errors, reset } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(clientSchema),
   });
   const onSubmit = (data) => {
     console.log(data);

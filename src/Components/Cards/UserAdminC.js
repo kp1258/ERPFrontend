@@ -19,15 +19,22 @@ const UserAdminCard = (props) => {
     `Stanowisko: ${user.role}`,
     `Status: ${user.status}`,
   ];
-  const title = `${user.firstName} ${user.lastName}`;
   const handleClick = () => {
-    var patch = {};
-    users.changeStatus(user.userId);
+    var status = user.status === "aktywny" ? "nieaktywny" : "aktywny";
+    var patch = [{ op: "replace", path: "/status", value: `${status}` }];
+    console.log(patch);
+    users
+      .changeStatus(user.userId, patch)
+      .then((res) => {
+        console.log(res);
+        props.toggleUpdate();
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <div className="userCard">
       <Card
-        title={title}
+        title={`${user.firstName} ${user.lastName}`}
         style={{ fontSize: "150%" }}
         cover={<img alt="example" src={UserIcon} />}
       >
