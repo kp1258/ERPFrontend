@@ -7,6 +7,7 @@ import SignInForm from "./SignInForm";
 import EditCategoryForm from "./EditCategoryForm";
 import EditClientForm from "./EditClientForm";
 import EditMaterialForm from "./EditMaterialForm";
+import EditStandardProductForm from "./EditStandardProductForm";
 import EditUserForm from "./EditUserForm";
 
 export {
@@ -19,5 +20,6 @@ export {
   EditCategoryForm,
   EditClientForm,
   EditMaterialForm,
+  EditStandardProductForm,
   EditUserForm,
 };

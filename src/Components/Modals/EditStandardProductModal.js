@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Modal, Form } from "antd";
-import { EditClientForm } from "../../Components/Forms";
+import { EditStandardProductForm } from "../../Components/Forms";
 
-const EditClientModal = (props) => {
-  const { visible } = props;
+const EditStandardProductModal = (props) => {
+  const { product, visible } = props;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form] = Form.useForm();
-
   return (
     <>
       <Modal
@@ -16,9 +15,9 @@ const EditClientModal = (props) => {
         onCancel={() => props.hideModal()}
         confirmLoading={isSubmitting}
       >
-        <EditClientForm
-          key={props.client.clientId}
-          client={props.client}
+        <EditStandardProductForm
+          key={product.standardProductId}
+          product={product}
           form={form}
           hideModal={props.hideModal}
           toggleUpdate={props.toggleUpdate}
@@ -29,4 +28,4 @@ const EditClientModal = (props) => {
   );
 };
 
-export default EditClientModal;
+export default EditStandardProductModal;

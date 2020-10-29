@@ -26,6 +26,7 @@ const EditUserForm = (props) => {
     setValue("password", `${user.password}`);
   }, [props.user]);
   const onSubmit = (data) => {
+    props.toggleSubmitting(true);
     console.log(data);
     users
       .update(user.userId, data)
@@ -36,7 +37,8 @@ const EditUserForm = (props) => {
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => props.toggleSubmitting(false));
   };
   return (
     <>

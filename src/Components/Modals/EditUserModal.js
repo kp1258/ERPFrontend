@@ -8,17 +8,14 @@ const EditUserModal = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form] = Form.useForm();
 
-  const handleCancel = () => {
-    props.hideModal();
-  };
   return (
     <>
       <Modal
         title="Edytuj dane"
         visible={visible}
         onOk={form.submit}
-        onCancel={handleCancel}
-        isSubmitting={isSubmitting}
+        onCancel={() => props.hideModal()}
+        confirmLoading={isSubmitting}
       >
         <EditUserForm
           key={props.user.userId}
@@ -26,6 +23,7 @@ const EditUserModal = (props) => {
           form={form}
           hideModal={props.hideModal}
           toggleUpdate={props.toggleUpdate}
+          toggleSubmitting={setIsSubmitting}
         />
       </Modal>
     </>

@@ -5,6 +5,7 @@ const StandardProductCard = (props) => {
   const data = [
     `Wymiary: ${product.dimensions}`,
     `Kategoria: ${product.standardProductCategory.name}`,
+    `Status: ${product.status}`,
   ];
   return (
     <div>

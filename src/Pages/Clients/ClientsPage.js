@@ -7,7 +7,7 @@ import { PageLoader } from "../../Components/Others";
 import { NoDataAlert } from "../../Components/Alerts";
 
 const ClientsPage = () => {
-  const { response, error, isLoading } = useFetch({
+  const { response, isLoading } = useFetch({
     method: "get",
     url: "/clients",
   });
