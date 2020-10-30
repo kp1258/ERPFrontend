@@ -4,52 +4,27 @@ import { useState, useEffect } from "react";
 import { EditCategoryForm } from "../Forms";
 
 const EditCategoryModal = (props) => {
-  const [visible, setVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const { visible, category } = props;
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form] = Form.useForm();
-  useEffect(() => {
-    setVisible(props.visible);
-  }, [props.visible]);
-  const handleSend = () => {
-    setLoading(true);
-    setTimeout(() => {
-      form
-        .validateFields()
-        .then((values) => {
-          form.resetFields();
-          console.log(values);
-        })
-        .catch((info) => {
-          console.log("Validate Failed:", info);
-        });
-    }, 2000);
-  };
-  const handleCancel = () => {
-    setVisible(false);
-    form.resetFields();
-    props.hideModal();
-  };
+
   return (
     <>
       <Modal
         title="Edytuj dane"
         visible={visible}
-        onOk={() => {
-          form
-            .validateFields()
-            .then((values) => {
-              form.resetFields();
-              console.log(values);
-              setVisible(false);
-              props.hideModal();
-            })
-            .catch((info) => {
-              console.log("Validate Failed:", info);
-            });
-        }}
-        onCancel={handleCancel}
+        onOk={form.submit}
+        onCancel={() => props.hideModal()}
+        confirmLoading={isSubmitting}
       >
-        <EditCategoryForm category={props.category} form={form} />
+        <EditCategoryForm
+          key={category.standardProductCategoryId}
+          category={category}
+          form={form}
+          hideModal={props.hideModal}
+          toggleUpdate={props.toggleUpdate}
+          toggleSubmitting={setIsSubmitting}
+        />
       </Modal>
     </>
   );

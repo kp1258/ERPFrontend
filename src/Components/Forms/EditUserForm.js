@@ -11,19 +11,20 @@ const { Option } = Select;
 
 const EditUserForm = (props) => {
   const { user } = props;
-  const { control, errors, handleSubmit, setValue } = useForm({
+  const { control, errors, handleSubmit, reset } = useForm({
     resolver: yupResolver(editUserSchema),
-    defaultValues: {
-      ...user,
-    },
+    defaultValue: { ...user },
   });
   useEffect(() => {
-    setValue("firstName", `${user.firstName}`);
-    setValue("lastName", `${user.lastName}`);
-    setValue("phoneNumber", `${user.phoneNumber}`);
-    setValue("email", `${user.email}`);
-    setValue("login", `${user.login}`);
-    setValue("password", `${user.password}`);
+    reset({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phoneNumber: user.phoneNumber,
+      email: user.email,
+      login: user.login,
+      password: user.password,
+      role: user.role,
+    });
   }, [props.user]);
   const onSubmit = (data) => {
     props.toggleSubmitting(true);

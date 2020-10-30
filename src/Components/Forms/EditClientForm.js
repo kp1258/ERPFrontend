@@ -8,21 +8,22 @@ import { clientSchema } from "../../Utils/yupSchemas";
 
 const EditClientForm = (props) => {
   const { client, toggleSubmitting } = props;
-  const { control, errors, handleSubmit, setValue } = useForm({
+  const { control, errors, handleSubmit, setValue, reset } = useForm({
     resolver: yupResolver(clientSchema),
-    defaultValues: {
-      ...client,
-    },
   });
   useEffect(() => {
-    setValue("companyName", `${client.companyName}`);
-    setValue("firstName", `${client.firstName}`);
-    setValue("lastName", `${client.lastName}`);
-    setValue("phoneNumber", `${client.phoneNumber}`);
-    setValue("email", `${client.email}`);
-    setValue("address.street", `${client.address.street}`);
-    setValue("address.postalCode", `${client.address.postalCode}`);
-    setValue("address.city", `${client.address.city}`);
+    reset({
+      companyName: client.companyName,
+      firstName: client.firstName,
+      lastName: client.lastName,
+      phoneNumber: client.phoneNumber,
+      email: client.email,
+      address: {
+        street: client.address.street,
+        postalCode: client.address.postalCode,
+        city: client.address.city,
+      },
+    });
   }, [client]);
   const onSubmit = (data) => {
     console.log(data);

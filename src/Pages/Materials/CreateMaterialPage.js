@@ -2,7 +2,7 @@ import React from "react";
 import { CreateMaterialForm } from "../../Components/Forms";
 const CreateMaterialPage = () => {
   return (
-    <div>
+    <div style={{ width: "50%" }}>
       {" "}
       <CreateMaterialForm />
     </div>

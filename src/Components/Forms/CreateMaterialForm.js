@@ -1,26 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { Card, Form, Button, Input } from "antd";
 import { layout } from "../../Utils/FormLayout";
+import { materialSchema } from "../../Utils/yupSchemas";
+import { materials } from "../../Api/erpApi";
 
-const schema = yup.object().shape({
-  name: yup.string().required("Nazwa materiału jest wymagana"),
-});
 const CreateMaterialForm = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { control, handleSubmit, errors, reset } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(materialSchema),
   });
   const onSubmit = (data) => {
     console.log(data);
-    reset();
+    setIsSubmitting(false);
+    materials
+      .create(data)
+      .then((res) => {
+        console.log(res);
+        reset();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
   return (
-    <div class="d-flex justify-content-center">
+    <div>
       <Card title="Formularz dodawania materiałów">
         <Form onFinish={handleSubmit(onSubmit)} {...layout}>
-          <Form.Item label="Nazwa">
+          <Form.Item label="Nazwa materiału">
             <Controller
               name="name"
               control={control}
@@ -31,7 +42,7 @@ const CreateMaterialForm = () => {
             <div className="errorMessage">{errors.name?.message}</div>
           </Form.Item>
 
-          <Button variant="primary" type="submit">
+          <Button type="primary" htmlType="submit" loading={isSubmitting}>
             Dodaj
           </Button>
         </Form>

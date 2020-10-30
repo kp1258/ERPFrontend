@@ -2,28 +2,24 @@ import React, { useState } from "react";
 import ComponentLoader from "./ComponentLoader";
 import { CategoryTable } from "../Tables";
 import { EditCategoryModal } from "../Modals";
-import useFetch from "../../Api/useFetch";
 
-const CategoryTableWithModal = () => {
-  const { response, error, isLoading } = useFetch({
-    method: "get",
-    url: "/standard-products/categories",
-  });
+const CategoryTableWithModal = (props) => {
+  const { isLoading, categories } = props;
   const [visible, setVisible] = useState(false);
   const [category, setCategory] = useState({
     standardProductCategoryId: 0,
     name: "",
   });
   const handleChooseCategory = (id) => {
-    let categories = [...response];
-    let chosenCategory = categories.find((category) => {
+    let categoriesC = [...categories];
+    let chosenCategory = categoriesC.find((category) => {
       return category.standardProductCategoryId === id;
     });
     setVisible(true);
     setCategory(chosenCategory);
     console.log(chosenCategory);
   };
-  const changeVisibility = () => {
+  const hideModal = () => {
     setVisible(false);
   };
   return (
@@ -31,13 +27,14 @@ const CategoryTableWithModal = () => {
       {isLoading === false ? (
         <>
           <CategoryTable
-            data={[...response]}
+            data={[...categories]}
             handleClick={handleChooseCategory}
           />
           <EditCategoryModal
             visible={visible}
             category={category}
-            hideModal={changeVisibility}
+            hideModal={hideModal}
+            toggleUpdate={props.toggleUpdate}
           />
         </>
       ) : (

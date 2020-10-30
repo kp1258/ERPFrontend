@@ -45,7 +45,8 @@ export const standardProducts = {
 
 export const categories = {
   create: (params) => erpApi.post("/standard-products/categories", params),
-  update: (id, params) => erpApi.put(`/standard-products/${id}`, params),
+  update: (id, params) =>
+    erpApi.put(`/standard-products/categories/${id}`, params),
 };
 
 export const customProducts = {

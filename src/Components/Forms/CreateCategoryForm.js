@@ -1,21 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { Card, Form, Button, Input } from "antd";
 import { layout } from "../../Utils/FormLayout";
+import { categorySchema } from "../../Utils/yupSchemas";
 import { categories } from "../../Api/erpApi";
 
-const schema = yup.object().shape({
-  name: yup.string().required("Nazwa kategorii jest wymagana"),
-});
-const CreateCategoryForm = () => {
+const CreateCategoryForm = (props) => {
+  const { toggleUpdate } = props;
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { control, handleSubmit, errors, reset } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(categorySchema),
   });
   const onSubmit = (data) => {
     console.log(data);
-    reset();
+    setIsSubmitting(true);
+    categories
+      .create(data)
+      .then((res) => {
+        console.log(res);
+        toggleUpdate();
+        reset();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
   return (
     <div>
@@ -31,7 +43,7 @@ const CreateCategoryForm = () => {
             />
             <div className="errorMessage">{errors.name?.message}</div>
           </Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={isSubmitting}>
             Dodaj
           </Button>
         </Form>
