@@ -5,10 +5,10 @@ import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Others";
 import { NoDataAlert } from "../../Components/Alerts";
 
-const CustomProductssalesmanPage = () => {
-  const { response, error, isLoading } = useFetch({
+const CustomProductsSalesmanPage = () => {
+  const { response, isLoading } = useFetch({
     method: "get",
-    url: "/custom-order-items/active?SelesmanId=2",
+    url: "/custom-order-items/active-orders?SelesmanId=2",
   });
   console.log(response);
   return (
@@ -30,4 +30,4 @@ const CustomProductssalesmanPage = () => {
   );
 };
 
-export default CustomProductssalesmanPage;
+export default CustomProductsSalesmanPage;

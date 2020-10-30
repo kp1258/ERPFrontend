@@ -37,7 +37,7 @@ export const materialWarehouse = {
 };
 
 export const standardProducts = {
-  create: (params, config) => erpApi.post("/standard-products", params, config),
+  create: (params, config) => erpApi.post("/standard-products", params),
   update: (id, params) => erpApi.put(`/standard-products/${id}`, params),
   changeStatus: (id, params) =>
     erpApi.patch(`/standard-products/${id}`, params),
@@ -63,7 +63,7 @@ export const customProducts = {
 };
 
 export const customOrderItems = {
-  acceptToRealization: (managerId, itemId, params) =>
+  acceptToProduction: (managerId, itemId, params) =>
     erpApi.patch(
       `/production-managers/${managerId}/custom-order-items/${itemId}`,
       params

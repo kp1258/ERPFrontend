@@ -1,33 +1,36 @@
 import React from "react";
-import CustomProductCard from "./CustomProductC";
-import { Button } from "antd";
 import { CardDivider } from "../Others";
-import { customProducts } from "../../Api/erpApi";
 import { PopconfirmButton } from "../Buttons";
-
-const CustomProductOrderedCard = (props) => {
-  const { customProduct } = props;
+import OrderCard from "./OrderC";
+import { orders } from "../../Api/erpApi";
+const OrderToRealizeCard = (props) => {
+  const { order } = props;
   const handleClick = () => {
-    var status = "w przygotowaniu";
+    var status = "w realizacji";
     var patch = [{ op: "replace", path: "/status", value: `${status}` }];
-    customProducts
-      .acceptToRealization(4, customProduct.customProductId, patch)
+    orders
+      .acceptToRealization(5, order.orderId, patch)
       .then((res) => {
         console.log(res);
         props.toggleUpdate();
       })
       .catch((err) => console.log(err));
   };
+
   const footer = (
     <>
       <CardDivider content="Akcje" />
       <PopconfirmButton
-        name="Rozpocznij realizację"
+        name="Przyjmij do realizacji"
         handleClick={handleClick}
       />
     </>
   );
-  return <CustomProductCard customProduct={customProduct} footer={footer} />;
+  return (
+    <>
+      <OrderCard order={order} footer={footer} />
+    </>
+  );
 };
 
-export default CustomProductOrderedCard;
+export default OrderToRealizeCard;

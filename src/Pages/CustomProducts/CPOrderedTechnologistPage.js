@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Space } from "antd";
 import { CustomProductOrderedCard } from "../../Components/Cards";
 import useFetch from "../../Api/useFetch";
@@ -6,10 +6,18 @@ import { PageLoader } from "../../Components/Others";
 import { NoDataAlert } from "../../Components/Alerts";
 
 const CustomProductsOrderedPage = () => {
-  const { response, error, isLoading } = useFetch({
+  const [triggerUpdate, setTriggerUpdate] = useState(false);
+  const { response, isLoading, refetch } = useFetch({
     method: "get",
     url: "/custom-products/ordered",
   });
+  useEffect(() => {
+    console.log("useEfffect triggered");
+  }, [triggerUpdate]);
+  const toggleTrigger = () => {
+    refetch({});
+    setTriggerUpdate(!triggerUpdate);
+  };
   console.log(response);
   return (
     <div>
@@ -17,7 +25,11 @@ const CustomProductsOrderedPage = () => {
         response !== "" ? (
           <Space>
             {[...response].map((customProduct) => (
-              <CustomProductOrderedCard customProduct={customProduct} />
+              <CustomProductOrderedCard
+                key={customProduct.customProductId}
+                customProduct={customProduct}
+                toggleUpdate={toggleTrigger}
+              />
             ))}
           </Space>
         ) : (

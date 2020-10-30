@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Divider } from "antd";
+import { Card } from "antd";
 import { CardDivider } from "../../Components/Others";
 const OrderCard = (props) => {
   const { order } = props;
@@ -19,7 +19,7 @@ const OrderCard = (props) => {
       </li>
       <CardDivider content="Typ zamówienia" />
       <li>{order.type}</li>
-      <CardDivider conent="Status" />
+      <CardDivider content="Status" />
       <li>{order.status}</li>
       {props.content ? props.content : ""}
       {props.footer ? props.footer : ""}

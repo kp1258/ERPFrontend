@@ -6,9 +6,9 @@ import { PageLoader } from "../../Components/Others";
 import { NoDataAlert } from "../../Components/Alerts";
 
 const CustomProductsHistorySalesmanPage = () => {
-  const { response, error, isLoading } = useFetch({
+  const { response, isLoading } = useFetch({
     method: "get",
-    url: "/custom-order-items/history?SalesmanId=2",
+    url: "/custom-order-items/orders-history?SalesmanId=2",
   });
   console.log(response);
   return (
