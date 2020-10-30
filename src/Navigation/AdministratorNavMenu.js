@@ -203,6 +203,16 @@ const options = [
         name: "Historia (t)",
         ref: "/custom-products/history/technologist",
       },
+      {
+        id: 39,
+        name: "Historia (m)",
+        ref: "/custom-products/history/warehouseman",
+      },
+      {
+        id: 42,
+        name: "W realizacji (m)",
+        ref: "/custom-products/warehouseman",
+      },
     ],
   },
   {

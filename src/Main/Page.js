@@ -41,12 +41,14 @@ import {
   CustomProductsHistoryManagerPage,
   CustomProductsHistorySalesmanPage,
   CustomProductsHistoryTechnologistPage,
+  CustomProductsHistoryWarehousemanPage,
   CustomProductsInPreparationPage,
   CustomProductsInProductionPage,
   CustomProductsOrderedManagerPage,
   CustomProductsOrderedTechnologistPage,
   CustomProductsSalesmanPage,
   CustomProductsTechnologistPage,
+  CustomProductsWarehousemanPage,
 } from "../Pages/CustomProducts";
 import { MaterialsPage, CreateMaterialPage } from "../Pages/Materials";
 import { NotFoundPage, SignInPage, UnauthorizedPage } from "../Pages/Others";
@@ -163,6 +165,10 @@ const Page = () => {
           component={CustomProductsHistoryTechnologistPage}
         />
         <Route
+          path="/custom-products/history/warehouseman"
+          component={CustomProductsHistoryWarehousemanPage}
+        />
+        <Route
           path="/custom-products/in-preparation"
           component={CustomProductsInPreparationPage}
         />
@@ -185,6 +191,10 @@ const Page = () => {
         <Route
           path="/custom-products/technologist"
           component={CustomProductsTechnologistPage}
+        />
+        <Route
+          path="/custom-products/warehouseman"
+          component={CustomProductsWarehousemanPage}
         />
         {/* Material Pages */}
         <Route exact path="/materials" component={MaterialsPage} />
