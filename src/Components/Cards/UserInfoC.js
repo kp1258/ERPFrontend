@@ -1,7 +1,6 @@
 import React from "react";
 import { Card, List } from "antd";
 
-import UserIcon from "../../Assets/userIcon.png";
 const UserInfoCard = (props) => {
   const data = [
     `Numer telefonu: ${props.phoneNumber}`,
@@ -14,7 +13,7 @@ const UserInfoCard = (props) => {
       <Card
         title={title}
         style={{ fontSize: "150%" }}
-        cover={<img alt="example" src={UserIcon} />}
+        cover={<img alt="example" src={"/assets/userIcon.png"} />}
       >
         <List
           dataSource={data}

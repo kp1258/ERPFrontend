@@ -37,7 +37,7 @@ export const materialWarehouse = {
 };
 
 export const standardProducts = {
-  create: (params) => erpApi.post("/standard-products", params),
+  create: (params, config) => erpApi.post("/standard-products", params, config),
   update: (id, params) => erpApi.put(`/standard-products/${id}`, params),
   changeStatus: (id, params) =>
     erpApi.patch(`/standard-products/${id}`, params),

@@ -5,7 +5,6 @@ import { ClientSalesmanCard } from "../../Components/Cards";
 import { PageLoader } from "../../Components/Others";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert } from "../../Components/Alerts";
-import { clients } from "../../Api/erpApi";
 import { EditClientModal } from "../../Components/Modals";
 
 const ClientsSalesmanPage = () => {

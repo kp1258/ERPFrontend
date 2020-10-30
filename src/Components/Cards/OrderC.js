@@ -1,24 +1,25 @@
 import React from "react";
 import { Card, Divider } from "antd";
+import { CardDivider } from "../../Components/Others";
 const OrderCard = (props) => {
   const { order } = props;
   const { client, salesman } = order;
   return (
     <Card>
-      <Divider orientation="left">Klient</Divider>
+      <CardDivider content="Klient" />
       <li>{client.companyName}</li>
       <li>
         {client.firstName} {client.lastName}
       </li>
       <li>{client.phoneNumber}</li>
       <li>{client.email}</li>
-      <Divider orientation="left">Handlowiec</Divider>
+      <CardDivider content="Handlowiec" />
       <li>
         {salesman.firstName} {salesman.lastName}
       </li>
-      <Divider orientation="left">Typ zamówienia</Divider>
+      <CardDivider content="Typ zamówienia" />
       <li>{order.type}</li>
-      <Divider orientation="left">Status</Divider>
+      <CardDivider conent="Status" />
       <li>{order.status}</li>
       {props.content ? props.content : ""}
       {props.footer ? props.footer : ""}

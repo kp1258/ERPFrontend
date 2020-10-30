@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Divider } from "antd";
+import { CardDivider } from "../Others";
 
 const CustomOrderItemCard = (props) => {
   const { item } = props;
@@ -8,9 +9,9 @@ const CustomOrderItemCard = (props) => {
   return (
     <div>
       <Card title={customProduct.name}>
-        <Divider>Opis</Divider>
+        <CardDivider content="Opis" />
         <span>{customProduct.description}</span>
-        <Divider>Technolog</Divider>
+        <CardDivider content="Technolog" />
         {technologist !== null ? (
           <>
             <span>
@@ -20,9 +21,9 @@ const CustomOrderItemCard = (props) => {
         ) : (
           "Brak"
         )}
-        <Divider>Ilość</Divider>
+        <CardDivider content="Ilość" />
         <div>{item.quantity}</div>
-        <Divider>Status</Divider>
+        <CardDivider content="Status" />
         <div>{item.status}</div>
         {props.footer ? props.footer : ""}
       </Card>

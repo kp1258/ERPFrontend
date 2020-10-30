@@ -1,7 +1,7 @@
 import React from "react";
 import OrderCard from "./OrderC";
-import { Divider } from "antd";
 import { OrderTimeline } from "../../Components/Timelines";
+import { CardDivider } from "../../Components/Others";
 import {
   CustomOrderItemList,
   StandardOrderItemList,
@@ -10,7 +10,7 @@ const OrderHistoryCard = (props) => {
   const { order } = props;
   const content = (
     <>
-      <Divider orientation="left">Zawartość zamówienia</Divider>
+      <CardDivider content="Zawartość zamówienia" />
       {order.type !== "standardowy" ? (
         <CustomOrderItemList items={order.customdOrderItems} />
       ) : (
@@ -20,7 +20,7 @@ const OrderHistoryCard = (props) => {
   );
   const footer = (
     <>
-      <Divider orientation="left">Historia realizacji</Divider>
+      <CardDivider content="Historia realizacji" />
       <OrderTimeline order={order} />
     </>
   );

@@ -1,12 +1,12 @@
 import React from "react";
 import CustomProductCard from "./CustomProductC";
-import { Divide, Divider } from "antd";
+import { CardDivider } from "../Others";
 import { CustomProductTimeline } from "../Timelines";
 const CustomProductHistoryCard = (props) => {
   const { customProduct } = props;
   const footer = (
     <>
-      <Divider>Historia realizacji</Divider>
+      <CardDivider content="Historia realizacji" />
       <CustomProductTimeline customProduct={customProduct} />
     </>
   );

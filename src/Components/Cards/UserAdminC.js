@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, List, Button } from "antd";
-import UserIcon from "../../Assets/userIcon.png";
+
 import { EditUserModal } from "../../Components/Modals";
 import { PopconfirmButton } from "../../Components/Buttons";
 import { users } from "../../Api/erpApi";
@@ -36,7 +36,7 @@ const UserAdminCard = (props) => {
       <Card
         title={`${user.firstName} ${user.lastName}`}
         style={{ fontSize: "150%" }}
-        cover={<img alt="example" src={UserIcon} />}
+        cover={<img alt="example" src={"/assets/userIcon.png"} />}
       >
         <List
           dataSource={data}

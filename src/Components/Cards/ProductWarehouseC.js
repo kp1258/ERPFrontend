@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, List } from "antd";
-
+const defaultImageSrc = "/assets/productIcon.png";
 const ProductWarehouseCard = (props) => {
   const { item } = props;
   const { standardProduct } = item;
@@ -11,7 +11,11 @@ const ProductWarehouseCard = (props) => {
   ];
   return (
     <div>
-      <Card title={standardProduct.name} style={{ fontSize: "150%" }}>
+      <Card
+        title={standardProduct.name}
+        style={{ fontSize: "150%" }}
+        cover={<img alt="product" src={defaultImageSrc} />}
+      >
         <List
           dataSource={data}
           renderItem={(item) => (

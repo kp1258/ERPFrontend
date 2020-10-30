@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Divider, Space } from "antd";
-const ClientAdminCard = (props) => {
+import { CenteredDivider } from "../Others";
+const ClientCard = (props) => {
   const { client } = props;
   return (
     <div>
@@ -13,19 +14,18 @@ const ClientAdminCard = (props) => {
           <li>{client.phoneNumber}</li>
           <li>{client.email}</li>
         </Space>
-        <Divider plain>Adres</Divider>
+        <CenteredDivider content="Adres" />
         <Space direction="vertical">
           <li>{client.address.street}</li>
           <li>{client.address.city}</li>
           <li>{client.address.postalCode}</li>
         </Space>
-        <Divider plain>Status</Divider>
+        <CenteredDivider content="Status" />
         {client.status}
-        <Divider />
         {props.footer ? props.footer : ""}
       </Card>
     </div>
   );
 };
 
-export default ClientAdminCard;
+export default ClientCard;

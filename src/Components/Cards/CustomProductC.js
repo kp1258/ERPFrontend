@@ -1,17 +1,16 @@
 import React from "react";
-import { Card, List, Divider, Timeline, Space } from "antd";
-import { CustomProductTimeline } from "../Timelines";
-import { customProducts } from "../../Utils/Data";
+import { Card } from "antd";
+import { CardDivider } from "../Others";
 const CustomProductCard = (props) => {
   const { customProduct } = props;
   const { technologist } = customProduct;
-  const style = { whiteSpace: "nowrap" };
+
   return (
     <div>
       <Card title={customProduct.name}>
-        <Divider>Opis</Divider>
+        <CardDivider content="Opis" />
         <span>{customProduct.description}</span>
-        <Divider>Technolog</Divider>
+        <CardDivider content="Technolog" />
         {technologist !== null ? (
           <>
             <span>
@@ -21,7 +20,7 @@ const CustomProductCard = (props) => {
         ) : (
           "Brak"
         )}
-        <Divider>Status</Divider>
+        <CardDivider content="Status" />
         <span>{customProduct.status}</span>
         {props.footer ? props.footer : ""}
       </Card>

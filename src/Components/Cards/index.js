@@ -1,4 +1,4 @@
-import ClientAdminCard from "./ClientAdminC";
+import ClientCard from "./ClientC";
 import ClientSalesmanCard from "./ClientSalesmanC";
 
 import CustomOrderItemCard from "./CustomOrderItemC";
@@ -22,7 +22,7 @@ import UserAdminCard from "./UserAdminC";
 import UserInfoCard from "./UserInfoC";
 
 export {
-  ClientAdminCard,
+  ClientCard,
   ClientSalesmanCard,
   CustomOrderItemCard,
   CustomOrderItemHistoryCard,

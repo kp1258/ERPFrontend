@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Row, Col } from "antd";
 import { ClientsList } from "../../Components/Lists";
-import { ClientAdminCard } from "../../Components/Cards";
+import { ClientCard } from "../../Components/Cards";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Others";
 import { NoDataAlert } from "../../Components/Alerts";
@@ -27,7 +27,7 @@ const ClientsPage = () => {
           {response !== "" ? (
             <Row>
               <Col flex="auto">
-                {client.address ? <ClientAdminCard client={client} /> : ""}
+                {client.address ? <ClientCard client={client} /> : ""}
               </Col>
               <Col flex="300px">
                 <ClientsList
