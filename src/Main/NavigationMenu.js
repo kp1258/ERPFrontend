@@ -12,10 +12,10 @@ const NavigationMenu = () => {
   return (
     <div>
       <AdministratorNavMenu />
-      <SalesmanNavMenu />
-      <TechnologistNavMenu />
-      <ProductionManagerNavMenu />
-      <WarehousemanNavMenu />
+      {/* <SalesmanNavMenu /> */}
+      {/* <TechnologistNavMenu /> */}
+      {/* <ProductionManagerNavMenu /> */}
+      {/* <WarehousemanNavMenu /> */}
     </div>
   );
 };

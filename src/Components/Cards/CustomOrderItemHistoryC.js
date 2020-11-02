@@ -6,7 +6,7 @@ import { CardDivider, SolutionDetails } from "../Others";
 const CustomOrderItemHistoryCard = (props) => {
   const { item } = props;
   const solution =
-    item.customProduct.status === "prepared" ? (
+    item.customProduct.status === "przygotowany" ? (
       <SolutionDetails product={item.customProduct} />
     ) : (
       ""

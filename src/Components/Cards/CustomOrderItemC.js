@@ -1,6 +1,5 @@
 import React from "react";
 import { Card } from "antd";
-import { FileItem } from "../Buttons";
 import { CardDivider, OrderDetails } from "../Others";
 
 const CustomOrderItemCard = (props) => {

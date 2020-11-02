@@ -1,6 +1,5 @@
 import React from "react";
 import NavMenu from "./NavMenu";
-import NavMenu2 from "./NavMenu2";
 
 const options = [
   {
@@ -93,7 +92,7 @@ const options = [
   },
   {
     id: 4,
-    sectionName: "Magazyn Produktów",
+    sectionName: "Magazyn produktów",
     subsections: [
       {
         id: 15,
@@ -109,7 +108,7 @@ const options = [
   },
   {
     id: 5,
-    sectionName: "Magazyn Materiałów",
+    sectionName: "Magazyn materiałów",
     subsections: [
       {
         id: 20,
@@ -125,7 +124,7 @@ const options = [
   },
   {
     id: 6,
-    sectionName: "Produkty Standardowe",
+    sectionName: "Produkty standardowe",
     subsections: [
       {
         id: 25,
@@ -156,7 +155,7 @@ const options = [
   },
   {
     id: 7,
-    sectionName: "Produkty Na Zamówienie",
+    sectionName: "Produkty na zamówienie",
     subsections: [
       {
         id: 30,
@@ -236,7 +235,7 @@ const options = [
 const AdministratorNavMenu = () => {
   return (
     <>
-      <NavMenu2 options={options} />
+      <NavMenu options={options} />
     </>
   );
 };
