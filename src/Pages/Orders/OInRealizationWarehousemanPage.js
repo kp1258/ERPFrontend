@@ -4,9 +4,13 @@ import { PageLoader } from "../../Components/Others";
 import { NoDataAlert } from "../../Components/Alerts";
 import { OrderInRealizationCard } from "../../Components/Cards";
 import { Space } from "antd";
+import { CompleteOrderModal } from "../../Components/Modals";
 
 const OrdersInRealizationWarehousemanPage = () => {
   const [triggerUpdate, setTriggerUpdate] = useState(false);
+  const [order, setOrder] = useState({});
+  const [visible, setVisible] = useState(false);
+
   const { response, isLoading, refetch } = useFetch({
     method: "get",
     url: "/orders/active?WarehousemanId=5",
@@ -19,6 +23,15 @@ const OrdersInRealizationWarehousemanPage = () => {
     refetch({});
     setTriggerUpdate(!triggerUpdate);
   };
+
+  const handleChooseOrder = (id) => {
+    let orders = [...response];
+    let chosenOrder = orders.find((order) => {
+      return order.orderId === id;
+    });
+    setOrder(chosenOrder);
+    console.log(chosenOrder);
+  };
   return (
     <div>
       {isLoading === false ? (
@@ -29,10 +42,22 @@ const OrdersInRealizationWarehousemanPage = () => {
                 <OrderInRealizationCard
                   key={order.orderId}
                   order={order}
+                  showModal={() => setVisible(true)}
                   toggleUpdate={toggleTrigger}
+                  handleClick={handleChooseOrder}
                 />,
               ])}
             </Space>
+            {order.orderId ? (
+              <CompleteOrderModal
+                visible={visible}
+                order={order}
+                toggleUpdate={toggleTrigger}
+                hideModal={() => setVisible(false)}
+              />
+            ) : (
+              ""
+            )}
           </div>
         ) : (
           <NoDataAlert content="Brak zamówień w realizacji" />

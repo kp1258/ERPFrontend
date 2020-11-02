@@ -6,12 +6,19 @@ import {
   CustomOrderItemStatusList,
   StandardOrderItemStatusList,
 } from "../../Components/Lists";
-const OrderInRealizationCard = (props) => {
-  const { order } = props;
+const OrderInRealizationCard = ({ order, showModal, handleClick }) => {
   const footer = (
     <>
       <CardDivider content="Akcje" />
-      <Button type="primary">Zrealizuj zamówienie</Button>
+      <Button
+        onClick={() => {
+          showModal();
+          handleClick(order.orderId);
+        }}
+        type="primary"
+      >
+        Zrealizuj zamówienie
+      </Button>
     </>
   );
   const content = (

@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Avatar } from "antd";
+import { List, Avatar, Space } from "antd";
 import { StandardOrderItemStatus } from "../Others";
 const defaultImageSrc = "/assets/productIcon.png";
 const StandardOrderItemStatusList = (props) => {
@@ -9,14 +9,24 @@ const StandardOrderItemStatusList = (props) => {
       <List
         itemLayout="horizontal"
         dataSource={items}
+        pagination={{
+          onChange: (page) => {
+            console.log(page);
+          },
+          pageSize: 3,
+        }}
+        footer={<div>Liczba pozycji: {items.length}</div>}
         renderItem={(item) => (
           <List.Item>
             <List.Item.Meta
               avatar={<Avatar src={defaultImageSrc} />}
               title={item.standardProduct.name}
-              description={`Ilość: ${item.quantity}`}
+              description={item.standardProduct.standardProductCategory.name}
             />
-            <StandardOrderItemStatus status={item.status} />
+            <Space>
+              {`${item.quantity} sztuk`}
+              <StandardOrderItemStatus status={item.status} />
+            </Space>
           </List.Item>
         )}
       />
