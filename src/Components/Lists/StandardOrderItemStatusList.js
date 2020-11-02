@@ -1,5 +1,6 @@
 import React from "react";
 import { List, Avatar } from "antd";
+import { StandardOrderItemStatus } from "../Others";
 const defaultImageSrc = "/assets/productIcon.png";
 const StandardOrderItemStatusList = (props) => {
   const { items } = props;
@@ -15,7 +16,7 @@ const StandardOrderItemStatusList = (props) => {
               title={item.standardProduct.name}
               description={`Ilość: ${item.quantity}`}
             />
-            <div>Status</div>
+            <StandardOrderItemStatus status={item.status} />
           </List.Item>
         )}
       />

@@ -2,7 +2,7 @@ import React from "react";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Others";
 import { Space } from "antd";
-import { OrderHistoryCard } from "../../Components/Cards";
+import { OrderActiveCard } from "../../Components/Cards";
 import { NoDataAlert } from "../../Components/Alerts";
 
 const ActiveOrdersAdminPage = () => {
@@ -16,7 +16,7 @@ const ActiveOrdersAdminPage = () => {
         response !== "" ? (
           <Space>
             {[...response].map((order) => (
-              <OrderHistoryCard order={order} />
+              <OrderActiveCard order={order} />
             ))}
           </Space>
         ) : (

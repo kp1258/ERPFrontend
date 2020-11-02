@@ -3,7 +3,7 @@ import { PageLoader } from "../../Components/Others";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert } from "../../Components/Alerts";
 import { Space } from "antd";
-import { OrderHistoryCard } from "../../Components/Cards";
+import { OrderActiveCard } from "../../Components/Cards";
 
 const ActiveOrdersSalesmanPage = () => {
   const { response, isLoading } = useFetch({
@@ -17,7 +17,7 @@ const ActiveOrdersSalesmanPage = () => {
         response !== "" ? (
           <Space>
             {[...response].map((order) => (
-              <OrderHistoryCard order={order} />
+              <OrderActiveCard order={order} />
             ))}
           </Space>
         ) : (

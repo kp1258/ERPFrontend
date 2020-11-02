@@ -9,7 +9,7 @@ const OrdersInRealizationWarehousemanPage = () => {
   const [triggerUpdate, setTriggerUpdate] = useState(false);
   const { response, isLoading, refetch } = useFetch({
     method: "get",
-    url: "/warehousemen/5/orders",
+    url: "/orders/active?WarehousemanId=5",
   });
   console.log(response);
   useEffect(() => {

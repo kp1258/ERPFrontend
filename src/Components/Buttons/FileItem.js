@@ -3,8 +3,8 @@ const FileItem = (props) => {
   const { file } = props;
   return (
     <div>
-      <a href={file.href} target="_blank" rel="noopener noreferrer">
-        {file.name}
+      <a href={file.filePath} target="_blank" rel="noopener noreferrer">
+        {file.fileName}
       </a>
     </div>
   );

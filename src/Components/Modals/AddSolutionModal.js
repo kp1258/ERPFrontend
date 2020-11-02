@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Modal, Form, Input, Space } from "antd";
 import { useForm, Controller } from "react-hook-form";
 import { layout } from "../../Utils/FormLayout";
@@ -21,12 +21,6 @@ const AddSolutionModal = (props) => {
     setIsSubmitting(true);
 
     let formData = new FormData();
-    // let onlyFiles = [...files.map((file) => file.file)];
-    // console.log(onlyFiles);
-    //formData.set("solutionDescription", data.solutionDescription);
-    // files.forEach((element, id) => {
-    //   formData.append(element.fileName, element.file);
-    // });
     formData.append("solutionDescription", data.solutionDescription);
     for (let i = 0; i < files.length; i++) {
       console.log(files[i].file);
@@ -61,8 +55,8 @@ const AddSolutionModal = (props) => {
       let file = e.target.files[0];
       let fileObject = {
         file: file,
-        name: file.name,
-        url: URL.createObjectURL(file),
+        fileName: file.name,
+        filePath: URL.createObjectURL(file),
       };
       var newFiles = [...files];
       newFiles.push(fileObject);
@@ -111,7 +105,7 @@ const AddSolutionModal = (props) => {
           {files.length > 0
             ? [...files].map((file) => (
                 <FileItemButton
-                  key={file.name}
+                  key={file.fileName}
                   file={file}
                   onClick={removeFile}
                 />

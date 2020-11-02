@@ -69,13 +69,15 @@ const CreateStandardProductForm = () => {
             />
           </div>
           <Form onFinish={handleSubmit(onSubmit)} {...layout}>
-            <Form.Item label="Zdjęcie">
+            <Form.Item>
               <input
+                id="f02"
                 type="file"
                 name="image"
                 ref={register}
                 onChange={showPreview}
               />
+              <label for="f02">Dodaj plik</label>
             </Form.Item>
             <Form.Item label="Nazwa">
               <Controller

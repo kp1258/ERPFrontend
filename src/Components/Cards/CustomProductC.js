@@ -1,6 +1,6 @@
 import React from "react";
 import { Card } from "antd";
-import { CardDivider } from "../Others";
+import { CardDivider, OrderDetails } from "../Others";
 const CustomProductCard = (props) => {
   const { customProduct } = props;
   const { technologist } = customProduct;
@@ -8,8 +8,8 @@ const CustomProductCard = (props) => {
   return (
     <div>
       <Card title={customProduct.name}>
-        <CardDivider content="Opis" />
-        <span>{customProduct.description}</span>
+        <OrderDetails product={customProduct} />
+        {props.solution ? props.solution : ""}
         <CardDivider content="Technolog" />
         {technologist !== null ? (
           <>

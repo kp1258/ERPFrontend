@@ -1,5 +1,6 @@
 import React from "react";
 import { List } from "antd";
+import { CustomOrderItemStatus } from "../Others";
 const CustomOrderItemStatusList = (props) => {
   const { items } = props;
   return (
@@ -13,7 +14,7 @@ const CustomOrderItemStatusList = (props) => {
               title={item.customProduct.name}
               description={`Ilość: ${item.quantity}`}
             />
-            <div>Status</div>
+            <CustomOrderItemStatus status={item.status} />
           </List.Item>
         )}
       />
