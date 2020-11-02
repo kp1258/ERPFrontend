@@ -7,7 +7,7 @@ import { NoDataAlert } from "../../Components/Alerts";
 
 const CustomProductsTechnologistPage = () => {
   //moje rozwiązania
-  const { response, error, isLoading } = useFetch({
+  const { response, isLoading } = useFetch({
     method: "get",
     url: "/technologists/4/custom-products/prepared",
   });

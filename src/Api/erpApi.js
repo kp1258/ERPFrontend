@@ -56,7 +56,7 @@ export const customProducts = {
       params
     ),
   addSolution: (technologistId, productId, params) =>
-    erpApi.patch(
+    erpApi.post(
       `/technologists/${technologistId}/custom-products/${productId}/solution`,
       params
     ),

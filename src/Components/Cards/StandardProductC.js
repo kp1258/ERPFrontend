@@ -9,13 +9,22 @@ const StandardProductCard = (props) => {
     `Kategoria: ${product.standardProductCategory.name}`,
     `Status: ${product.status}`,
   ];
+  console.log(product);
   return (
     <div>
       <Card
         hoverable
         title={product.name}
         style={{ fontSize: "150%" }}
-        cover={<img alt="example" src={defaultImageSrc} />}
+        cover={
+          <img
+            style={{ width: "256px", maxHeight: "256px" }}
+            alt="Produkt"
+            src={
+              product.imagePath !== null ? product.imagePath : defaultImageSrc
+            }
+          />
+        }
       >
         <List
           dataSource={data}

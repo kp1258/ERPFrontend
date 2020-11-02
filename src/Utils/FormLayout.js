@@ -6,5 +6,3 @@ export const layout = {
     span: 10,
   },
 };
-
-export default { layout };

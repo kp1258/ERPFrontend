@@ -12,9 +12,9 @@ const OrderHistoryCard = (props) => {
     <>
       <CardDivider content="Zawartość zamówienia" />
       {order.type !== "standardowy" ? (
-        <CustomOrderItemList items={order.customdOrderItems} />
+        <CustomOrderItemList items={order.customOrderItems} />
       ) : (
-        <StandardOrderItemList items={order.stadardOrderItems} />
+        <StandardOrderItemList items={order.standardOrderItems} />
       )}
     </>
   );

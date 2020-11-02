@@ -6,7 +6,7 @@ import { Space } from "antd";
 import { NoDataAlert } from "../../Components/Alerts";
 
 const OrdersHistoryWarehousemanPage = () => {
-  const { response, error, isLoading } = useFetch({
+  const { response, isLoading } = useFetch({
     method: "get",
     url: "/orders/history?WarehousemanId=5",
   });

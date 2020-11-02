@@ -1,29 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { Card, Form, Button, Input } from "antd";
+import { Form, Input } from "antd";
 import { layout } from "../../Utils/FormLayout";
-
-const schema = yup.object().shape({
-  name: yup.string().required("Nazwa materiału jest wymagana"),
-});
+import { materialSchema } from "../../Utils/yupSchemas";
+import { materials } from "../../Api/erpApi";
 
 const EditMaterialForm = (props) => {
+  const { material } = props;
   const { control, handleSubmit, errors, reset } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(materialSchema),
     defaultValues: {
-      id: props.material.id,
       name: props.material.name,
     },
   });
+  useEffect(() => {
+    reset({
+      name: material.name,
+    });
+  }, [props.material]);
+
   const onSubmit = (data) => {
+    props.toggleSubmitting(true);
     console.log(data);
-    reset();
-    props.changeVisibility();
+    materials
+      .update(material.materialId, data)
+      .then((res) => {
+        console.log(res);
+        props.hideModal();
+        props.toggleUpdate();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => props.toggleSubmitting(false));
   };
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} {...layout}>
+    <Form form={props.form} onFinish={handleSubmit(onSubmit)} {...layout}>
       <Form.Item label="Nazwa materiału">
         <Controller
           name="name"
@@ -34,9 +47,6 @@ const EditMaterialForm = (props) => {
         />
         <div className="errorMessage">{errors.name?.message}</div>
       </Form.Item>
-      <Button type="primary" htmlType="submit">
-        Edytuj
-      </Button>
     </Form>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBBtn, MDBDataTableV5, MDBCard } from "mdbreact";
+import { MDBDataTableV5, MDBCard } from "mdbreact";
 const MaterialInfoTable = (props) => {
   var data = {
     columns: [

@@ -6,7 +6,7 @@ import { OrderHistoryCard } from "../../Components/Cards";
 import { NoDataAlert } from "../../Components/Alerts";
 
 const ActiveOrdersAdminPage = () => {
-  const { response, error, isLoading } = useFetch({
+  const { response, isLoading } = useFetch({
     method: "get",
     url: "/orders/active",
   });

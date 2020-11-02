@@ -1,8 +1,8 @@
 import React from "react";
-import { List } from "antd";
-const CustomOrderItemList = (props) => {
+import { List, Avatar } from "antd";
+const defaultImageSrc = "/assets/productIcon.png";
+const StandardOrderItemStatusList = (props) => {
   const { items } = props;
-  console.log(items);
   return (
     <div>
       <List
@@ -11,9 +11,11 @@ const CustomOrderItemList = (props) => {
         renderItem={(item) => (
           <List.Item>
             <List.Item.Meta
-              title={item.customProduct.name}
+              avatar={<Avatar src={defaultImageSrc} />}
+              title={item.standardProduct.name}
               description={`Ilość: ${item.quantity}`}
             />
+            <div>Status</div>
           </List.Item>
         )}
       />
@@ -21,4 +23,4 @@ const CustomOrderItemList = (props) => {
   );
 };
 
-export default CustomOrderItemList;
+export default StandardOrderItemStatusList;

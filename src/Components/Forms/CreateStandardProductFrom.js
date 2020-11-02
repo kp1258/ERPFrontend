@@ -9,27 +9,36 @@ import { layout } from "../../Utils/FormLayout";
 import { standardProducts } from "../../Api/erpApi";
 
 const { Option } = Select;
-
+const defaultImageSrc = "/assets/productIcon.png";
 const CreateStandardProductForm = () => {
-  const [imageSrc, setImageSrc] = useState();
+  const [imageSrc, setImageSrc] = useState(defaultImageSrc);
 
   const { response, isLoading } = useFetch({
     method: "get",
     url: "/standard-products/categories",
   });
-  const { control, handleSubmit, errors, reset, register } = useForm({
+  const { control, handleSubmit, errors, register } = useForm({
     resolver: yupResolver(standardProductSchema),
   });
-  const onChange = (e) => {
-    console.log(e.target.value);
+  const showPreview = (e) => {
+    if (e.target.files !== null) {
+      let imageFile = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = (x) => {
+        setImageSrc(x.target.result);
+      };
+      reader.readAsDataURL(imageFile);
+    } else {
+      setImageSrc(defaultImageSrc);
+    }
   };
   const onSubmit = (data) => {
-    console.log(data);
     let formData = new FormData();
     formData.set("name", data.name);
     formData.set("dimensions", data.dimensions);
     formData.set("standardProductCategoryId", data.standardProductCategoryId);
-    formData.set("image", data.image);
+    formData.set("imageName", data.image[0].name);
+    formData.set("imageFile", data.image[0]);
 
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
@@ -51,8 +60,13 @@ const CreateStandardProductForm = () => {
               color: "gray",
               position: "flex",
             }}
+            className="center"
           >
-            <img alt="Brak zdjęcia" src={imageSrc} />
+            <img
+              style={{ maxHeight: "256px", maxWidth: "256px" }}
+              alt="Brak zdjęcia"
+              src={imageSrc}
+            />
           </div>
           <Form onFinish={handleSubmit(onSubmit)} {...layout}>
             <Form.Item label="Zdjęcie">
@@ -60,7 +74,7 @@ const CreateStandardProductForm = () => {
                 type="file"
                 name="image"
                 ref={register}
-                onChange={onChange}
+                onChange={showPreview}
               />
             </Form.Item>
             <Form.Item label="Nazwa">

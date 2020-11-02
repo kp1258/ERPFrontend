@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { layout } from "../../Utils/FormLayout";
-import { Form, Select, Button, Input } from "antd";
+import { Form, Input } from "antd";
 import { clients } from "../../Api/erpApi";
 import { clientSchema } from "../../Utils/yupSchemas";
 
 const EditClientForm = (props) => {
   const { client, toggleSubmitting } = props;
-  const { control, errors, handleSubmit, setValue, reset } = useForm({
+  const { control, errors, handleSubmit, reset } = useForm({
     resolver: yupResolver(clientSchema),
   });
   useEffect(() => {

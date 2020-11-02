@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.css";
-import { Button, Navbar } from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
 const AppBar = () => {
   return (
     <div className="appBar">

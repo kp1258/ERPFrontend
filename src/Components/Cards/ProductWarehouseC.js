@@ -14,7 +14,17 @@ const ProductWarehouseCard = (props) => {
       <Card
         title={standardProduct.name}
         style={{ fontSize: "150%" }}
-        cover={<img alt="product" src={defaultImageSrc} />}
+        cover={
+          <img
+            style={{ width: "256px", maxHeight: "256px" }}
+            alt="Produkt"
+            src={
+              standardProduct.imagePath !== null
+                ? standardProduct.imagePath
+                : defaultImageSrc
+            }
+          />
+        }
       >
         <List
           dataSource={data}

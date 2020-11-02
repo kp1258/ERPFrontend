@@ -12,6 +12,7 @@ import CustomProductOrderedCard from "./CustomProductOrderedC";
 import MaterialWarehouseChangeStockCard from "./MaterialWChangeStockC";
 import ProductWarehouseChangeStockCard from "./ProductWChangeStockC";
 import ProductWarehouseCard from "./ProductWarehouseC";
+import MaterialCard from "./MaterialCard";
 import MaterialWarehouseCard from "./MaterialWarehouseC";
 import OrderCard from "./OrderC";
 import OrderHistoryCard from "./OrderHistoryC";
@@ -34,6 +35,7 @@ export {
   CustomProductHistoryCard,
   CustomProductInPreparationCard,
   CustomProductOrderedCard,
+  MaterialCard,
   MaterialWarehouseCard,
   MaterialWarehouseChangeStockCard,
   OrderCard,

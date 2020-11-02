@@ -1,6 +1,6 @@
 import React from "react";
-import { List, Button, Menu } from "antd";
-import InfiniteScroll from "react-infinite-scroller";
+import { List } from "antd";
+
 const ClientsList = (props) => {
   const { items } = props;
   return (

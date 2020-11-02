@@ -1,6 +1,7 @@
 import React from "react";
 import { List, Avatar } from "antd";
-import { QuestionCircleOutlined } from "@ant-design/icons";
+
+const defaultImageSrc = "/assets/productIcon.png";
 const StadnardOrderItemList = (props) => {
   const { items } = props;
   return (
@@ -11,8 +12,8 @@ const StadnardOrderItemList = (props) => {
         renderItem={(item) => (
           <List.Item>
             <List.Item.Meta
-              avatar={<Avatar src={QuestionCircleOutlined} />}
-              title={item.name}
+              avatar={<Avatar src={defaultImageSrc} />}
+              title={item.standardProduct.name}
               description={`Ilość: ${item.quantity}`}
             />
           </List.Item>

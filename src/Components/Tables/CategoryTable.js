@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  MDBTable,
-  MDBCard,
-  MDBBtn,
-  MDBTableHead,
-  MDBTableBody,
-} from "mdbreact";
+import { MDBTable, MDBCard, MDBTableHead, MDBTableBody } from "mdbreact";
 
 const CategoryTable = (props) => {
   var data = {

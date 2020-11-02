@@ -5,7 +5,7 @@ import { PageLoader } from "../../Components/Others";
 import { CustomOrderItemHistoryCard } from "../../Components/Cards";
 import { NoDataAlert } from "../../Components/Alerts";
 const CustomProductsHistoryManagerPage = () => {
-  const { response, error, isLoading } = useFetch({
+  const { response, isLoading } = useFetch({
     method: "get",
     url: "/custom-order-items/history?ProductionManager=3",
   });

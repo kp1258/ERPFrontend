@@ -7,7 +7,15 @@ const CustomProductOrderedCard = (props) => {
   const footer = (
     <>
       <CardDivider content="Akcje" />
-      <Button type="primary">Dodaj rozwiązanie</Button>
+      <Button
+        onClick={() => {
+          props.showModal();
+          props.handleClick(customProduct.customProductId);
+        }}
+        type="primary"
+      >
+        Dodaj rozwiązanie
+      </Button>
     </>
   );
   return <CustomProductCard customProduct={customProduct} footer={footer} />;

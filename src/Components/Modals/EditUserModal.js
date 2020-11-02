@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, Modal, Form } from "antd";
-import { useState, useEffect } from "react";
+import { Modal, Form } from "antd";
+import { useState } from "react";
 import { EditUserForm } from "../Forms";
 
 const EditUserModal = (props) => {

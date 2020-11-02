@@ -11,7 +11,7 @@ const ChangeStockProductWarehousePage = () => {
   const [visible, setVisible] = useState(false);
   const [item, setItem] = useState();
   const [type, setType] = useState();
-  const { response, error, isLoading, refetch } = useFetch({
+  const { response, isLoading, refetch } = useFetch({
     method: "get",
     url: "/product-warehouse",
   });

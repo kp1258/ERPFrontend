@@ -1,6 +1,11 @@
 import React from "react";
+import { OrderSteps } from "../../Components/Others";
 const CreateOrderPage = () => {
-  return <div>Create order page</div>;
+  return (
+    <div>
+      <OrderSteps />
+    </div>
+  );
 };
 
 export default CreateOrderPage;

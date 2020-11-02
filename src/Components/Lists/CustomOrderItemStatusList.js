@@ -1,8 +1,7 @@
 import React from "react";
 import { List } from "antd";
-const CustomOrderItemList = (props) => {
+const CustomOrderItemStatusList = (props) => {
   const { items } = props;
-  console.log(items);
   return (
     <div>
       <List
@@ -14,6 +13,7 @@ const CustomOrderItemList = (props) => {
               title={item.customProduct.name}
               description={`Ilość: ${item.quantity}`}
             />
+            <div>Status</div>
           </List.Item>
         )}
       />
@@ -21,4 +21,4 @@ const CustomOrderItemList = (props) => {
   );
 };
 
-export default CustomOrderItemList;
+export default CustomOrderItemStatusList;

@@ -1,39 +1,56 @@
-import React, { useState } from "react";
-import { MaterialInfoTable } from "../../Components/Tables";
+import React, { useEffect, useState } from "react";
 import { EditMaterialModal } from "../../Components/Modals";
 import { PageLoader } from "../../Components/Others";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert } from "../../Components/Alerts";
+import { MaterialCard } from "../../Components/Cards";
+import { Space } from "antd";
 
 const MaterialsPage = () => {
-  const { response, error, isLoading } = useFetch({
+  const [triggerUpdate, setTriggerUpdate] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [material, setMaterial] = useState({ id: 0, name: "" });
+  const { response, isLoading, refetch } = useFetch({
     method: "get",
     url: "/materials",
   });
-  const [visible, setVisible] = useState(false);
-  const [material, setMaterial] = useState({ id: 0, name: "" });
+  useEffect(() => {
+    console.log("use effect triggered");
+  }, [triggerUpdate]);
+  const toggleTrigger = () => {
+    refetch({});
+    setTriggerUpdate(!triggerUpdate);
+  };
+
   const handleChooseMaterial = (id) => {
     let materials = [...response];
     let chosenMaterial = materials.find((material) => {
-      return material.id === id;
+      return material.materialId === id;
     });
     setVisible(true);
     setMaterial(chosenMaterial);
-  };
-  const changeVisibility = () => {
-    setVisible(false);
   };
   return (
     <div>
       {isLoading === false ? (
         response !== "" ? (
           <>
-            <MaterialInfoTable
-              data={[...response]}
-              handleClick={handleChooseMaterial}
-            />
-            {material.id !== 0 && visible === true && (
-              <EditMaterialModal visible={visible} material={material} />
+            <Space>
+              {[...response].map((material) => (
+                <MaterialCard
+                  key={material.materialId}
+                  material={material}
+                  handleClick={handleChooseMaterial}
+                />
+              ))}
+            </Space>
+            {material.materialId !== 0 && (
+              <EditMaterialModal
+                visible={visible}
+                material={material}
+                toggleUpdate={toggleTrigger}
+                hideModal={() => setVisible(false)}
+              />
             )}
           </>
         ) : (

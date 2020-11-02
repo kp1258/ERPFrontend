@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, List } from "antd";
+import { Card, List } from "antd";
 import "./index.css";
 const defaultImageSrc = "/assets/materialIcon.png";
 const MaterialWarehouseCard = (props) => {
@@ -8,7 +8,7 @@ const MaterialWarehouseCard = (props) => {
   return (
     <Card
       title={item.material.name}
-      cover={<img alt="product" src={defaultImageSrc} />}
+      cover={<img alt="material" src={defaultImageSrc} />}
     >
       <List
         dataSource={data}

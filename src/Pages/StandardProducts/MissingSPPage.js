@@ -6,7 +6,7 @@ import useFetch from "../../Api/useFetch";
 import { NoDataAlert } from "../../Components/Alerts";
 
 const MissingStandardProductsPage = () => {
-  const { response, error, isLoading } = useFetch({
+  const { response, isLoading } = useFetch({
     method: "get",
     url: "/production-managers/3/standard-products",
   });

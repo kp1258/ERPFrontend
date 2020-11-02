@@ -32,7 +32,6 @@ const EditStandardProductForm = (props) => {
     );
   }, [product]);
   const onSubmit = (data) => {
-    console.log("onSubmit triggered");
     console.log(data);
     toggleSubmitting(true);
     standardProducts
