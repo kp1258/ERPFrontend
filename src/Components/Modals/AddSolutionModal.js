@@ -9,10 +9,12 @@ const { TextArea } = Input;
 
 const AddSolutionModal = (props) => {
   const { product, visible } = props;
-  let randomString = Math.random().toString(36);
+  const generateRandomString = () => {
+    return Math.random().toString(36);
+  };
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [files, setFiles] = useState([]);
-  const [inputKey, setInputKey] = useState(randomString);
+  const [inputKey, setInputKey] = useState(generateRandomString());
   const [form] = Form.useForm();
   const { errors, reset, handleSubmit, control } = useForm({});
 
@@ -35,17 +37,17 @@ const AddSolutionModal = (props) => {
         console.log(res);
         props.hideModal();
         props.toggleUpdate();
-        setInputKey(Math.random().toString(36));
+        setInputKey(generateRandomString());
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => setIsSubmitting(false));
   };
-  const removeFile = (fileName) => {
+  const removeFile = (filePath) => {
     let currentFiles = [...files];
     let filteredFiles = currentFiles.filter((file) => {
-      return file.name !== fileName;
+      return file.filePath !== filePath;
     });
     setFiles([...filteredFiles]);
   };
@@ -61,7 +63,7 @@ const AddSolutionModal = (props) => {
       var newFiles = [...files];
       newFiles.push(fileObject);
       setFiles(newFiles);
-      setInputKey(Math.random().toString(36));
+      setInputKey(generateRandomString);
       console.log(files);
     }
   };
@@ -88,7 +90,9 @@ const AddSolutionModal = (props) => {
               defaultValue=""
               placeHolder="Podaj opis rozwiązania"
             />
-            <div className="errorMessage">{errors.name?.message}</div>
+            <div className="errorMessage">
+              {errors.solutionDescription?.message}
+            </div>
           </Form.Item>
           <Form.Item>
             <input
@@ -105,7 +109,7 @@ const AddSolutionModal = (props) => {
           {files.length > 0
             ? [...files].map((file) => (
                 <FileItemButton
-                  key={file.fileName}
+                  key={file.filePath}
                   file={file}
                   onClick={removeFile}
                 />

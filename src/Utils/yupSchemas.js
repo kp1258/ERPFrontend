@@ -65,3 +65,12 @@ export const categorySchema = yup.object().shape({
 export const materialSchema = yup.object().shape({
   name: yup.string().required("Nazwa materiału jest wymagana"),
 });
+
+export const customOrderItemSchema = yup.object().shape({
+  name: yup.string().required("Nazwa jest wymagana"),
+  orderDescription: yup.string().required("Opis produktu jest wymagany"),
+  quantity: yup
+    .number()
+    .typeError("Wartość musi być liczbą")
+    .required("Ilość jest wymagana"),
+});

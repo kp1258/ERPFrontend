@@ -17,7 +17,7 @@ const CreateStandardProductForm = () => {
     method: "get",
     url: "/standard-products/categories",
   });
-  const { control, handleSubmit, errors, register } = useForm({
+  const { control, handleSubmit, errors, register, reset } = useForm({
     resolver: yupResolver(standardProductSchema),
   });
   const showPreview = (e) => {
@@ -45,7 +45,10 @@ const CreateStandardProductForm = () => {
     }
     standardProducts
       .create(formData)
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        reset({});
+      })
       .catch((err) => console.log(err));
   };
   return (

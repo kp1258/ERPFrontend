@@ -11,7 +11,7 @@ const FileItemButton = (props) => {
         style={{ backgroundColor: "gray" }}
         shape="circle-outline"
         icon={<CloseOutlined />}
-        onClick={() => onClick(props.file.name)}
+        onClick={() => onClick(props.file.filePath)}
       />
     </Space>
   );
