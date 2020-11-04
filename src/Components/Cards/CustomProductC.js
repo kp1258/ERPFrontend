@@ -1,28 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card } from "antd";
 import { CardDivider, OrderDetails } from "../Others";
-const CustomProductCard = (props) => {
-  const { customProduct } = props;
+import { SolutionDetails } from "../Others";
+import { CustomProductTimeline } from "../Timelines";
+const CustomProductCard = ({ customProduct, footer }) => {
   const { technologist } = customProduct;
-
-  return (
-    <div>
-      <Card title={customProduct.name}>
+  const [activeKey, setActiveKey] = useState("tab1");
+  const tabList = [
+    {
+      key: "tab1",
+      tab: "Podstawowe informacje",
+    },
+    {
+      key: "tab2",
+      tab: "Szczegóły realizacji",
+    },
+  ];
+  const contentList = {
+    tab1: (
+      <div>
+        {" "}
         <OrderDetails product={customProduct} />
-        {props.solution ? props.solution : ""}
-        <CardDivider content="Technolog" />
-        {technologist !== null ? (
-          <>
-            <span>
-              {technologist.firstName} {technologist.lastName}
-            </span>
-          </>
-        ) : (
-          "Brak"
-        )}
         <CardDivider content="Status" />
         <span>{customProduct.status}</span>
-        {props.footer ? props.footer : ""}
+        {footer ? footer : ""}
+      </div>
+    ),
+
+    tab2: (
+      <div>
+        {customProduct.status === "przygotowany" ? (
+          <SolutionDetails product={customProduct} />
+        ) : (
+          <>
+            <CardDivider content="Szczegóły rozwiązania" />
+            <div>Brak rozwiązania</div>
+          </>
+        )}
+        <CardDivider content="Technolog" />
+        {technologist !== null ? (
+          <div>
+            {technologist.firstName} {technologist.lastName}
+          </div>
+        ) : (
+          <div>Brak</div>
+        )}
+        <>
+          <CardDivider content="Historia realizacji" />
+          <CustomProductTimeline customProduct={customProduct} />
+        </>
+      </div>
+    ),
+  };
+  return (
+    <div style={{ height: "600px", minWidth: "300px" }}>
+      <Card
+        hoverable
+        title={customProduct.name}
+        style={{ width: "100%", height: "100%" }}
+        tabList={tabList}
+        activeTabKey={activeKey}
+        onTabChange={(key) => {
+          setActiveKey(key);
+        }}
+      >
+        {contentList[activeKey]}
       </Card>
     </div>
   );

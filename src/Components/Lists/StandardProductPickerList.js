@@ -51,7 +51,7 @@ const StandardProductPickerList = ({
           onChange: (page) => {
             console.log(page);
           },
-          pageSize: 5,
+          pageSize: 4,
         }}
         footer={<div>Liczba produktów: {products.length}</div>}
         renderItem={(item) => {

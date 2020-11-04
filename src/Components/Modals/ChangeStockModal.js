@@ -1,4 +1,4 @@
-import { Modal, Form, Input } from "antd";
+import { Modal, Form, Input, message } from "antd";
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -28,43 +28,50 @@ const ChangeStockModal = (props) => {
     if (type === "entry") {
       return item.quantity + enteredQuantity;
     } else if (type === "withdrawal") {
-      return item.quantity - enteredQuantity;
+      if (item.quantity < enteredQuantity) {
+        message.error("Wydawana ilość nie może przekraczać stanu magazynu");
+        return -1;
+      } else {
+        return item.quantity - enteredQuantity;
+      }
     }
   };
   const onSubmit = (data) => {
-    setIsSubmitting(true);
     var quantity = changeQuantity(data.enteredQuantity);
-    console.log(quantity);
-    var patch = [{ op: "replace", path: "/quantity", value: quantity }];
-    warehouseType === "material"
-      ? materialWarehouse
-          .changeStock(item.materialWarehouseItemId, patch)
-          .then((res) => {
-            console.log(res);
-            toggleUpdate();
-            hideModal();
-            reset();
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
-          })
-      : productWarehouse
-          .changeStock(item.productWarehouseItemId, patch)
-          .then((res) => {
-            console.log(res);
-            toggleUpdate();
-            hideModal();
-            reset();
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
-          });
+    if (quantity !== -1) {
+      console.log(quantity);
+      setIsSubmitting(true);
+      var patch = [{ op: "replace", path: "/quantity", value: quantity }];
+      warehouseType === "material"
+        ? materialWarehouse
+            .changeStock(item.materialWarehouseItemId, patch)
+            .then((res) => {
+              console.log(res);
+              toggleUpdate();
+              hideModal();
+              reset();
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+            .finally(() => {
+              setIsSubmitting(false);
+            })
+        : productWarehouse
+            .changeStock(item.productWarehouseItemId, patch)
+            .then((res) => {
+              console.log(res);
+              toggleUpdate();
+              hideModal();
+              reset();
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+            .finally(() => {
+              setIsSubmitting(false);
+            });
+    }
   };
   const handleCancel = () => {
     hideModal();

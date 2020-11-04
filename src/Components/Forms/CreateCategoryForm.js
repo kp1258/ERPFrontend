@@ -5,6 +5,7 @@ import { Card, Form, Button, Input } from "antd";
 import { layout } from "../../Utils/FormLayout";
 import { categorySchema } from "../../Utils/yupSchemas";
 import { categories } from "../../Api/erpApi";
+import { formCardStyle } from "../../Utils/sharedStyles";
 
 const CreateCategoryForm = (props) => {
   const { toggleUpdate } = props;
@@ -20,7 +21,7 @@ const CreateCategoryForm = (props) => {
       .then((res) => {
         console.log(res);
         toggleUpdate();
-        reset();
+        reset({ name: "" });
       })
       .catch((err) => {
         console.log(err);
@@ -30,7 +31,7 @@ const CreateCategoryForm = (props) => {
       });
   };
   return (
-    <div>
+    <div style={formCardStyle}>
       <Card title="Formularz dodawania kategorii produktów">
         <Form onFinish={handleSubmit(onSubmit)} {...layout}>
           <Form.Item label="Nazwa kategorii">

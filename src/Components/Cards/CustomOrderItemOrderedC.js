@@ -3,7 +3,6 @@ import CustomOrderItemCard from "./CustomOrderItemC";
 import { CardDivider } from "../Others";
 import { PopconfirmButton } from "../Buttons";
 import { customOrderItems } from "../../Api/erpApi";
-import { SolutionDetails } from "../../Components/Others";
 
 const CustomOrderItemOrderedCard = (props) => {
   const { item } = props;
@@ -18,21 +17,13 @@ const CustomOrderItemOrderedCard = (props) => {
       })
       .catch((err) => console.log(err));
   };
-  const solution =
-    item.customProduct.status === "przygotowany" ? (
-      <SolutionDetails product={item.customProduct} />
-    ) : (
-      ""
-    );
   const footer = (
     <>
       <CardDivider content="Akcje" />
       <PopconfirmButton name="Rozpocznij produkcję" handleClick={handleClick} />
     </>
   );
-  return (
-    <CustomOrderItemCard item={item} footer={footer} solution={solution} />
-  );
+  return <CustomOrderItemCard item={item} footer={footer} />;
 };
 
 export default CustomOrderItemOrderedCard;

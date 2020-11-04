@@ -6,7 +6,7 @@ const ClientsList = (props) => {
   return (
     <div
       style={{
-        height: "95vh",
+        height: "100%",
         backgroundColor: "white",
         border: "1px solid gray",
       }}

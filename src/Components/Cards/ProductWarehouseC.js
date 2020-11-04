@@ -12,6 +12,7 @@ const ProductWarehouseCard = (props) => {
   return (
     <div>
       <Card
+        hoverable
         title={standardProduct.name}
         style={{ fontSize: "150%" }}
         cover={

@@ -18,22 +18,13 @@ const CustomOrderItemInProductionCard = (props) => {
       })
       .catch((err) => console.log(err));
   };
-  const solution =
-    item.customProduct.status === "przygotowany" ? (
-      <SolutionDetails product={item.customProduct} />
-    ) : (
-      ""
-    );
-
   const footer = (
     <>
       <CardDivider content="Akcje" />
       <PopconfirmButton name="Zakończ produkcję" handleClick={handleClick} />
     </>
   );
-  return (
-    <CustomOrderItemCard item={item} footer={footer} solution={solution} />
-  );
+  return <CustomOrderItemCard item={item} footer={footer} />;
 };
 
 export default CustomOrderItemInProductionCard;

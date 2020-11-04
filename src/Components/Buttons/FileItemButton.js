@@ -1,17 +1,17 @@
 import React from "react";
 import FileItem from "./FileItem";
 import { Space, Button } from "antd";
-import { CloseOutlined } from "@ant-design/icons";
+import { CancelIcon } from "../Icons";
 const FileItemButton = (props) => {
-  const { onClick } = props;
+  const { handleCancel } = props;
   return (
     <Space>
       <FileItem {...props} />
       <Button
-        style={{ backgroundColor: "gray" }}
+        style={{ backgroundColor: "red" }}
         shape="circle-outline"
-        icon={<CloseOutlined />}
-        onClick={() => onClick(props.file.filePath)}
+        icon={<CancelIcon />}
+        onClick={() => handleCancel(props.file.filePath)}
       />
     </Space>
   );

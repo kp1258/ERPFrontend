@@ -1,6 +1,6 @@
 export const layout = {
   labelCol: {
-    span: 6,
+    span: 10,
   },
   wrapperCol: {
     span: 10,

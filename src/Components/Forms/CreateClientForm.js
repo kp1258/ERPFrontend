@@ -5,6 +5,11 @@ import { Form, Card, Button, Input } from "antd";
 import { layout } from "../../Utils/FormLayout";
 import { clients } from "../../Api/erpApi";
 import { clientSchema } from "../../Utils/yupSchemas";
+import {
+  formCardStyle,
+  formContainerStyle,
+  formStyle,
+} from "../../Utils/sharedStyles";
 
 const CreateClientForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -18,7 +23,18 @@ const CreateClientForm = () => {
       .create(data)
       .then((res) => {
         console.log(res);
-        reset();
+        reset({
+          companyName: "",
+          firstName: "",
+          lastName: "",
+          phoneNumber: "",
+          email: "",
+          address: {
+            street: "",
+            postalCode: "",
+            city: "",
+          },
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -28,7 +44,7 @@ const CreateClientForm = () => {
       });
   };
   return (
-    <div>
+    <div style={formCardStyle}>
       <Card title="Formularz tworzenia klienta">
         <Form {...layout} onFinish={handleSubmit(onSubmit)}>
           <Form.Item label="Nazwa firmy">

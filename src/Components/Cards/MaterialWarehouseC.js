@@ -7,6 +7,7 @@ const MaterialWarehouseCard = (props) => {
   const data = [`Ilość: ${item.quantity}`];
   return (
     <Card
+      hoverable
       title={item.material.name}
       cover={<img alt="material" src={defaultImageSrc} />}
     >

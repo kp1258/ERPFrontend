@@ -9,8 +9,9 @@ const UserInfoCard = (props) => {
   ];
   const title = `${props.firstName} ${props.lastName}`;
   return (
-    <div className="userCard">
+    <div className="userCard" style={{ display: "inline-block" }}>
       <Card
+        hoverable
         title={title}
         style={{ fontSize: "150%" }}
         cover={<img alt="example" src={"/assets/userIcon.png"} />}

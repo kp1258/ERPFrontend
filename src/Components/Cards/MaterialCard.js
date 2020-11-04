@@ -5,6 +5,7 @@ const MaterialCard = (props) => {
   const { material, handleClick } = props;
   return (
     <Card
+      hoverable
       title={material.name}
       cover={<img alt="product" src={defaultImageSrc} />}
     >

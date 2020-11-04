@@ -111,7 +111,7 @@ const AddSolutionModal = (props) => {
                 <FileItemButton
                   key={file.filePath}
                   file={file}
-                  onClick={removeFile}
+                  handleCancel={removeFile}
                 />
               ))
             : ""}

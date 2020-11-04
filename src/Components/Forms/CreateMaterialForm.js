@@ -5,6 +5,7 @@ import { Card, Form, Button, Input } from "antd";
 import { layout } from "../../Utils/FormLayout";
 import { materialSchema } from "../../Utils/yupSchemas";
 import { materials } from "../../Api/erpApi";
+import { formCardStyle } from "../../Utils/sharedStyles";
 
 const CreateMaterialForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -28,7 +29,7 @@ const CreateMaterialForm = () => {
       });
   };
   return (
-    <div>
+    <div style={formCardStyle}>
       <Card title="Formularz dodawania materiałów">
         <Form onFinish={handleSubmit(onSubmit)} {...layout}>
           <Form.Item label="Nazwa materiału">

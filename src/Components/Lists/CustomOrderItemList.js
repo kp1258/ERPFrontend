@@ -1,27 +1,34 @@
 import React from "react";
 import { List } from "antd";
+import { listContainerStyle } from "../../Utils/sharedStyles";
 const CustomOrderItemList = (props) => {
   const { items } = props;
-  console.log(items);
+  const pagination = items.length > 3 ? { pagesize: 3 } : false;
+  const footer =
+    items.length > 3 ? <div>Liczba pozycji: {items.length}</div> : false;
   return (
-    <div>
-      <List
-        itemLayout="horizontal"
-        dataSource={items}
-        pagination={{
-          onChange: (page) => {
-            console.log(page);
-          },
-          pageSize: 3,
+    <div style={listContainerStyle}>
+      <div
+        style={{
+          minWidth: "300px",
+          margin: "auto",
+          paddingLeft: "20px",
+          paddingRight: "20px",
         }}
-        footer={<div>Suma pozycji: {items.length}</div>}
-        renderItem={(item) => (
-          <List.Item>
-            <List.Item.Meta title={item.customProduct.name} />
-            {`${item.quantity} sztuk`}
-          </List.Item>
-        )}
-      />
+      >
+        <List
+          itemLayout="horizontal"
+          dataSource={items}
+          pagination={pagination}
+          footer={footer}
+          renderItem={(item) => (
+            <List.Item>
+              <List.Item.Meta title={item.customProduct.name} />
+              {`${item.quantity} sztuk`}
+            </List.Item>
+          )}
+        />
+      </div>
     </div>
   );
 };

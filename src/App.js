@@ -1,47 +1,34 @@
 import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
 import "./App.css";
-import { AppBar, NavigationMenu, Page } from "./Main/index";
+import { NavigationMenu, Page } from "./Main";
 import { Layout, Menu } from "antd";
 
 const { Header, Footer, Sider, Content } = Layout;
 function App() {
   return (
     <div className="App">
-      <Layout>
+      <Layout style={{ height: "100vh" }}>
         <Header
-          style={{
-            position: "fixed",
-            zIndex: 1,
-            width: "100%",
-          }}
+          className="header"
+          // style={{ position: "fixed", zIndex: 1, width: "100%" }}
         >
           <Menu theme="dark" mode="horizontal">
             <span>System ERP</span>
           </Menu>
         </Header>
-
-        <Sider
-          style={{
-            overflow: "auto",
-            height: "100vh",
-            position: "fixed",
-            left: 0,
-            marginTop: "50px",
-          }}
-        >
-          <NavigationMenu />
-        </Sider>
-        <Layout style={{ marginLeft: "200px" }}>
-          <Content
-            style={{
-              padding: 24,
-              minHeight: 600,
-              height: "100vh",
-            }}
-          >
-            <Page />
-          </Content>
+        <Layout>
+          <Sider width={250}>
+            <NavigationMenu />
+          </Sider>
+          <Layout style={{ padding: "24px 24px 24px" }}>
+            <Content
+              style={{
+                backgroundColor: "white",
+              }}
+            >
+              <Page />
+            </Content>
+          </Layout>
         </Layout>
       </Layout>
     </div>

@@ -7,6 +7,7 @@ import useFetch from "../../Api/useFetch";
 import { ComponentLoader } from "../../Components/Others";
 import { layout } from "../../Utils/FormLayout";
 import { standardProducts } from "../../Api/erpApi";
+import { formCardStyle } from "../../Utils/sharedStyles";
 
 const { Option } = Select;
 const defaultImageSrc = "/assets/productIcon.png";
@@ -47,16 +48,21 @@ const CreateStandardProductForm = () => {
       .create(formData)
       .then((res) => {
         console.log(res);
-        reset({});
+        reset({
+          name: "",
+          dimensions: "",
+          standardProductCategoryId: "",
+        });
       })
       .catch((err) => console.log(err));
   };
   return (
-    <div>
+    <div style={formCardStyle}>
       {isLoading === false ? (
         <Card title="Formularz tworzenia produktu standardowego">
           <div
             style={{
+              margin: "auto",
               height: "256px",
               width: "256px",
               border: "1px solid gray",
@@ -72,16 +78,24 @@ const CreateStandardProductForm = () => {
             />
           </div>
           <Form onFinish={handleSubmit(onSubmit)} {...layout}>
-            <Form.Item>
-              <input
-                id="f02"
-                type="file"
-                name="image"
-                ref={register}
-                onChange={showPreview}
-              />
-              <label for="f02">Dodaj plik</label>
-            </Form.Item>
+            <div
+              style={{
+                marginLeft: "110px",
+                paddingTop: "20px",
+                paddingBottom: "30px",
+              }}
+            >
+              <Form.Item>
+                <input
+                  id="f02"
+                  type="file"
+                  name="image"
+                  ref={register}
+                  onChange={showPreview}
+                />
+                <label for="f02">Dodaj plik</label>
+              </Form.Item>
+            </div>
             <Form.Item label="Nazwa">
               <Controller
                 name="name"

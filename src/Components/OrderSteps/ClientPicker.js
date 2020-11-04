@@ -1,7 +1,8 @@
 import React from "react";
 import { Select } from "antd";
-import { ClientCard } from "../Cards";
 import useFetch from "../../Api/useFetch";
+import ClientInfo from "./ClientInfo";
+import { ComponentLoader } from "../Others";
 
 const { Option } = Select;
 const ClientPicker = ({ clientId, setClientId, client, setClient }) => {
@@ -19,25 +20,35 @@ const ClientPicker = ({ clientId, setClientId, client, setClient }) => {
   };
   return (
     <div>
+      <div
+        style={{ fontSize: "125%", paddingTop: "20px", paddingBottom: "20px" }}
+      >
+        Wybierz odbiorcę
+      </div>
       {isLoading === false ? (
-        <>
-          <Select
-            value={clientId}
-            placeholder="Wybierz klienta"
-            onChange={(value) => {
-              onChange(value);
-            }}
-          >
-            {[...response].map((client) => (
-              <Option key={client.clientId} value={client.clientId}>
-                {client.companyName}
-              </Option>
-            ))}
-          </Select>
-          {client.address ? <ClientCard client={client} /> : ""}
-        </>
+        <div>
+          <div style={{ paddingBottom: "20px", paddingTop: "20px" }}>
+            <Select
+              style={{ width: "300px" }}
+              value={clientId}
+              placeholder="Wybierz klienta"
+              onChange={(value) => {
+                onChange(value);
+              }}
+            >
+              {[...response].map((client) => (
+                <Option key={client.clientId} value={client.clientId}>
+                  {client.companyName}
+                </Option>
+              ))}
+            </Select>
+          </div>
+          {client.address ? <ClientInfo client={client} /> : ""}
+        </div>
       ) : (
-        <></>
+        <>
+          <ComponentLoader />
+        </>
       )}
     </div>
   );

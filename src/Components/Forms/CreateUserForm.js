@@ -7,6 +7,7 @@ import { layout } from "../../Utils/FormLayout";
 import "./index.css";
 import { users } from "../../Api/erpApi";
 import { userSchema } from "../../Utils/yupSchemas";
+import { formCardStyle } from "../../Utils/sharedStyles";
 
 const { Option } = Select;
 
@@ -21,7 +22,15 @@ const CreateUserForm = (props) => {
       .create(data)
       .then((res) => {
         console.log(res);
-        reset();
+        reset({
+          firstName: "",
+          lastName: "",
+          phoneNumber: "",
+          email: "",
+          login: "",
+          password: "",
+          role: "",
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -31,7 +40,7 @@ const CreateUserForm = (props) => {
       });
   };
   return (
-    <div>
+    <div style={formCardStyle}>
       <Card title="Formularz tworzenia pracownika">
         <Form {...layout} onFinish={handleSubmit(onSubmit)}>
           <Form.Item label="Imię">

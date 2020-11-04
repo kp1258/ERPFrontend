@@ -1,11 +1,8 @@
 import React from "react";
-import OrderCard from "./OrderC";
-import { OrderTimeline } from "../../Components/Timelines";
-import { CardDivider } from "../../Components/Others";
-import {
-  CustomOrderItemList,
-  StandardOrderItemList,
-} from "../../Components/Lists";
+import { OrderTimeline } from "..//Timelines";
+import { CardDivider } from "..//Others";
+import { OrderWithTabsCard } from "../Cards";
+import { CustomOrderItemList, StandardOrderItemList } from "..//Lists";
 const OrderHistoryCard = (props) => {
   const { order } = props;
   const content = (
@@ -16,15 +13,11 @@ const OrderHistoryCard = (props) => {
       ) : (
         <StandardOrderItemList items={order.standardOrderItems} />
       )}
-    </>
-  );
-  const footer = (
-    <>
       <CardDivider content="Historia realizacji" />
       <OrderTimeline order={order} />
     </>
   );
-  return <OrderCard order={order} footer={footer} content={content} />;
+  return <OrderWithTabsCard order={order} tabContent={content} />;
 };
 
 export default OrderHistoryCard;

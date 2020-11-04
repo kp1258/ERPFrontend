@@ -57,9 +57,11 @@ const CustomOrderItemsCreator = ({ customOrderItems, setCustomOrderItems }) => {
       ) : (
         ""
       )}
-      <Button onClick={() => setIsCreateVisible(true)} type="primary">
-        Dodaj pozycję
-      </Button>
+      <div style={{ paddingTop: "20px" }}>
+        <Button onClick={() => setIsCreateVisible(true)} type="primary">
+          Dodaj pozycję
+        </Button>
+      </div>
     </div>
   );
 };

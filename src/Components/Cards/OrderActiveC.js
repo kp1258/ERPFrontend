@@ -1,7 +1,7 @@
 import React from "react";
-import OrderCard from "./OrderC";
 import { OrderTimeline } from "../Timelines";
 import { CardDivider } from "../Others";
+import { OrderWithTabsCard } from "../Cards";
 import {
   CustomOrderItemStatusList,
   StandardOrderItemStatusList,
@@ -16,15 +16,11 @@ const OrderActiveCard = ({ order }) => {
       ) : (
         <StandardOrderItemStatusList items={order.standardOrderItemDetails} />
       )}
-    </>
-  );
-  const footer = (
-    <>
       <CardDivider content="Historia realizacji" />
       <OrderTimeline order={order} />
     </>
   );
-  return <OrderCard order={order} content={content} footer={footer} />;
+  return <OrderWithTabsCard order={order} tabContent={content} />;
 };
 
 export default OrderActiveCard;

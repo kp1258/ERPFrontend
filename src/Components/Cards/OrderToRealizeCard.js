@@ -1,7 +1,9 @@
 import React from "react";
 import { CardDivider } from "../Others";
 import { PopconfirmButton } from "../Buttons";
-import OrderCard from "./OrderC";
+import { OrderTimeline } from "../Timelines";
+import { CustomOrderItemList, StandardOrderItemList } from "../Lists";
+import { OrderWithTabsCard } from "../Cards";
 import { orders } from "../../Api/erpApi";
 const OrderToRealizeCard = (props) => {
   const { order } = props;
@@ -26,9 +28,21 @@ const OrderToRealizeCard = (props) => {
       />
     </>
   );
+  const content = (
+    <>
+      <CardDivider content="Zawartość zamówienia" />
+      {order.type !== "standardowy" ? (
+        <CustomOrderItemList items={order.customOrderItems} />
+      ) : (
+        <StandardOrderItemList items={order.standardOrderItems} />
+      )}
+      <CardDivider content="Historia realizacji" />
+      <OrderTimeline order={order} />
+    </>
+  );
   return (
     <>
-      <OrderCard order={order} footer={footer} />
+      <OrderWithTabsCard order={order} footer={footer} tabContent={content} />
     </>
   );
 };

@@ -34,6 +34,7 @@ const UserAdminCard = (props) => {
   return (
     <div className="userCard">
       <Card
+        hoverable
         title={`${user.firstName} ${user.lastName}`}
         style={{ fontSize: "150%" }}
         cover={<img alt="example" src={"/assets/userIcon.png"} />}

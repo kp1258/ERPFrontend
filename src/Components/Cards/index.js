@@ -15,10 +15,10 @@ import ProductWarehouseCard from "./ProductWarehouseC";
 import MaterialCard from "./MaterialCard";
 import MaterialWarehouseCard from "./MaterialWarehouseC";
 import OrderActiveCard from "./OrderActiveC";
-import OrderCard from "./OrderC";
 import OrderHistoryCard from "./OrderHistoryC";
 import OrderInRealizationCard from "./OrderInRealizationC";
 import OrderToRealizeCard from "./OrderToRealizeCard";
+import OrderWithTabsCard from "./OrderWithTabsC";
 import StandardProductAdminCard from "./StandardProductAdminC";
 import StandardProductCard from "./StandardProductC";
 import StandardProductMissingCard from "./StandardProductMissingC";
@@ -40,10 +40,10 @@ export {
   MaterialWarehouseCard,
   MaterialWarehouseChangeStockCard,
   OrderActiveCard,
-  OrderCard,
   OrderHistoryCard,
   OrderInRealizationCard,
   OrderToRealizeCard,
+  OrderWithTabsCard,
   ProductWarehouseCard,
   ProductWarehouseChangeStockCard,
   StandardProductAdminCard,

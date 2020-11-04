@@ -126,7 +126,7 @@ const EditCustomOrderItemForm = ({
               <FileItemButton
                 key={file.filePath}
                 file={file}
-                onClick={removeFile}
+                handleCancel={removeFile}
               />
             ))
           : ""}

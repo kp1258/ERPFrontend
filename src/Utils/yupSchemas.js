@@ -44,6 +44,8 @@ export const clientSchema = yup.object().shape({
 export const warehouseSchema = yup.object().shape({
   enteredQuantity: yup
     .number()
+    .typeError("Wprowadzona wartosć musi być liczbą")
+    .positive("Wprowadzona liczba musi być liczbą dodatnią")
     .integer("Ilość musi być liczbą całkowitą")
     .min(1, "Minimalna liczba to 1")
     .max(100, "Maksymalna liczba to 100"),

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Steps, Button } from "antd";
+import React, { useEffect, useState } from "react";
+import { Steps, Button, Divider, message } from "antd";
 import { PopconfirmButton } from "../Buttons";
 import ClientPicker from "./ClientPicker";
 import OrderTypePicker from "./OrderTypePicker";
@@ -14,6 +14,10 @@ const OrderSteps = () => {
   const [type, setType] = useState();
   const [customOrderItems, setCustomOrderItems] = useState([]);
   const [standardOrderItems, setStandardOrderItems] = useState([]);
+  useEffect(() => {
+    setCustomOrderItems([]);
+    setStandardOrderItems([]);
+  }, [type]);
   const steps = [
     {
       title: "Odbiorca",
@@ -43,31 +47,11 @@ const OrderSteps = () => {
       ),
     },
   ];
-  // function buildFormData(formData, data, parentKey) {
-  //   if (
-  //     data &&
-  //     typeof data === "object" &&
-  //     !(data instanceof Date) &&
-  //     !(data instanceof File)
-  //   ) {
-  //     Object.keys(data).forEach((key) => {
-  //       buildFormData(
-  //         formData,
-  //         data[key],
-  //         parentKey ? `${parentKey}[${key}]` : key
-  //       );
-  //     });
-  //   } else {
-  //     const value = data == null ? "" : data;
 
-  //     formData.append(parentKey, value);
-  //   }
-  // }
   function objectToFormData(obj, rootName) {
     var formData = new FormData();
 
     function appendFormData(data, root) {
-      // if (!ignore(root)) {
       root = root || "";
       if (data instanceof File) {
         formData.append(root, data);
@@ -95,17 +79,6 @@ const OrderSteps = () => {
         }
       }
     }
-    // }
-
-    // function ignore(root) {
-    //   return (
-    //     Array.isArray(ignoreList) &&
-    //     ignoreList.some(function (x) {
-    //       return x === root;
-    //     })
-    //   );
-    // }
-
     appendFormData(obj, rootName);
 
     return formData;
@@ -172,27 +145,47 @@ const OrderSteps = () => {
       standardOrderItems: [...standardOrderItems],
       customOrderItems: [...customOrderItemsWithFiles],
     };
-    //var formData = new FormData();
     var formData = objectToFormData(data);
 
     orders
       .create(formData)
       .then((res) => {
         console.log(res);
+        setCurrent(0);
+        setClientId();
+        setClient({});
+        setType();
+        setCustomOrderItems([]);
+        setStandardOrderItems([]);
+        message.success("Pomyślnie złożono zamówienie");
       })
       .catch((err) => {
         console.log(err);
       });
   };
   return (
-    <>
-      <Steps current={current}>
-        {steps.map((item) => (
-          <Step key={item.title} title={item.title} />
-        ))}
-      </Steps>
-      <div className="steps-content">{steps[current].content}</div>
-      <div className="steps-action">
+    <div style={{ width: "100%", backgroundColor: "white", height: "100%" }}>
+      <div
+        style={{
+          width: "100%",
+          paddingInline: "80px",
+          paddingTop: "40px",
+          paddingBottom: "20px",
+          margin: "auto",
+        }}
+      >
+        <Steps current={current}>
+          {steps.map((item) => (
+            <Step key={item.title} title={item.title} />
+          ))}
+        </Steps>
+      </div>
+      <Divider plain />
+      <div style={{ minHeight: "700px", paddingInline: "30px" }}>
+        {steps[current].content}
+      </div>
+      <Divider plain />
+      <div style={{ paddingBottom: "20px", borderBottom: "1px solid #F0F0F0" }}>
         {current > 0 && (
           <Button style={{ margin: "0 8px" }} onClick={() => previous()}>
             Wróć
@@ -215,7 +208,7 @@ const OrderSteps = () => {
           </Button>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

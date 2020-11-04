@@ -7,6 +7,7 @@ const StandardOrderItemCompleteList = ({
   selectedCheckboxes,
   setSelectedCheckboxes,
 }) => {
+  const pagination = items.length > 5 ? { pagesize: 5 } : false;
   const toggleCheckbox = (e, item) => {
     const checkedBoxes = [...selectedCheckboxes];
     if (e.target.checked) {
@@ -25,12 +26,7 @@ const StandardOrderItemCompleteList = ({
       <List
         itemLayout="horizontal"
         dataSource={items}
-        pagination={{
-          onChange: (page) => {
-            console.log(page);
-          },
-          pageSize: 3,
-        }}
+        pagination={pagination}
         footer={<div>Liczba pozycji: {items.length}</div>}
         renderItem={(item) => {
           const status = item.status !== "dostępny" ? true : false;

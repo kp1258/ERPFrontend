@@ -37,13 +37,17 @@ const CreateCustomOrderItemForm = ({
     hideModal();
     setInputKey(generateRandomString());
     setFiles([]);
-    reset({});
+    reset({
+      name: "",
+      orderDescription: "",
+      quantity: "",
+    });
     setCustomOrderItems([...customOrderItems, customOrderItem]);
   };
-  const removeFile = (fileName) => {
+  const removeFile = (filePath) => {
     let currentFiles = [...files];
     let filteredFiles = currentFiles.filter((file) => {
-      return file.fileName !== fileName;
+      return file.filePath !== filePath;
     });
     setFiles([...filteredFiles]);
   };
@@ -113,7 +117,7 @@ const CreateCustomOrderItemForm = ({
               <FileItemButton
                 key={file.fileName}
                 file={file}
-                onClick={removeFile}
+                handleCancel={removeFile}
               />
             ))
           : ""}

@@ -4,7 +4,14 @@ const OrderTypePicker = ({ type, setType }) => {
   return (
     <div>
       <Space direction="vertical">
-        <span>Wybierz typ zamówienia</span>
+        <div
+          style={{
+            fontSize: "125%",
+            paddingTop: "20px",
+          }}
+        >
+          Wybierz typ zamówienia
+        </div>
         <br />
         <Radio.Group
           value={type}
@@ -12,8 +19,26 @@ const OrderTypePicker = ({ type, setType }) => {
             setType(e.target.value);
           }}
         >
-          <Radio value="standardowy">Standardowe</Radio>
-          <Radio value="niestandardowy">Niestandardowe</Radio>
+          <Radio
+            style={{
+              fontSize: "15px",
+              paddingBlock: "10px",
+              paddingInline: "10px",
+            }}
+            value="standardowy"
+          >
+            Standardowe
+          </Radio>
+          <Radio
+            style={{
+              fontSize: "15px",
+              paddingBlock: "10px",
+              paddingInline: "10px",
+            }}
+            value="niestandardowy"
+          >
+            Niestandardowe
+          </Radio>
         </Radio.Group>
         <br />
       </Space>

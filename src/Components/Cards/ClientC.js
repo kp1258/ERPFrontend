@@ -5,7 +5,7 @@ const ClientCard = (props) => {
   const { client } = props;
   return (
     <div>
-      <Card title="Dane klienta">
+      <Card title="Dane klienta" hoverable>
         <Space direction="vertical">
           <li>{client.companyName}</li>
           <li>
