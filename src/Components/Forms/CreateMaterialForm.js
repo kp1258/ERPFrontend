@@ -19,7 +19,9 @@ const CreateMaterialForm = () => {
       .create(data)
       .then((res) => {
         console.log(res);
-        reset();
+        reset({
+          name: "",
+        });
       })
       .catch((err) => {
         console.log(err);

@@ -5,11 +5,7 @@ import { Form, Card, Button, Input } from "antd";
 import { layout } from "../../Utils/FormLayout";
 import { clients } from "../../Api/erpApi";
 import { clientSchema } from "../../Utils/yupSchemas";
-import {
-  formCardStyle,
-  formContainerStyle,
-  formStyle,
-} from "../../Utils/sharedStyles";
+import { formCardStyle } from "../../Utils/sharedStyles";
 
 const CreateClientForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
