@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
 import { NoDataAlert } from "../../Components/Alerts";
 import { OrderInRealizationCard } from "../../Components/Cards";
 import { Space } from "antd";
 import { CompleteOrderModal } from "../../Components/Modals";
+import { UserContext } from "../../Contexts/UserContext";
 
 const OrdersInRealizationWarehousemanPage = () => {
+  const user = useContext(UserContext);
   const [triggerUpdate, setTriggerUpdate] = useState(false);
   const [order, setOrder] = useState({});
   const [visible, setVisible] = useState(false);
 
   const { response, isLoading, refetch } = useFetch({
     method: "get",
-    url: "/orders/active?WarehousemanId=5",
+    url: `/orders/active?WarehousemanId=${user.userId}`,
   });
   console.log(response);
   useEffect(() => {

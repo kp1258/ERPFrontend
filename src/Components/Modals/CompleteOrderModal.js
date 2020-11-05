@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Modal, message } from "antd";
 import { orders } from "../../Api/erpApi";
+import { UserContext } from "../../Contexts/UserContext";
 import {
   CustomOrderItemCompleteList,
   StandardOrderItemCompleteList,
@@ -8,6 +9,7 @@ import {
 const CompleteOrderModal = ({ visible, hideModal, order, toggleUpdate }) => {
   const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const user = useContext(UserContext);
   const handleClick = () => {
     var length =
       order.type === "standardowy"
@@ -17,7 +19,7 @@ const CompleteOrderModal = ({ visible, hideModal, order, toggleUpdate }) => {
       setIsSubmitting(true);
       var patch = [{ op: "replace", path: "/status", value: "zrealizowane" }];
       orders
-        .complete(5, order.orderId, patch)
+        .complete(user.userId, order.orderId, patch)
         .then((res) => {
           hideModal();
           toggleUpdate();

@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Space } from "antd";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
 import { CustomOrderItemHistoryCard } from "../../Components/Cards";
 import { NoDataAlert } from "../../Components/Alerts";
+import { UserContext } from "../../Contexts/UserContext";
+
 const CustomProductsHistoryManagerPage = () => {
+  const user = useContext(UserContext);
   const { response, isLoading } = useFetch({
     method: "get",
-    url: "/custom-order-items/history?ProductionManager=3",
+    url: `/custom-order-items/history?ProductionManager=${user.userId}`,
   });
   return (
     <div>

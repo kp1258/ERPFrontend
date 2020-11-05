@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
 import { OrderHistoryCard } from "../../Components/Cards";
 import { Space } from "antd";
 import { NoDataAlert } from "../../Components/Alerts";
+import { UserContext } from "../../Contexts/UserContext";
 
 const OrdersHistoryWarehousemanPage = () => {
+  const user = useContext(UserContext);
   const { response, isLoading } = useFetch({
     method: "get",
-    url: "/orders/history?WarehousemanId=5",
+    url: `/orders/history?WarehousemanId=${user.userId}`,
   });
   console.log(response);
   return (

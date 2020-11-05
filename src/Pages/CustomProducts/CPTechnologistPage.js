@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { CustomProductHistoryCard } from "../../Components/Cards";
 import { Space } from "antd";
 import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert } from "../../Components/Alerts";
+import { UserContext } from "../../Contexts/UserContext";
 
+//moje rozwiązania
 const CustomProductsTechnologistPage = () => {
-  //moje rozwiązania
+  const user = useContext(UserContext);
   const { response, isLoading } = useFetch({
     method: "get",
-    url: "/technologists/4/custom-products/prepared",
+    url: `/technologists/${user.userId}/custom-products/prepared`,
   });
   console.log(response);
   return (

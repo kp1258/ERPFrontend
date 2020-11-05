@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Form, Card, Button, Input } from "antd";
@@ -6,8 +6,10 @@ import { layout } from "../../Utils/FormLayout";
 import { clients } from "../../Api/erpApi";
 import { clientSchema } from "../../Utils/yupSchemas";
 import { formCardStyle } from "../../Utils/sharedStyles";
+import { UserContext } from "../../Contexts/UserContext";
 
 const CreateClientForm = () => {
+  const user = useContext(UserContext);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { control, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(clientSchema),
@@ -128,7 +130,11 @@ const CreateClientForm = () => {
             <div className="errorMessage">{errors.address?.city?.message}</div>
           </Form.Item>
           <Form.Item>
-            <Controller control={control} name="salesmanId" defaultValue={2} />
+            <Controller
+              control={control}
+              name="salesmanId"
+              defaultValue={user.userId}
+            />
           </Form.Item>
           <Button type="primary" htmlType="submit" loading={isSubmitting}>
             Dodaj

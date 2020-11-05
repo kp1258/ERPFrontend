@@ -9,7 +9,7 @@ const SignInPage = () => {
   const setUser = useContext(UserDispatchContext);
   const handleLogin = (data) => {
     console.log(data);
-    setUser(users[1]);
+    setUser(users[2]);
   };
   return (
     <div>

@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import CustomProductCard from "./CustomProductC";
 import { CardDivider } from "../Dividers";
 import { customProducts } from "../../Api/erpApi";
 import { PopconfirmButton } from "../Buttons";
+import { UserContext } from "../../Contexts/UserContext";
 
 const CustomProductOrderedCard = (props) => {
+  const user = useContext(UserContext);
   const { customProduct } = props;
   const handleClick = () => {
     var status = "w przygotowaniu";
     var patch = [{ op: "replace", path: "/status", value: `${status}` }];
     customProducts
-      .acceptToRealization(4, customProduct.customProductId, patch)
+      .acceptToRealization(user.userId, customProduct.customProductId, patch)
       .then((res) => {
         console.log(res);
         props.toggleUpdate();

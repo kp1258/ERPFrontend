@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StandardProductMissingCard } from "../../Components/Cards";
 import { Space } from "antd";
 import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert } from "../../Components/Alerts";
+import { UserContext } from "../../Contexts/UserContext";
 
 const MissingStandardProductsPage = () => {
+  const user = useContext(UserContext);
   const { response, isLoading } = useFetch({
     method: "get",
-    url: "/production-managers/3/standard-products",
+    url: `/production-managers/${user.userId}/standard-products`,
   });
   return (
     <div>

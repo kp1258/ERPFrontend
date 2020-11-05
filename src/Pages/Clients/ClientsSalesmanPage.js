@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Row, Col } from "antd";
 import { ClientsList } from "../../Components/Lists";
 import { ClientSalesmanCard } from "../../Components/Cards";
@@ -6,15 +6,17 @@ import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert } from "../../Components/Alerts";
 import { EditClientModal } from "../../Components/Modals";
+import { UserContext } from "../../Contexts/UserContext";
 
 const ClientsSalesmanPage = () => {
+  const user = useContext(UserContext);
   const [triggerUpdate, setTriggerUpdate] = useState(false);
   const [client, setClient] = useState({});
   const [visible, setVisible] = useState(false);
 
   const { response, isLoading, refetch } = useFetch({
     method: "get",
-    url: "/salesmen/2/clients",
+    url: `/salesmen/${user.userId}/clients`,
   });
   useEffect(() => {
     console.log("use effect triggered");

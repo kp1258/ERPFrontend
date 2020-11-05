@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Modal, Form, Input, Space } from "antd";
 import { useForm, Controller } from "react-hook-form";
 import { layout } from "../../Utils/FormLayout";
 import { customProducts } from "../../Api/erpApi";
 import { FileItemButton } from "../Buttons";
-import "./index.css";
+import { UserContext } from "../../Contexts/UserContext";
+
 const { TextArea } = Input;
 
 const AddSolutionModal = (props) => {
+  const user = useContext(UserContext);
   const { product, visible } = props;
   const generateRandomString = () => {
     return Math.random().toString(36);
@@ -32,7 +34,7 @@ const AddSolutionModal = (props) => {
       console.log(pair[0] + ", " + pair[1]);
     }
     customProducts
-      .addSolution(4, product.customProductId, formData)
+      .addSolution(user.userId, product.customProductId, formData)
       .then((res) => {
         console.log(res);
         props.hideModal();

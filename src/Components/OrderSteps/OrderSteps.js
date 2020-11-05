@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Steps, Button, Divider, message } from "antd";
 import { PopconfirmButton } from "../Buttons";
 import ClientPicker from "./ClientPicker";
 import OrderTypePicker from "./OrderTypePicker";
 import OrderItemsPicker from "./OrderItemsPicker";
 import { orders } from "../../Api/erpApi";
+import { objectToFormData } from "../../Utils/dataFormattingFunctions";
+import { UserContext } from "../../Contexts/UserContext";
 
 const { Step } = Steps;
 const OrderSteps = () => {
+  const user = useContext(UserContext);
   const [current, setCurrent] = useState(0);
   const [clientId, setClientId] = useState();
   const [client, setClient] = useState({});
@@ -48,41 +51,41 @@ const OrderSteps = () => {
     },
   ];
 
-  function objectToFormData(obj, rootName) {
-    var formData = new FormData();
+  // function objectToFormData(obj, rootName) {
+  //   var formData = new FormData();
 
-    function appendFormData(data, root) {
-      root = root || "";
-      if (data instanceof File) {
-        formData.append(root, data);
-      } else if (Array.isArray(data)) {
-        for (var i = 0; i < data.length; i++) {
-          if (data[i] instanceof File) {
-            appendFormData(data[i], root);
-          } else {
-            appendFormData(data[i], root + "[" + i + "]");
-          }
-        }
-      } else if (typeof data === "object" && data) {
-        for (var key in data) {
-          if (data.hasOwnProperty(key)) {
-            if (root === "") {
-              appendFormData(data[key], key);
-            } else {
-              appendFormData(data[key], root + "." + key);
-            }
-          }
-        }
-      } else {
-        if (data !== null && typeof data !== "undefined") {
-          formData.append(root, data);
-        }
-      }
-    }
-    appendFormData(obj, rootName);
+  //   function appendFormData(data, root) {
+  //     root = root || "";
+  //     if (data instanceof File) {
+  //       formData.append(root, data);
+  //     } else if (Array.isArray(data)) {
+  //       for (var i = 0; i < data.length; i++) {
+  //         if (data[i] instanceof File) {
+  //           appendFormData(data[i], root);
+  //         } else {
+  //           appendFormData(data[i], root + "[" + i + "]");
+  //         }
+  //       }
+  //     } else if (typeof data === "object" && data) {
+  //       for (var key in data) {
+  //         if (data.hasOwnProperty(key)) {
+  //           if (root === "") {
+  //             appendFormData(data[key], key);
+  //           } else {
+  //             appendFormData(data[key], root + "." + key);
+  //           }
+  //         }
+  //       }
+  //     } else {
+  //       if (data !== null && typeof data !== "undefined") {
+  //         formData.append(root, data);
+  //       }
+  //     }
+  //   }
+  //   appendFormData(obj, rootName);
 
-    return formData;
-  }
+  //   return formData;
+  // }
   const next = () => {
     const nextStep = current + 1;
     setCurrent(nextStep);
@@ -141,7 +144,7 @@ const OrderSteps = () => {
     var data = {
       clientId: clientId,
       type: type,
-      salesmanId: 2,
+      salesmanId: user.userId,
       standardOrderItems: [...standardOrderItems],
       customOrderItems: [...customOrderItemsWithFiles],
     };

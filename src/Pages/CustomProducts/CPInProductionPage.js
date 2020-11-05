@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Space } from "antd";
 import { CustomOrderItemInProductionCard } from "../../Components/Cards";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
 import { NoDataAlert } from "../../Components/Alerts";
+import { UserContext } from "../../Contexts/UserContext";
 
 const CustomProductsInProductionPage = () => {
+  const user = useContext(UserContext);
   const [triggerUpdate, setTriggerUpdate] = useState(false);
   const { response, isLoading, refetch } = useFetch({
     method: "get",
-    url: "/custom-order-items/active?ProductionManager=3",
+    url: `/custom-order-items/active?ProductionManager=${user.userId}`,
   });
   useEffect(() => {
     console.log("useEfffect triggered");
