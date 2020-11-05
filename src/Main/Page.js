@@ -54,6 +54,7 @@ import { MaterialsPage, CreateMaterialPage } from "../Pages/Materials";
 import { NotFoundPage, SignInPage, UnauthorizedPage } from "../Pages/Others";
 import { UserContext } from "../Contexts/UserContext";
 import { SecuredRoute } from "../Components/Routes";
+import { NotFoundAlert } from "../Components/Alerts";
 const Page = () => {
   const user = useContext(UserContext);
   return (
@@ -323,8 +324,9 @@ const Page = () => {
         <SecuredRoute exact path="/materials" component={MaterialsPage} />
         <SecuredRoute path="/materials/create" component={CreateMaterialPage} />
         {/* Other pages */}
-        <Route path="/signin" component={SignInPage} />
+        <Route path="/sign-in" component={SignInPage} />
         <Route path="/unauthorized" component={UnauthorizedPage} />
+        <Route path="/not-found" component={NotFoundPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>

@@ -1,18 +1,23 @@
 import React, { useContext } from "react";
-import { Button, Dropdown, Menu, PageHeader } from "antd";
+import { Button, Dropdown, Menu, PageHeader, Tag } from "antd";
 import { Link } from "react-router-dom";
-import { users } from "../Utils/users";
-import { UserButton } from "../Components/Buttons";
+import { determinePath } from "../Utils/authenticationFunctions";
 import { UserContext, UserDispatchContext } from "../Contexts/UserContext";
 import UserIcon from "../Components/Icons/UserIcon";
 
-const menu = (
-  <Menu>
-    <Menu.Item>Zmień hasło</Menu.Item>
-    <Menu.Item>Wyloguj się</Menu.Item>
-  </Menu>
-);
 const DropdownMenu = () => {
+  const setUser = useContext(UserDispatchContext);
+  const signOut = () => {
+    setUser({ role: "anonymous" });
+  };
+  const menu = (
+    <Menu>
+      <Menu.Item>
+        <a href="/change-password">Zmień hasło</a>
+      </Menu.Item>
+      <Menu.Item onClick={() => signOut()}>Wyloguj się</Menu.Item>
+    </Menu>
+  );
   return (
     <Dropdown overlay={menu} placement="bottomRight">
       <Button
@@ -31,11 +36,45 @@ const DropdownMenu = () => {
 
 const AppBar = () => {
   const user = useContext(UserContext);
-  const setUser = useContext(UserDispatchContext);
-
+  const title =
+    user.role !== "anonymous" ? (
+      <Link
+        style={{ color: "white", fontSize: "30px" }}
+        to={`/${determinePath(user)}`}
+      >
+        System ERP
+      </Link>
+    ) : (
+      <Link to="/" style={{ color: "white", fontSize: "30px" }}>
+        System ERP
+      </Link>
+    );
+  const subTitle =
+    user.role !== "anonymous" ? (
+      <div style={{ fontSize: "20px", color: "white", marginLeft: "20px" }}>
+        {user.firstName} {user.lastName}
+      </div>
+    ) : (
+      ""
+    );
+  const tag =
+    user.role !== "anonymous" ? (
+      <Tag style={{ fontSize: "15px" }} color="blue">
+        {user.role}
+      </Tag>
+    ) : (
+      ""
+    );
+  const dropdownMenu = user.role !== "anonymous" ? <DropdownMenu /> : "";
   return (
     <div>
-      <PageHeader extra={[<Link to="/" />, <DropdownMenu />]}>
+      <PageHeader
+        title={title}
+        tags={tag}
+        subTitle={subTitle}
+        extra={[dropdownMenu]}
+        ghost
+      >
         {/* <Menu mode="horizontal">
           <Menu.Item
             onClick={() => {
@@ -73,10 +112,6 @@ const AppBar = () => {
             Magazynier
           </Menu.Item>
         </Menu> */}
-        <span style={{ fontSize: "20px" }}>
-          {user.firstName} {user.lastName},{" "}
-        </span>
-        <span style={{ fontSize: "20px" }}>{user.role}</span>
       </PageHeader>
     </div>
   );

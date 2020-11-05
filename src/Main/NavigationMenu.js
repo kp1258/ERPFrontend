@@ -22,7 +22,7 @@ const NavigationMenu = () => {
   } else if (user.role === "magazynier") {
     return <WarehousemanNavMenu />;
   } else {
-    return <div style={{ backgroundColor: "white", height: "100%" }}></div>;
+    return <div style={{ backgroundColor: "#F0F2F5", height: "100%" }}></div>;
   }
 };
 

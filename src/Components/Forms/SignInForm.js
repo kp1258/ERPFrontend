@@ -1,23 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Card, Form, Button, Input } from "antd";
 import { layout } from "../../Utils/FormLayout";
 import { formCardStyle } from "../../Utils/sharedStyles";
-import "./index.css";
 
 const schema = yup.object().shape({
   login: yup.string().required("Login jest wymagany"),
   password: yup.string().required("Hasło jest wymagane"),
 });
 
-const SignInForm = () => {
+const SignInForm = ({ handleLogin }) => {
   const { control, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
-    console.log(data);
+    handleLogin(data);
     reset({
       login: "",
       password: "",

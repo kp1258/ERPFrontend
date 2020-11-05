@@ -20,7 +20,7 @@ const SecuredRoute = ({
           return (
             <Redirect
               to={{
-                pathname: "/signin",
+                pathname: "/sign-in",
                 state: {
                   from: props.location,
                 },
