@@ -1,7 +1,6 @@
 import React from "react";
 import CustomProductCard from "./CustomProductC";
-import { Button } from "antd";
-import { CardDivider } from "../Others";
+import { CardDivider } from "../Dividers";
 import { customProducts } from "../../Api/erpApi";
 import { PopconfirmButton } from "../Buttons";
 

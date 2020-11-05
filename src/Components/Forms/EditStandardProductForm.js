@@ -5,7 +5,7 @@ import { layout } from "../../Utils/FormLayout";
 import { Form, Select, Input } from "antd";
 import { standardProductSchema } from "../../Utils/yupSchemas";
 import useFetch from "../../Api/useFetch";
-import { ComponentLoader } from "../Others";
+import { ComponentLoader } from "../Loaders";
 import { standardProducts } from "../../Api/erpApi";
 
 const { Option } = Select;

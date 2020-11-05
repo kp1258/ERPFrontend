@@ -3,7 +3,7 @@ import { Space, Button } from "antd";
 import ClientCard from "./ClientC";
 import { PopconfirmButton } from "../../Components/Buttons";
 import { clients } from "../../Api/erpApi";
-import { CenteredDivider } from "../Others";
+import { CenteredDivider } from "../Dividers";
 const ClientSalesmanCard = (props) => {
   const { client } = props;
   const handleClick = () => {

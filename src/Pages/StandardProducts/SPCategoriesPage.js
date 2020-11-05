@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col } from "antd";
 import { CreateCategoryForm } from "../../Components/Forms";
-import {
-  CategoryTableWithModal,
-  ComponentLoader,
-} from "../../Components/Others";
+import { CategoryTableWithModal } from "../../Components/Others";
+import { ComponentLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
 const StandardProductCategoriesPage = () => {
   const [triggerUpdate, setTriggerUpdate] = useState(false);

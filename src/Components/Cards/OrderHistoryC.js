@@ -1,8 +1,8 @@
 import React from "react";
-import { OrderTimeline } from "..//Timelines";
-import { CardDivider } from "..//Others";
+import { OrderTimeline } from "../Timelines";
+import { CardDivider } from "../Dividers";
 import { OrderWithTabsCard } from "../Cards";
-import { CustomOrderItemList, StandardOrderItemList } from "..//Lists";
+import { CustomOrderItemList, StandardOrderItemList } from "../Lists";
 const OrderHistoryCard = (props) => {
   const { order } = props;
   const content = (

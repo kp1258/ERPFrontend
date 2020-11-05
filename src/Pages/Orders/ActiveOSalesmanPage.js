@@ -1,5 +1,5 @@
 import React from "react";
-import { PageLoader } from "../../Components/Others";
+import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert } from "../../Components/Alerts";
 import { Space } from "antd";

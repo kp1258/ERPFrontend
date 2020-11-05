@@ -1,2 +1,5 @@
 import NoDataAlert from "./NoDataAlert";
-export { NoDataAlert };
+import NotFoundAlert from "./NotFoundAlert";
+import UnauthorizedAlert from "./UnauthorizedAlert";
+
+export { NoDataAlert, NotFoundAlert, UnauthorizedAlert };

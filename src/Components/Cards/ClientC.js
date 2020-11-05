@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Space } from "antd";
-import { CenteredDivider } from "../Others";
+import { CenteredDivider } from "../Dividers";
 const ClientCard = (props) => {
   const { client } = props;
   return (

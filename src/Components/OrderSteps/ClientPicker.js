@@ -2,7 +2,7 @@ import React from "react";
 import { Select } from "antd";
 import useFetch from "../../Api/useFetch";
 import ClientInfo from "./ClientInfo";
-import { ComponentLoader } from "../Others";
+import { ComponentLoader } from "../Loaders";
 
 const { Option } = Select;
 const ClientPicker = ({ clientId, setClientId, client, setClient }) => {

@@ -1,6 +1,6 @@
 import React from "react";
 import useFetch from "../../Api/useFetch";
-import { ComponentLoader } from "../Others";
+import { ComponentLoader } from "../Loaders";
 import { StandardProductPickerList } from "../Lists";
 
 const StandardProductsPicker = ({

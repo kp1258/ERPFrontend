@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Space } from "antd";
 import useFetch from "../../Api/useFetch";
-import { PageLoader } from "../../Components/Others";
+import { PageLoader } from "../../Components/Loaders";
 import { CustomProductInPreparationCard } from "../../Components/Cards";
 import { NoDataAlert } from "../../Components/Alerts";
 import { AddSolutionModal } from "../../Components/Modals";

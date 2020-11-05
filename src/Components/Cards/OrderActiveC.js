@@ -1,6 +1,6 @@
 import React from "react";
 import { OrderTimeline } from "../Timelines";
-import { CardDivider } from "../Others";
+import { CardDivider } from "../Dividers";
 import { OrderWithTabsCard } from "../Cards";
 import {
   CustomOrderItemStatusList,

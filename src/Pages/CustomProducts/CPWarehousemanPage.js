@@ -2,7 +2,7 @@ import React from "react";
 import { Space } from "antd";
 import { CustomOrderItemHistoryCard } from "../../Components/Cards";
 import useFetch from "../../Api/useFetch";
-import { PageLoader } from "../../Components/Others";
+import { PageLoader } from "../../Components/Loaders";
 import { NoDataAlert } from "../../Components/Alerts";
 
 const CustomProductsWarehousemanPage = () => {

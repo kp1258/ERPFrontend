@@ -1,9 +1,8 @@
 import React from "react";
 import CustomOrderItemCard from "./CustomOrderItemC";
-import { CardDivider } from "../Others";
+import { CardDivider } from "../Dividers";
 import { PopconfirmButton } from "../Buttons";
 import { customOrderItems } from "../../Api/erpApi";
-import { SolutionDetails } from "../../Components/Others";
 
 const CustomOrderItemInProductionCard = (props) => {
   const { item } = props;

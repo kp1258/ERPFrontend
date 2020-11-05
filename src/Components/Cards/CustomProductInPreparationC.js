@@ -1,7 +1,7 @@
 import React from "react";
 import CustomProductCard from "./CustomProductC";
 import { Button } from "antd";
-import { CardDivider } from "../Others";
+import { CardDivider } from "../Dividers";
 const CustomProductOrderedCard = (props) => {
   const { customProduct } = props;
   const footer = (

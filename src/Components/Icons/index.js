@@ -1,3 +1,4 @@
 import CancelIcon from "./CancelIcon";
 import ClockIcon from "./ClockIcon";
-export { CancelIcon, ClockIcon };
+import UserIcon from "./UserIcon";
+export { CancelIcon, ClockIcon, UserIcon };

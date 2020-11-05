@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Row, Col } from "antd";
 import { ClientsList } from "../../Components/Lists";
 import { ClientSalesmanCard } from "../../Components/Cards";
-import { PageLoader } from "../../Components/Others";
+import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert } from "../../Components/Alerts";
 import { EditClientModal } from "../../Components/Modals";

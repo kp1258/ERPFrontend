@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card } from "antd";
-import { CardDivider } from "../../Components/Others";
+import { CardDivider } from "../../Components/Dividers";
 const OrderWithTabsCard = ({ order, tabContent, footer }) => {
   const { client, salesman } = order;
   const [activeKey, setActiveKey] = useState("tab1");

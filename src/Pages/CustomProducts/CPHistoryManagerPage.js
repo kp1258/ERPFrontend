@@ -1,7 +1,7 @@
 import React from "react";
 import { Space } from "antd";
 import useFetch from "../../Api/useFetch";
-import { PageLoader } from "../../Components/Others";
+import { PageLoader } from "../../Components/Loaders";
 import { CustomOrderItemHistoryCard } from "../../Components/Cards";
 import { NoDataAlert } from "../../Components/Alerts";
 const CustomProductsHistoryManagerPage = () => {

@@ -3,7 +3,7 @@ import { Row, Col } from "antd";
 import { ClientsList } from "../../Components/Lists";
 import { ClientCard } from "../../Components/Cards";
 import useFetch from "../../Api/useFetch";
-import { PageLoader } from "../../Components/Others";
+import { PageLoader } from "../../Components/Loaders";
 import { NoDataAlert } from "../../Components/Alerts";
 
 const ClientsPage = () => {

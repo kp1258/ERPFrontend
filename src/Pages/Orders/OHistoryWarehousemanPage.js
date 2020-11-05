@@ -1,6 +1,6 @@
 import React from "react";
 import useFetch from "../../Api/useFetch";
-import { PageLoader } from "../../Components/Others";
+import { PageLoader } from "../../Components/Loaders";
 import { OrderHistoryCard } from "../../Components/Cards";
 import { Space } from "antd";
 import { NoDataAlert } from "../../Components/Alerts";

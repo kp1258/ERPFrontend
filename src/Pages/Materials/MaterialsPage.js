@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { EditMaterialModal } from "../../Components/Modals";
-import { PageLoader } from "../../Components/Others";
+import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert } from "../../Components/Alerts";
 import { MaterialCard } from "../../Components/Cards";

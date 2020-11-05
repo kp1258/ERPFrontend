@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ComponentLoader from "./ComponentLoader";
+import { ComponentLoader } from "../Loaders";
 import { CategoryTable } from "../Tables";
 import { EditCategoryModal } from "../Modals";
 

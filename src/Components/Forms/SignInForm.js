@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Card, Form, Button, Input } from "antd";
 import { layout } from "../../Utils/FormLayout";
+import { formCardStyle } from "../../Utils/sharedStyles";
 import "./index.css";
 
 const schema = yup.object().shape({
@@ -17,11 +18,17 @@ const SignInForm = () => {
   });
   const onSubmit = (data) => {
     console.log(data);
-    reset();
+    reset({
+      login: "",
+      password: "",
+    });
   };
   return (
-    <div class="d-flex justify-content-center">
-      <Card title="Formularz logowania">
+    <div style={formCardStyle}>
+      <Card
+        style={{ width: "400px", margin: "auto" }}
+        title="Formularz logowania"
+      >
         <Form onFinish={handleSubmit(onSubmit)} {...layout}>
           <Form.Item label="Login">
             <Controller

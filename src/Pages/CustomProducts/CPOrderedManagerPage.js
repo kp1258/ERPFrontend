@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Space } from "antd";
 import { CustomOrderItemOrderedCard } from "../../Components/Cards";
 import useFetch from "../../Api/useFetch";
-import { PageLoader } from "../../Components/Others";
+import { PageLoader } from "../../Components/Loaders";
 import { NoDataAlert } from "../../Components/Alerts";
 
 const CustomProductsOrderedManagerPage = () => {

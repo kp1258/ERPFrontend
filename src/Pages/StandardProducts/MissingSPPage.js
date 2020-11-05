@@ -1,7 +1,7 @@
 import React from "react";
 import { StandardProductMissingCard } from "../../Components/Cards";
 import { Space } from "antd";
-import { PageLoader } from "../../Components/Others";
+import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert } from "../../Components/Alerts";
 

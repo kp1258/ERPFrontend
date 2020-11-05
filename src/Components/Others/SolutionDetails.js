@@ -1,5 +1,5 @@
 import React from "react";
-import CardDivider from "./CardDivider";
+import { CardDivider } from "../Dividers";
 import { FileItem } from "../Buttons";
 const SolutionDetails = ({ product }) => {
   return (

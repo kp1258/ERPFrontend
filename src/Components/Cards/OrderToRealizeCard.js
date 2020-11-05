@@ -1,5 +1,5 @@
 import React from "react";
-import { CardDivider } from "../Others";
+import { CardDivider } from "../Dividers";
 import { PopconfirmButton } from "../Buttons";
 import { OrderTimeline } from "../Timelines";
 import { CustomOrderItemList, StandardOrderItemList } from "../Lists";

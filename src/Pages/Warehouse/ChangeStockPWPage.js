@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ChangeStockModal } from "../../Components/Modals";
 import { ProductWarehouseChangeStockCard } from "../../Components/Cards";
 import { Space } from "antd";
-import { PageLoader } from "../../Components/Others";
+import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert } from "../../Components/Alerts";
 

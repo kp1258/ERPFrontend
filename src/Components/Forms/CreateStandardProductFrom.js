@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Card, Form, Button, Input, Select } from "antd";
 import { standardProductSchema } from "../../Utils/yupSchemas";
 import useFetch from "../../Api/useFetch";
-import { ComponentLoader } from "../../Components/Others";
+import { ComponentLoader } from "../../Components/Loaders";
 import { layout } from "../../Utils/FormLayout";
 import { standardProducts } from "../../Api/erpApi";
 import { formCardStyle } from "../../Utils/sharedStyles";
