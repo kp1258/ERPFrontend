@@ -9,7 +9,7 @@ const CustomOrderItemOrderedCard = (props) => {
   const user = useContext(UserContext);
   const { item } = props;
   const handleClick = () => {
-    var status = "w produkcji";
+    var status = "W produkcji";
     var patch = [{ op: "replace", path: "/status", value: `${status}` }];
     customOrderItems
       .acceptToProduction(user.userId, item.customOrderItemId, patch)

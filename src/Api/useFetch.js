@@ -1,13 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { TokenContext } from "../Contexts/TokenContext";
 import { erpApi } from "./erpApi";
 
-export default function useFetch({
-  api = erpApi,
-  method,
-  url,
-  data = null,
-  config = null,
-}) {
+export default function useFetch({ api = erpApi, method, url, data = null }) {
+  const token = useContext(TokenContext);
   const [response, setResponse] = useState("null");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -16,18 +12,30 @@ export default function useFetch({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        api[method](url, JSON.parse(config), JSON.parse(data))
+        console.log("try");
+        console.log(token);
+        api[method](
+          url,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+          JSON.parse(data)
+        )
           .then((res) => {
             setResponse(res.data);
+            console.log(res);
           })
           .finally(() => {
             setIsLoading(false);
           });
       } catch (err) {
         setError(err);
+        console.log(err);
       }
     };
     fetchData();
-  }, [api, method, url, data, config, shouldRefetch]);
+  }, [api, method, url, data, token, shouldRefetch]);
   return { response, error, isLoading, refetch };
 }

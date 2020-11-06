@@ -9,7 +9,7 @@ const CustomOrderItemInProductionCard = (props) => {
   const user = useContext(UserContext);
   const { item } = props;
   const handleClick = () => {
-    var status = "zrealizowany";
+    var status = "Zrealizowany";
     var patch = [{ op: "replace", path: "/status", value: `${status}` }];
     customOrderItems
       .complete(user.userId, item.customOrderItemId, patch)

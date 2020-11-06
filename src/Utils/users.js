@@ -5,7 +5,7 @@ export const users = [
     lastName: "Kowalski",
     phoneNumber: "607934182",
     email: "jan_k@email.com",
-    role: "administrator",
+    role: "Administrator",
     status: "aktywny",
   },
   {
@@ -14,7 +14,7 @@ export const users = [
     lastName: "Krzeszowska",
     phoneNumber: "685234054",
     email: "agata_k@email.com",
-    role: "technolog",
+    role: "Technolog",
     status: "aktywny",
   },
   {
@@ -23,7 +23,7 @@ export const users = [
     lastName: "Malinowski",
     phoneNumber: "679234374",
     email: "andrzej_m@email.com",
-    role: "kierownik produkcji",
+    role: "Kierownik produkcji",
     status: "aktywny",
   },
   {
@@ -32,7 +32,7 @@ export const users = [
     lastName: "Nowak",
     phoneNumber: "709856234",
     email: "anna_n@email.com",
-    role: "handlowiec",
+    role: "Handlowiec",
     status: "aktywny",
   },
   {
@@ -41,7 +41,7 @@ export const users = [
     lastName: "Rak",
     phoneNumber: "978345278",
     email: "edward_r@email.com",
-    role: "magazynier",
+    role: "Magazynier",
     status: "aktywny",
   },
 ];

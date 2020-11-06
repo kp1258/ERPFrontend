@@ -29,7 +29,7 @@ const CustomOrderItemCompleteList = ({
         footer={<div>Liczba pozycji: {items.length}</div>}
         dataSource={items}
         renderItem={(item) => {
-          const status = item.status !== "wyprodukowany" ? true : false;
+          const status = item.status !== "Wyprodukowany" ? true : false;
           return (
             <List.Item
               actions={[

@@ -7,9 +7,11 @@ import { PageLoader } from "../../Components/Loaders";
 import { NoDataAlert } from "../../Components/Alerts";
 
 const ClientsPage = () => {
+  const token = localStorage.getItem("token");
   const { response, isLoading } = useFetch({
     method: "get",
     url: "/clients",
+    token: token,
   });
   const [client, setClient] = useState({});
   const handleChooseClient = (id) => {

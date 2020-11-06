@@ -22,7 +22,6 @@ const EditUserForm = (props) => {
       phoneNumber: user.phoneNumber,
       email: user.email,
       login: user.login,
-      password: user.password,
       role: user.role,
     });
   }, [props.user]);
@@ -110,14 +109,6 @@ const EditUserForm = (props) => {
             defaultValue=""
           />
           <div className="errorMessage">{errors.role?.message}</div>
-        </Form.Item>
-        <Form.Item>
-          <Controller
-            control={control}
-            name="password"
-            as={<div />}
-            defaultValue={props.user.password}
-          />
         </Form.Item>
       </Form>
     </>

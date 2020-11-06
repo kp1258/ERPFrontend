@@ -9,7 +9,7 @@ const CustomProductOrderedCard = (props) => {
   const user = useContext(UserContext);
   const { customProduct } = props;
   const handleClick = () => {
-    var status = "w przygotowaniu";
+    var status = "W przygotowaniu";
     var patch = [{ op: "replace", path: "/status", value: `${status}` }];
     customProducts
       .acceptToRealization(user.userId, customProduct.customProductId, patch)

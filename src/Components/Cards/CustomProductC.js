@@ -30,7 +30,7 @@ const CustomProductCard = ({ customProduct, footer }) => {
 
     tab2: (
       <div>
-        {customProduct.status === "przygotowany" ? (
+        {customProduct.status === "Przygotowany" ? (
           <SolutionDetails product={customProduct} />
         ) : (
           <>

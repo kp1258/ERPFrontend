@@ -1,13 +1,13 @@
 export const determinePath = (user) => {
-  if (user.role === "technolog") {
+  if (user.role === "Technolog") {
     return "technologist";
-  } else if (user.role === "administrator") {
+  } else if (user.role === "Administrator") {
     return "admin";
-  } else if (user.role === "handlowiec") {
+  } else if (user.role === "Handlowiec") {
     return "salesman";
-  } else if (user.role === "kierownik produkcji") {
+  } else if (user.role === "Kierownik produkcji") {
     return "production-manager";
-  } else if (user.role === "magazynier") {
+  } else if (user.role === "Magazynier") {
     return "warehouseman";
   } else {
     return "not-found";

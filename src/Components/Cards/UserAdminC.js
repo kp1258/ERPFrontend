@@ -20,7 +20,7 @@ const UserAdminCard = (props) => {
     `Status: ${user.status}`,
   ];
   const handleClick = () => {
-    var status = user.status === "aktywny" ? "nieaktywny" : "aktywny";
+    var status = user.status === "Aktywny" ? "Nieaktywny" : "Aktywny";
     var patch = [{ op: "replace", path: "/status", value: `${status}` }];
     console.log(patch);
     users

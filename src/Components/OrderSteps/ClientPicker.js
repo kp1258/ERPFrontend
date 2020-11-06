@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Select } from "antd";
 import useFetch from "../../Api/useFetch";
 import ClientInfo from "./ClientInfo";
 import { ComponentLoader } from "../Loaders";
+import { UserContext } from "../../Contexts/UserContext";
 
 const { Option } = Select;
 const ClientPicker = ({ clientId, setClientId, client, setClient }) => {
+  const user = useContext(UserContext);
   const { response, isLoading } = useFetch({
     method: "get",
-    url: "/salesmen/2/clients",
+    url: `/salesmen/${user.userId}/clients`,
   });
   const onChange = (value) => {
     setClientId(value);

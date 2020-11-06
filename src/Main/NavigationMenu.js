@@ -11,15 +11,15 @@ import {
 
 const NavigationMenu = () => {
   const user = useContext(UserContext);
-  if (user.role === "administrator") {
+  if (user.role === "Administrator") {
     return <AdministratorNavMenu />;
-  } else if (user.role === "handlowiec") {
+  } else if (user.role === "Handlowiec") {
     return <SalesmanNavMenu />;
-  } else if (user.role === "technolog") {
+  } else if (user.role === "Technolog") {
     return <TechnologistNavMenu />;
-  } else if (user.role === "kierownik produkcji") {
+  } else if (user.role === "Kierownik produkcji") {
     return <ProductionManagerNavMenu />;
-  } else if (user.role === "magazynier") {
+  } else if (user.role === "Magazynier") {
     return <WarehousemanNavMenu />;
   } else {
     return <div style={{ backgroundColor: "#F0F2F5", height: "100%" }}></div>;

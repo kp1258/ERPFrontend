@@ -11,7 +11,7 @@ const OrderActiveCard = ({ order }) => {
   const content = (
     <>
       <CardDivider content="Zawartość zamówienia" />
-      {order.type !== "standardowy" ? (
+      {order.type !== "Standardowy" ? (
         <CustomOrderItemStatusList items={order.customOrderItems} />
       ) : (
         <StandardOrderItemStatusList items={order.standardOrderItemDetails} />

@@ -9,7 +9,7 @@ const StandardProductAdminCard = (props) => {
   console.log(product);
   const handleClick = () => {
     var status =
-      product.status === "produkowany" ? "wycofany z produkcji" : "produkowany";
+      product.status === "Produkowany" ? "Wycofany z produkcji" : "Produkowany";
     var patch = [{ op: "replace", path: "/status", value: `${status}` }];
     standardProducts
       .changeStatus(product.standardProductId, patch)

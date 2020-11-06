@@ -1,30 +1,26 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { Card, Form, Button, Input } from "antd";
 import { layout } from "../../Utils/FormLayout";
 import { formCardStyle } from "../../Utils/sharedStyles";
+import { signInSchema } from "../../Utils/yupSchemas";
 
-const schema = yup.object().shape({
-  login: yup.string().required("Login jest wymagany"),
-  password: yup.string().required("Hasło jest wymagane"),
-});
-
-const SignInForm = ({ handleLogin }) => {
+const SignInForm = ({ handleLogin, loading }) => {
   const { control, handleSubmit, errors, reset } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(signInSchema),
   });
   const onSubmit = (data) => {
     handleLogin(data);
-    reset({
-      login: "",
-      password: "",
-    });
+    // reset({
+    //   login: "",
+    //   password: "",
+    // });
   };
   return (
     <div style={formCardStyle}>
       <Card
+        hoverable
         style={{ width: "400px", margin: "auto" }}
         title="Formularz logowania"
       >
@@ -49,7 +45,7 @@ const SignInForm = ({ handleLogin }) => {
             />
             <div className="errorMessage">{errors.password?.message}</div>
           </Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={loading}>
             Zaloguj
           </Button>
         </Form>

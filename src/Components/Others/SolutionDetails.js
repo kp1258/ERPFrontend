@@ -8,7 +8,7 @@ const SolutionDetails = ({ product }) => {
       <span>{product.solutionDescription}</span>
       {[...product.fileList]
         .filter((file) => {
-          return file.type === "solution";
+          return file.type === "Solution";
         })
         .map((file) => (
           <FileItem key={file.blobName} file={file} />

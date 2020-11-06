@@ -12,12 +12,12 @@ const CompleteOrderModal = ({ visible, hideModal, order, toggleUpdate }) => {
   const user = useContext(UserContext);
   const handleClick = () => {
     var length =
-      order.type === "standardowy"
+      order.type === "Standardowy"
         ? order.standardOrderItemDetails.length
         : order.customOrderItems.length;
     if (selectedCheckboxes.length === length) {
       setIsSubmitting(true);
-      var patch = [{ op: "replace", path: "/status", value: "zrealizowane" }];
+      var patch = [{ op: "replace", path: "/status", value: "Zrealizowane" }];
       orders
         .complete(user.userId, order.orderId, patch)
         .then((res) => {
@@ -50,7 +50,7 @@ const CompleteOrderModal = ({ visible, hideModal, order, toggleUpdate }) => {
         confirmLoading={isSubmitting}
       >
         <>
-          {order.type !== "standardowy" ? (
+          {order.type !== "Standardowy" ? (
             <CustomOrderItemCompleteList
               items={order.customOrderItems}
               selectedCheckboxes={selectedCheckboxes}

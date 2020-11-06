@@ -16,9 +16,10 @@ const CreateClientForm = () => {
   });
   const onSubmit = (data) => {
     console.log(data);
+    var params = { ...data, salesmanId: user.userId };
     setIsSubmitting(true);
     clients
-      .create(data)
+      .create(params)
       .then((res) => {
         console.log(res);
         reset({
@@ -128,13 +129,6 @@ const CreateClientForm = () => {
               placeHolder="Podaj miasto"
             />
             <div className="errorMessage">{errors.address?.city?.message}</div>
-          </Form.Item>
-          <Form.Item>
-            <Controller
-              control={control}
-              name="salesmanId"
-              defaultValue={user.userId}
-            />
           </Form.Item>
           <Button type="primary" htmlType="submit" loading={isSubmitting}>
             Dodaj

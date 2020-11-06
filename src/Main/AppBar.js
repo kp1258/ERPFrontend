@@ -73,46 +73,7 @@ const AppBar = () => {
         tags={tag}
         subTitle={subTitle}
         extra={[dropdownMenu]}
-        ghost
-      >
-        {/* <Menu mode="horizontal">
-          <Menu.Item
-            onClick={() => {
-              setUser(users[0]);
-            }}
-          >
-            Administrator
-          </Menu.Item>
-          <Menu.Item
-            onClick={() => {
-              setUser(users[1]);
-            }}
-          >
-            Technolog
-          </Menu.Item>
-          <Menu.Item
-            onClick={() => {
-              setUser(users[2]);
-            }}
-          >
-            Kierownik produkcji
-          </Menu.Item>
-          <Menu.Item
-            onClick={() => {
-              setUser(users[3]);
-            }}
-          >
-            Handlowiec
-          </Menu.Item>
-          <Menu.Item
-            onClick={() => {
-              setUser(users[4]);
-            }}
-          >
-            Magazynier
-          </Menu.Item>
-        </Menu> */}
-      </PageHeader>
+      ></PageHeader>
     </div>
   );
 };

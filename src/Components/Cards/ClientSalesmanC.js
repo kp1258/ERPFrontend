@@ -7,7 +7,7 @@ import { CenteredDivider } from "../Dividers";
 const ClientSalesmanCard = (props) => {
   const { client } = props;
   const handleClick = () => {
-    var status = client.status === "aktywny" ? "nieaktywny" : "aktywny";
+    var status = client.status === "Aktywny" ? "Nieaktywny" : "Aktywny";
     var patch = [{ op: "replace", path: "/status", value: `${status}` }];
     console.log(patch);
     clients

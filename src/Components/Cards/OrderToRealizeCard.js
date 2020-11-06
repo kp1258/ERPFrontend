@@ -11,7 +11,7 @@ const OrderToRealizeCard = (props) => {
   const user = useContext(UserContext);
   const { order } = props;
   const handleClick = () => {
-    var status = "w realizacji";
+    var status = "W realizacji";
     var patch = [{ op: "replace", path: "/status", value: `${status}` }];
     orders
       .acceptToRealization(user.userId, order.orderId, patch)
@@ -34,7 +34,7 @@ const OrderToRealizeCard = (props) => {
   const content = (
     <>
       <CardDivider content="Zawartość zamówienia" />
-      {order.type !== "standardowy" ? (
+      {order.type !== "Standardowy" ? (
         <CustomOrderItemList items={order.customOrderItems} />
       ) : (
         <StandardOrderItemList items={order.standardOrderItems} />
