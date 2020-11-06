@@ -20,6 +20,14 @@ export const users = {
     erpApi.put(`/users/${id}`, params, { headers: authenticationHeader() }),
   changeStatus: (id, params) =>
     erpApi.patch(`/users/${id}`, params, { headers: authenticationHeader() }),
+  changePasswordUser: (id, params) =>
+    erpApi.post(`/users/change-password/${id}`, params, {
+      headers: authenticationHeader(),
+    }),
+  changePasswordAdmin: (id, params) =>
+    erpApi.post(`/users/change-password/admin/${id}`, params, {
+      headers: authenticationHeader(),
+    }),
 };
 
 export const clients = {

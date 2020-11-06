@@ -3,13 +3,13 @@ import { CustomProductHistoryCard } from "../../Components/Cards";
 import { Space } from "antd";
 import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 import { UserContext } from "../../Contexts/UserContext";
 
 //moje rozwiązania
 const CustomProductsTechnologistPage = () => {
   const user = useContext(UserContext);
-  const { response, isLoading } = useFetch({
+  const { response, isLoading, error } = useFetch({
     method: "get",
     url: `/technologists/${user.userId}/custom-products/prepared`,
   });
@@ -17,14 +17,18 @@ const CustomProductsTechnologistPage = () => {
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <Space>
-            {[...response].map((customProduct) => (
-              <CustomProductHistoryCard customProduct={customProduct} />
-            ))}
-          </Space>
+        error === "" ? (
+          response !== "" ? (
+            <Space>
+              {[...response].map((customProduct) => (
+                <CustomProductHistoryCard customProduct={customProduct} />
+              ))}
+            </Space>
+          ) : (
+            <NoDataAlert content="Brak rozwiązań dodanych przez technologa" />
+          )
         ) : (
-          <NoDataAlert content="Brak rozwiązań dodanych przez technologa" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

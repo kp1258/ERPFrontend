@@ -4,11 +4,11 @@ import { ClientsList } from "../../Components/Lists";
 import { ClientCard } from "../../Components/Cards";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 
 const ClientsPage = () => {
   const token = localStorage.getItem("token");
-  const { response, isLoading } = useFetch({
+  const { response, isLoading, error } = useFetch({
     method: "get",
     url: "/clients",
     token: token,
@@ -26,20 +26,24 @@ const ClientsPage = () => {
     <div>
       {isLoading === false ? (
         <>
-          {response !== "" ? (
-            <Row>
-              <Col flex="auto">
-                {client.address ? <ClientCard client={client} /> : ""}
-              </Col>
-              <Col flex="300px">
-                <ClientsList
-                  items={[...response]}
-                  handleClick={handleChooseClient}
-                />
-              </Col>
-            </Row>
+          {error === "" ? (
+            response !== "" ? (
+              <Row>
+                <Col flex="auto">
+                  {client.address ? <ClientCard client={client} /> : ""}
+                </Col>
+                <Col flex="300px">
+                  <ClientsList
+                    items={[...response]}
+                    handleClick={handleChooseClient}
+                  />
+                </Col>
+              </Row>
+            ) : (
+              <NoDataAlert content="Brak klientów w bazie" />
+            )
           ) : (
-            <NoDataAlert content="Brak klientów w bazie" />
+            <NetworkErrorAlert />
           )}
         </>
       ) : (

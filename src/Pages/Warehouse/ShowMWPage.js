@@ -3,10 +3,10 @@ import { Space } from "antd";
 import { MaterialWarehouseCard } from "../../Components/Cards";
 import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NetworkErrorAlert, NoDataAlert } from "../../Components/Alerts";
 
 const ShowMaterialWarehousePage = () => {
-  const { response, isLoading } = useFetch({
+  const { response, isLoading, error } = useFetch({
     method: "get",
     url: "/material-warehouse",
   });
@@ -14,17 +14,21 @@ const ShowMaterialWarehousePage = () => {
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <Space>
-            {[...response].map((item) => (
-              <MaterialWarehouseCard
-                key={item.materialWarehouseItemId}
-                item={item}
-              />
-            ))}
-          </Space>
+        error === "" ? (
+          response !== "" ? (
+            <Space>
+              {[...response].map((item) => (
+                <MaterialWarehouseCard
+                  key={item.materialWarehouseItemId}
+                  item={item}
+                />
+              ))}
+            </Space>
+          ) : (
+            <NoDataAlert content="Brak materiałów w magazynie" />
+          )
         ) : (
-          <NoDataAlert content="Brak materiałów w magazynie" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

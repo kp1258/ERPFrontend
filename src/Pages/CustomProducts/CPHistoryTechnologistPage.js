@@ -3,24 +3,28 @@ import { CustomProductHistoryCard } from "../../Components/Cards";
 import { Space } from "antd";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 
 const CustomProductsHistoryTechnologistsPage = () => {
-  const { response, isLoading } = useFetch({
+  const { response, isLoading, error } = useFetch({
     method: "get",
     url: "/custom-products/prepared",
   });
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <Space>
-            {[...response].map((customProduct) => (
-              <CustomProductHistoryCard customProduct={customProduct} />
-            ))}
-          </Space>
+        error === "" ? (
+          response !== "" ? (
+            <Space>
+              {[...response].map((customProduct) => (
+                <CustomProductHistoryCard customProduct={customProduct} />
+              ))}
+            </Space>
+          ) : (
+            <NoDataAlert content="Brak produktów na zamówienie w historii" />
+          )
         ) : (
-          <NoDataAlert content="Brak produktów na zamówienie w historii" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

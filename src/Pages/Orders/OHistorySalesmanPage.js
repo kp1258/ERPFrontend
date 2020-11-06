@@ -3,12 +3,12 @@ import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
 import { Space } from "antd";
 import { OrderHistoryCard } from "../../Components/Cards";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 import { UserContext } from "../../Contexts/UserContext";
 
 const OrdersHistorySalesmanPage = () => {
   const user = useContext(UserContext);
-  const { response, isLoading } = useFetch({
+  const { response, isLoading, error } = useFetch({
     method: "get",
     url: `/orders/history?SalesmanId=${user.userId}`,
   });
@@ -16,14 +16,18 @@ const OrdersHistorySalesmanPage = () => {
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <Space>
-            {[...response].map((order) => (
-              <OrderHistoryCard order={order} />
-            ))}
-          </Space>
+        error === "" ? (
+          response !== "" ? (
+            <Space>
+              {[...response].map((order) => (
+                <OrderHistoryCard order={order} />
+              ))}
+            </Space>
+          ) : (
+            <NoDataAlert content="Brak zamówień w historii" />
+          )
         ) : (
-          <NoDataAlert content="Brak zamówień w historii" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

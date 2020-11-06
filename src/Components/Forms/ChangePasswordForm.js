@@ -1,19 +1,35 @@
-import React, { useState } from "react";
-import { changePasswordSchema } from "../../Utils/yupSchemas";
+import React, { useContext, useState } from "react";
+import { changePasswordUserSchema } from "../../Utils/yupSchemas";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Form, Card, Input, Button } from "antd";
 import { formCardStyle } from "../../Utils/sharedStyles";
 import { layout } from "../../Utils/FormLayout";
 import { users } from "../../Api/erpApi";
+import { UserContext } from "../../Contexts/UserContext";
 
 const ChangePasswordForm = () => {
+  const user = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
   const { control, handleSubmit, errors, reset } = useForm({
-    resolver: yupResolver(changePasswordSchema),
+    resolver: yupResolver(changePasswordUserSchema),
   });
   const onSubmit = (data) => {
     console.log(data);
+    setIsLoading(true);
+    users
+      .changePasswordUser(user.userId, data)
+      .then((res) => {
+        console.log(res);
+        reset({
+          oldPassword: "",
+          newPassword: "",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => setIsLoading(false));
   };
   return (
     <div style={formCardStyle}>

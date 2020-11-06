@@ -25,14 +25,15 @@ export default function useFetch({ api = erpApi, method, url, data = null }) {
         )
           .then((res) => {
             setResponse(res.data);
-            console.log(res);
+          })
+          .catch((err) => {
+            setError(err);
           })
           .finally(() => {
             setIsLoading(false);
           });
       } catch (err) {
         setError(err);
-        console.log(err);
       }
     };
     fetchData();

@@ -3,11 +3,11 @@ import { Space } from "antd";
 import { CustomOrderItemOrderedCard } from "../../Components/Cards";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 
 const CustomProductsOrderedManagerPage = () => {
   const [triggerUpdate, setTriggerUpdate] = useState(false);
-  const { response, isLoading, refetch } = useFetch({
+  const { response, isLoading, refetch, error } = useFetch({
     method: "get",
     url: "/custom-order-items/prepared",
   });
@@ -23,18 +23,22 @@ const CustomProductsOrderedManagerPage = () => {
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <Space>
-            {[...response].map((item) => (
-              <CustomOrderItemOrderedCard
-                key={item.customOrderItemId}
-                item={item}
-                toggleUpdate={toggleTrigger}
-              />
-            ))}
-          </Space>
+        error === "" ? (
+          response !== "" ? (
+            <Space>
+              {[...response].map((item) => (
+                <CustomOrderItemOrderedCard
+                  key={item.customOrderItemId}
+                  item={item}
+                  toggleUpdate={toggleTrigger}
+                />
+              ))}
+            </Space>
+          ) : (
+            <NoDataAlert content="Brak produktów na zamówienie oczekujących na produkcję" />
+          )
         ) : (
-          <NoDataAlert content="Brak produktów na zamówienie oczekujących na produkcję" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

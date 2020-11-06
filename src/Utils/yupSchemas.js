@@ -85,7 +85,11 @@ export const signInSchema = yup.object().shape({
   password: yup.string().required("Hasło jest wymagane"),
 });
 
-export const changePasswordSchema = yup.object().shape({
+export const changePasswordUserSchema = yup.object().shape({
   oldPassword: yup.string().required("Obecne hasło jest wymagane"),
+  newPassword: yup.string().required("Nowe hasło jest wymagane"),
+});
+
+export const changePasswordAdminSchema = yup.object().shape({
   newPassword: yup.string().required("Nowe hasło jest wymagane"),
 });

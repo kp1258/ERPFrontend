@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { EditMaterialModal } from "../../Components/Modals";
 import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 import { MaterialCard } from "../../Components/Cards";
 import { Space } from "antd";
 
@@ -10,7 +10,7 @@ const MaterialsPage = () => {
   const [triggerUpdate, setTriggerUpdate] = useState(false);
   const [visible, setVisible] = useState(false);
   const [material, setMaterial] = useState({ id: 0, name: "" });
-  const { response, isLoading, refetch } = useFetch({
+  const { response, isLoading, refetch, error } = useFetch({
     method: "get",
     url: "/materials",
   });
@@ -33,28 +33,32 @@ const MaterialsPage = () => {
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <>
-            <Space>
-              {[...response].map((material) => (
-                <MaterialCard
-                  key={material.materialId}
+        error === "" ? (
+          response !== "" ? (
+            <>
+              <Space>
+                {[...response].map((material) => (
+                  <MaterialCard
+                    key={material.materialId}
+                    material={material}
+                    handleClick={handleChooseMaterial}
+                  />
+                ))}
+              </Space>
+              {material.materialId !== 0 && (
+                <EditMaterialModal
+                  visible={visible}
                   material={material}
-                  handleClick={handleChooseMaterial}
+                  toggleUpdate={toggleTrigger}
+                  hideModal={() => setVisible(false)}
                 />
-              ))}
-            </Space>
-            {material.materialId !== 0 && (
-              <EditMaterialModal
-                visible={visible}
-                material={material}
-                toggleUpdate={toggleTrigger}
-                hideModal={() => setVisible(false)}
-              />
-            )}
-          </>
+              )}
+            </>
+          ) : (
+            <NoDataAlert content="Brak materiałów w bazie" />
+          )
         ) : (
-          <NoDataAlert content="Brak materiałów w bazie" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

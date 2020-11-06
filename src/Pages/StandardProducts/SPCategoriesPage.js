@@ -4,9 +4,10 @@ import { CreateCategoryForm } from "../../Components/Forms";
 import { CategoryTableWithModal } from "../../Components/Others";
 import { ComponentLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
+import { NetworkErrorAlert } from "../../Components/Alerts";
 const StandardProductCategoriesPage = () => {
   const [triggerUpdate, setTriggerUpdate] = useState(false);
-  const { response, isLoading, refetch } = useFetch({
+  const { response, isLoading, refetch, error } = useFetch({
     method: "get",
     url: "/standard-products/categories",
   });
@@ -21,15 +22,19 @@ const StandardProductCategoriesPage = () => {
     <div>
       <Row>
         {isLoading === false ? (
-          <Col flex={6}>
-            <div style={{ margin: "40px" }}>
-              <CategoryTableWithModal
-                categories={[...response]}
-                isLoading={isLoading}
-                toggleUpdate={toggleTrigger}
-              />
-            </div>
-          </Col>
+          error === "" ? (
+            <Col flex={6}>
+              <div style={{ margin: "40px" }}>
+                <CategoryTableWithModal
+                  categories={[...response]}
+                  isLoading={isLoading}
+                  toggleUpdate={toggleTrigger}
+                />
+              </div>
+            </Col>
+          ) : (
+            <NetworkErrorAlert />
+          )
         ) : (
           <ComponentLoader />
         )}

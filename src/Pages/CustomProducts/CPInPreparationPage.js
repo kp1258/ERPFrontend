@@ -3,7 +3,7 @@ import { Space } from "antd";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
 import { CustomProductInPreparationCard } from "../../Components/Cards";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 import { AddSolutionModal } from "../../Components/Modals";
 import { UserContext } from "../../Contexts/UserContext";
 
@@ -13,7 +13,7 @@ const CustomProductsInPreparationPage = () => {
   const [product, setProduct] = useState({});
   const [visible, setVisible] = useState(false);
 
-  const { response, isLoading, refetch } = useFetch({
+  const { response, isLoading, refetch, error } = useFetch({
     method: "get",
     url: `/technologists/${user.userId}/custom-products/in-preparation`,
   });
@@ -37,31 +37,35 @@ const CustomProductsInPreparationPage = () => {
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <>
-            <Space>
-              {[...response].map((product) => (
-                <CustomProductInPreparationCard
-                  key={product.customProductId}
-                  customProduct={product}
-                  showModal={() => setVisible(true)}
-                  handleClick={handleChooseProduct}
+        error === "" ? (
+          response !== "" ? (
+            <>
+              <Space>
+                {[...response].map((product) => (
+                  <CustomProductInPreparationCard
+                    key={product.customProductId}
+                    customProduct={product}
+                    showModal={() => setVisible(true)}
+                    handleClick={handleChooseProduct}
+                  />
+                ))}
+              </Space>
+              {product.name ? (
+                <AddSolutionModal
+                  visible={visible}
+                  product={product}
+                  toggleUpdate={toggleTrigger}
+                  hideModal={() => setVisible(false)}
                 />
-              ))}
-            </Space>
-            {product.name ? (
-              <AddSolutionModal
-                visible={visible}
-                product={product}
-                toggleUpdate={toggleTrigger}
-                hideModal={() => setVisible(false)}
-              />
-            ) : (
-              ""
-            )}
-          </>
+              ) : (
+                ""
+              )}
+            </>
+          ) : (
+            <NoDataAlert content="Brak produktów na zamówienie w realizacji" />
+          )
         ) : (
-          <NoDataAlert content="Brak produktów na zamówienie w realizacji" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

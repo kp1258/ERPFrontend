@@ -7,11 +7,12 @@ import { standardProductSchema } from "../../Utils/yupSchemas";
 import useFetch from "../../Api/useFetch";
 import { ComponentLoader } from "../Loaders";
 import { standardProducts } from "../../Api/erpApi";
+import { NetworkErrorAlert } from "../Alerts";
 
 const { Option } = Select;
 const EditStandardProductForm = (props) => {
   const { product, toggleSubmitting } = props;
-  const { response, isLoading } = useFetch({
+  const { response, isLoading, error } = useFetch({
     method: "get",
     url: "/standard-products/categories",
   });
@@ -49,49 +50,53 @@ const EditStandardProductForm = (props) => {
   return (
     <>
       {isLoading === false ? (
-        <Form {...layout} form={props.form} onFinish={handleSubmit(onSubmit)}>
-          <Form.Item label="Nazwa">
-            <Controller
-              name="name"
-              control={control}
-              as={<Input />}
-              defaultValue=""
-              placeHolder="Podaj nazwę"
-            />
-            <div className="errorMessage">{errors.name?.message}</div>
-          </Form.Item>
+        error === "" ? (
+          <Form {...layout} form={props.form} onFinish={handleSubmit(onSubmit)}>
+            <Form.Item label="Nazwa">
+              <Controller
+                name="name"
+                control={control}
+                as={<Input />}
+                defaultValue=""
+                placeHolder="Podaj nazwę"
+              />
+              <div className="errorMessage">{errors.name?.message}</div>
+            </Form.Item>
 
-          <Form.Item label="Wymiary">
-            <Controller
-              name="dimensions"
-              control={control}
-              as={<Input />}
-              defaultValue=""
-              placeHolder="Podaj wymiary produktu"
-            />
-            <div className="errorMessage">{errors.dimensions?.message}</div>
-          </Form.Item>
-          <Form.Item label="Kategoria">
-            <Controller
-              name="standardProductCategoryId"
-              control={control}
-              as={
-                <Select>
-                  {[...response].map((category) => (
-                    <Option value={category.standardProductCategoryId}>
-                      {category.name}
-                    </Option>
-                  ))}
-                </Select>
-              }
-              placeholder="Wybierz kategorię"
-              defaultValue=""
-            />
-          </Form.Item>
-          <div className="errorMessage">{errors.category?.message}</div>
-        </Form>
+            <Form.Item label="Wymiary">
+              <Controller
+                name="dimensions"
+                control={control}
+                as={<Input />}
+                defaultValue=""
+                placeHolder="Podaj wymiary produktu"
+              />
+              <div className="errorMessage">{errors.dimensions?.message}</div>
+            </Form.Item>
+            <Form.Item label="Kategoria">
+              <Controller
+                name="standardProductCategoryId"
+                control={control}
+                as={
+                  <Select>
+                    {[...response].map((category) => (
+                      <Option value={category.standardProductCategoryId}>
+                        {category.name}
+                      </Option>
+                    ))}
+                  </Select>
+                }
+                placeholder="Wybierz kategorię"
+                defaultValue=""
+              />
+            </Form.Item>
+            <div className="errorMessage">{errors.category?.message}</div>
+          </Form>
+        ) : (
+          <ComponentLoader />
+        )
       ) : (
-        <ComponentLoader />
+        <NetworkErrorAlert />
       )}
     </>
   );

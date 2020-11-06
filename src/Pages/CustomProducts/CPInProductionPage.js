@@ -3,13 +3,13 @@ import { Space } from "antd";
 import { CustomOrderItemInProductionCard } from "../../Components/Cards";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 import { UserContext } from "../../Contexts/UserContext";
 
 const CustomProductsInProductionPage = () => {
   const user = useContext(UserContext);
   const [triggerUpdate, setTriggerUpdate] = useState(false);
-  const { response, isLoading, refetch } = useFetch({
+  const { response, isLoading, refetch, error } = useFetch({
     method: "get",
     url: `/custom-order-items/active?ProductionManager=${user.userId}`,
   });
@@ -24,18 +24,22 @@ const CustomProductsInProductionPage = () => {
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <Space>
-            {[...response].map((item) => (
-              <CustomOrderItemInProductionCard
-                key={item.customOrderItemId}
-                item={item}
-                toggleUpdate={toggleTrigger}
-              />
-            ))}
-          </Space>
+        error === "" ? (
+          response !== "" ? (
+            <Space>
+              {[...response].map((item) => (
+                <CustomOrderItemInProductionCard
+                  key={item.customOrderItemId}
+                  item={item}
+                  toggleUpdate={toggleTrigger}
+                />
+              ))}
+            </Space>
+          ) : (
+            <NoDataAlert content="Brak produktów na zamówienie będących w produkcji" />
+          )
         ) : (
-          <NoDataAlert content="Brak produktów na zamówienie będących w produkcji" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

@@ -8,13 +8,14 @@ import { ComponentLoader } from "../../Components/Loaders";
 import { layout } from "../../Utils/FormLayout";
 import { standardProducts } from "../../Api/erpApi";
 import { formCardStyle } from "../../Utils/sharedStyles";
+import { NetworkErrorAlert } from "../Alerts";
 
 const { Option } = Select;
 const defaultImageSrc = "/assets/productIcon.png";
 const CreateStandardProductForm = () => {
   const [imageSrc, setImageSrc] = useState(defaultImageSrc);
 
-  const { response, isLoading } = useFetch({
+  const { response, isLoading, error } = useFetch({
     method: "get",
     url: "/standard-products/categories",
   });
@@ -59,90 +60,94 @@ const CreateStandardProductForm = () => {
   return (
     <div style={formCardStyle}>
       {isLoading === false ? (
-        <Card title="Formularz tworzenia produktu standardowego">
-          <div
-            style={{
-              margin: "auto",
-              height: "256px",
-              width: "256px",
-              border: "1px solid gray",
-              color: "gray",
-              position: "flex",
-            }}
-            className="center"
-          >
-            <img
-              style={{ maxHeight: "256px", maxWidth: "256px" }}
-              alt="Brak zdjęcia"
-              src={imageSrc}
-            />
-          </div>
-          <Form onFinish={handleSubmit(onSubmit)} {...layout}>
+        error === "" ? (
+          <Card title="Formularz tworzenia produktu standardowego">
             <div
               style={{
-                marginLeft: "110px",
-                paddingTop: "20px",
-                paddingBottom: "30px",
+                margin: "auto",
+                height: "256px",
+                width: "256px",
+                border: "1px solid gray",
+                color: "gray",
+                position: "flex",
               }}
+              className="center"
             >
-              <Form.Item>
-                <input
-                  id="f02"
-                  type="file"
-                  name="image"
-                  ref={register}
-                  onChange={showPreview}
-                />
-                <label for="f02">Dodaj plik</label>
-              </Form.Item>
+              <img
+                style={{ maxHeight: "256px", maxWidth: "256px" }}
+                alt="Brak zdjęcia"
+                src={imageSrc}
+              />
             </div>
-            <Form.Item label="Nazwa">
-              <Controller
-                name="name"
-                control={control}
-                as={<Input />}
-                defaultValue=""
-                placeHolder="Podaj nazwę"
-              />
-              <div className="errorMessage">{errors.name?.message}</div>
-            </Form.Item>
+            <Form onFinish={handleSubmit(onSubmit)} {...layout}>
+              <div
+                style={{
+                  marginLeft: "110px",
+                  paddingTop: "20px",
+                  paddingBottom: "30px",
+                }}
+              >
+                <Form.Item>
+                  <input
+                    id="f02"
+                    type="file"
+                    name="image"
+                    ref={register}
+                    onChange={showPreview}
+                  />
+                  <label for="f02">Dodaj plik</label>
+                </Form.Item>
+              </div>
+              <Form.Item label="Nazwa">
+                <Controller
+                  name="name"
+                  control={control}
+                  as={<Input />}
+                  defaultValue=""
+                  placeHolder="Podaj nazwę"
+                />
+                <div className="errorMessage">{errors.name?.message}</div>
+              </Form.Item>
 
-            <Form.Item label="Wymiary">
-              <Controller
-                name="dimensions"
-                control={control}
-                as={<Input />}
-                defaultValue=""
-                placeHolder="Podaj wymiary produktu"
-              />
-              <div className="errorMessage">{errors.dimensions?.message}</div>
-            </Form.Item>
-            <Form.Item label="Kategoria">
-              <Controller
-                name="standardProductCategoryId"
-                control={control}
-                as={
-                  <Select>
-                    {[...response].map((category) => (
-                      <Option value={category.standardProductCategoryId}>
-                        {category.name}
-                      </Option>
-                    ))}
-                  </Select>
-                }
-                placeholder="Wybierz kategorię"
-                defaultValue=""
-              />
-            </Form.Item>
-            <div className="errorMessage">{errors.category?.message}</div>
+              <Form.Item label="Wymiary">
+                <Controller
+                  name="dimensions"
+                  control={control}
+                  as={<Input />}
+                  defaultValue=""
+                  placeHolder="Podaj wymiary produktu"
+                />
+                <div className="errorMessage">{errors.dimensions?.message}</div>
+              </Form.Item>
+              <Form.Item label="Kategoria">
+                <Controller
+                  name="standardProductCategoryId"
+                  control={control}
+                  as={
+                    <Select>
+                      {[...response].map((category) => (
+                        <Option value={category.standardProductCategoryId}>
+                          {category.name}
+                        </Option>
+                      ))}
+                    </Select>
+                  }
+                  placeholder="Wybierz kategorię"
+                  defaultValue=""
+                />
+              </Form.Item>
+              <div className="errorMessage">{errors.category?.message}</div>
 
-            <Button type="primary" htmlType="submit">
-              Dodaj
-            </Button>
-          </Form>
-        </Card>
+              <Button type="primary" htmlType="submit">
+                Dodaj
+              </Button>
+            </Form>
+          </Card>
+        ) : (
+          <ComponentLoader />
+        )
       ) : (
-        <ComponentLoader />
+        <NetworkErrorAlert />
       )}
     </div>
   );

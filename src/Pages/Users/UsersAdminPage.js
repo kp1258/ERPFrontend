@@ -3,12 +3,12 @@ import { Space } from "antd";
 import { UserAdminCard } from "../../Components/Cards";
 import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 
 const UsersAdminPage = () => {
   const [triggerUpdate, setTriggerUpdate] = useState(false);
   const [user, setUser] = useState();
-  const { response, isLoading, refetch } = useFetch({
+  const { response, isLoading, refetch, error } = useFetch({
     method: "get",
     url: "/users",
   });
@@ -20,7 +20,8 @@ const UsersAdminPage = () => {
     refetch({});
     setTriggerUpdate(!triggerUpdate);
   };
-
+  console.log("error");
+  console.log(error);
   const handleChooseUser = (id) => {
     let users = [...response];
     let chosenUser = users.find((user) => {
@@ -34,21 +35,25 @@ const UsersAdminPage = () => {
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <>
-            <Space>
-              {[...response].map((user) => (
-                <UserAdminCard
-                  key={user.userId}
-                  user={user}
-                  handleChooseUser={handleChooseUser}
-                  toggleUpdate={toggleTrigger}
-                />
-              ))}
-            </Space>
-          </>
+        error === "" ? (
+          response !== "" ? (
+            <>
+              <Space>
+                {[...response].map((user) => (
+                  <UserAdminCard
+                    key={user.userId}
+                    user={user}
+                    handleChooseUser={handleChooseUser}
+                    toggleUpdate={toggleTrigger}
+                  />
+                ))}
+              </Space>
+            </>
+          ) : (
+            <NoDataAlert content="Brak pracowników w bazie" />
+          )
         ) : (
-          <NoDataAlert content="Brak pracowników w bazie" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

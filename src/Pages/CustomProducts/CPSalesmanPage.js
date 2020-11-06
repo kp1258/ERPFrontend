@@ -3,12 +3,12 @@ import { Space } from "antd";
 import { CustomOrderItemHistoryCard } from "../../Components/Cards";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 import { UserContext } from "../../Contexts/UserContext";
 
 const CustomProductsSalesmanPage = () => {
   const user = useContext(UserContext);
-  const { response, isLoading } = useFetch({
+  const { response, isLoading, error } = useFetch({
     method: "get",
     url: `/custom-order-items/active-orders?SalesmanId=${user.userId}`,
   });
@@ -16,14 +16,18 @@ const CustomProductsSalesmanPage = () => {
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <Space>
-            {[...response].map((item) => (
-              <CustomOrderItemHistoryCard item={item} />
-            ))}
-          </Space>
+        error === "" ? (
+          response !== "" ? (
+            <Space>
+              {[...response].map((item) => (
+                <CustomOrderItemHistoryCard item={item} />
+              ))}
+            </Space>
+          ) : (
+            <NoDataAlert content="Brak produktów na zamówienie na aktywnych zamówieniach" />
+          )
         ) : (
-          <NoDataAlert content="Brak produktów na zamówienie na aktywnych zamówieniach" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

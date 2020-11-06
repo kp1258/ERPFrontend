@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Card, List, Button } from "antd";
 
-import { EditUserModal } from "../../Components/Modals";
+import { EditUserModal, ChangePasswordModal } from "../../Components/Modals";
 import { PopconfirmButton } from "../../Components/Buttons";
 import { users } from "../../Api/erpApi";
 
@@ -11,7 +11,8 @@ const btnStyle = {
 };
 const UserAdminCard = (props) => {
   const { user } = props;
-  const [visible, setVisible] = useState(false);
+  const [visibleEdit, setVisibleEdit] = useState(false);
+  const [visiblePassword, setVisiblePassword] = useState(false);
   const data = [
     `Numer telefonu: ${user.phoneNumber}`,
     `E-mail: ${user.email}`,
@@ -51,7 +52,7 @@ const UserAdminCard = (props) => {
           type="primary"
           style={btnStyle}
           onClick={() => {
-            setVisible(true);
+            setVisibleEdit(true);
           }}
         >
           Edytuj dane
@@ -61,17 +62,29 @@ const UserAdminCard = (props) => {
           style={btnStyle}
           name="Zmień status"
         />
-        <Button type="primary" style={btnStyle}>
+        <Button
+          type="primary"
+          style={btnStyle}
+          onClick={() => setVisiblePassword(true)}
+        >
           Zmień hasło
         </Button>
         {user ? (
-          <EditUserModal
-            key={user.userId}
-            visible={visible}
-            user={user}
-            hideModal={() => setVisible(false)}
-            toggleUpdate={props.toggleUpdate}
-          />
+          <>
+            <EditUserModal
+              key={user.userId}
+              visible={visibleEdit}
+              user={user}
+              hideModal={() => setVisibleEdit(false)}
+              toggleUpdate={props.toggleUpdate}
+            />
+            <ChangePasswordModal
+              key={user.userId}
+              visible={visiblePassword}
+              userId={user.userId}
+              hideModal={() => setVisiblePassword(false)}
+            />
+          </>
         ) : (
           ""
         )}
