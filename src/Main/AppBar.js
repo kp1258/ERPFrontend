@@ -1,14 +1,17 @@
 import React, { useContext } from "react";
 import { Button, Dropdown, Menu, PageHeader, Tag } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { determinePath } from "../Utils/authenticationFunctions";
 import { UserContext, UserDispatchContext } from "../Contexts/UserContext";
+import { SignInButton } from "../Components/Buttons";
 import UserIcon from "../Components/Icons/UserIcon";
 
 const DropdownMenu = () => {
+  const history = useHistory();
   const setUser = useContext(UserDispatchContext);
   const signOut = () => {
     setUser({ role: "anonymous" });
+    history.push("/");
   };
   const menu = (
     <Menu>
@@ -65,7 +68,8 @@ const AppBar = () => {
     ) : (
       ""
     );
-  const dropdownMenu = user.role !== "anonymous" ? <DropdownMenu /> : "";
+  const dropdownMenu =
+    user.role !== "anonymous" ? <DropdownMenu /> : <SignInButton />;
   return (
     <div>
       <PageHeader

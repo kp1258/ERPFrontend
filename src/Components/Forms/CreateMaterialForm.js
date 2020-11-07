@@ -6,6 +6,7 @@ import { layout } from "../../Utils/FormLayout";
 import { materialSchema } from "../../Utils/yupSchemas";
 import { materials } from "../../Api/erpApi";
 import { formCardStyle } from "../../Utils/sharedStyles";
+import { handleResponse } from "../../Api/handleResponse";
 
 const CreateMaterialForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -22,8 +23,10 @@ const CreateMaterialForm = () => {
         reset({
           name: "",
         });
+        handleResponse(res, "Pomyślnie dodano materiał");
       })
       .catch((err) => {
+        handleResponse(err, "Coś poszło nie tak");
         console.log(err);
       })
       .finally(() => {

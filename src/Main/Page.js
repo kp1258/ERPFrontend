@@ -63,7 +63,7 @@ import { SecuredRoute } from "../Components/Routes";
 const Page = () => {
   const user = useContext(UserContext);
   return (
-    <div>
+    <div style={{ height: "100%" }}>
       <Switch>
         {/* Home pages */}
         <Route exact path="/" component={HomePage} />
@@ -352,7 +352,12 @@ const Page = () => {
             "Technolog",
           ]}
         />
-        <Route path="/sign-in" component={SignInPage} />
+        <SecuredRoute
+          path="/sign-in"
+          component={SignInPage}
+          user={user}
+          permitedRoles={["anonymous"]}
+        />
         <Route path="/unauthorized" component={UnauthorizedPage} />
         <Route path="/not-found" component={NotFoundPage} />
         <Route component={NotFoundPage} />

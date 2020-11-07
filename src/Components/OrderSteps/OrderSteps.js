@@ -7,10 +7,12 @@ import OrderItemsPicker from "./OrderItemsPicker";
 import { orders } from "../../Api/erpApi";
 import { objectToFormData } from "../../Utils/dataFormattingFunctions";
 import { UserContext } from "../../Contexts/UserContext";
+import { handleResponse } from "../../Api/handleResponse";
 
 const { Step } = Steps;
 const OrderSteps = () => {
   const user = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(false);
   const [current, setCurrent] = useState(0);
   const [clientId, setClientId] = useState();
   const [client, setClient] = useState({});
@@ -72,6 +74,7 @@ const OrderSteps = () => {
       : true;
   const onSubmit = () => {
     console.log(standardOrderItems);
+    setIsLoading(true);
     var customOrderItemsWithFiles = [];
     if (type === "Niestandardowy") {
       for (let i = 0; i < customOrderItems.length; i++) {
@@ -125,11 +128,13 @@ const OrderSteps = () => {
         setType();
         setCustomOrderItems([]);
         setStandardOrderItems([]);
-        message.success("Pomyślnie złożono zamówienie");
+        handleResponse(res, "Pomyślnie złożono zamówienie");
       })
       .catch((err) => {
         console.log(err);
-      });
+        handleResponse(err, "Coś poszło nie tak");
+      })
+      .finally(() => setIsLoading(false));
   };
   return (
     <div style={{ width: "100%", backgroundColor: "white", height: "100%" }}>
@@ -164,6 +169,7 @@ const OrderSteps = () => {
             disabled={submitButtonStatus}
             name="Zatwierdź"
             handleClick={onSubmit}
+            loading={isLoading}
           />
         )}
         {current < steps.length - 1 && (

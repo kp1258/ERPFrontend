@@ -6,6 +6,7 @@ import { Form, Input } from "antd";
 import { layout } from "../../Utils/FormLayout";
 import { useEffect } from "react";
 import { categories } from "../../Api/erpApi";
+import { handleResponse } from "../../Api/handleResponse";
 
 const schema = yup.object().shape({
   name: yup.string().required("Nazwa kategorii jest wymagana"),
@@ -30,9 +31,11 @@ const EditCategoryForm = (props) => {
         console.log(res);
         props.hideModal();
         props.toggleUpdate();
+        handleResponse(res, "Pomyślnie edytowano kategorię");
       })
       .catch((err) => {
         console.log(err);
+        handleResponse(err, "Coś poszło nie tak");
       })
       .finally(() => props.toggleSubmitting(false));
   };

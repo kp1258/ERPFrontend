@@ -2,7 +2,7 @@ import React from "react";
 import CustomProductCard from "./CustomProductC";
 import { Button } from "antd";
 import { CardDivider } from "../Dividers";
-const CustomProductOrderedCard = (props) => {
+const CustomProductInPreparationCard = (props) => {
   const { customProduct } = props;
   const footer = (
     <>
@@ -21,4 +21,4 @@ const CustomProductOrderedCard = (props) => {
   return <CustomProductCard customProduct={customProduct} footer={footer} />;
 };
 
-export default CustomProductOrderedCard;
+export default CustomProductInPreparationCard;

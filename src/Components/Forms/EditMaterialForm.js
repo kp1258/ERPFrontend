@@ -5,6 +5,7 @@ import { Form, Input } from "antd";
 import { layout } from "../../Utils/FormLayout";
 import { materialSchema } from "../../Utils/yupSchemas";
 import { materials } from "../../Api/erpApi";
+import { handleResponse } from "../../Api/handleResponse";
 
 const EditMaterialForm = (props) => {
   const { material } = props;
@@ -29,9 +30,11 @@ const EditMaterialForm = (props) => {
         console.log(res);
         props.hideModal();
         props.toggleUpdate();
+        handleResponse(res, "Pomyślnie edytowano dane materiału");
       })
       .catch((err) => {
         console.log(err);
+        handleResponse(err, "Coś poszło nie tak");
       })
       .finally(() => props.toggleSubmitting(false));
   };

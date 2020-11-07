@@ -7,6 +7,7 @@ import { clients } from "../../Api/erpApi";
 import { clientSchema } from "../../Utils/yupSchemas";
 import { formCardStyle } from "../../Utils/sharedStyles";
 import { UserContext } from "../../Contexts/UserContext";
+import { handleResponse } from "../../Api/handleResponse";
 
 const CreateClientForm = () => {
   const user = useContext(UserContext);
@@ -22,6 +23,7 @@ const CreateClientForm = () => {
       .create(params)
       .then((res) => {
         console.log(res);
+        handleResponse(res, "Pomyślnie dodano klienta");
         reset({
           companyName: "",
           firstName: "",
@@ -37,6 +39,7 @@ const CreateClientForm = () => {
       })
       .catch((err) => {
         console.log(err);
+        handleResponse(err, "Nastąpił błąd przy dodawaniu klienta");
       })
       .finally(() => {
         setIsSubmitting(false);

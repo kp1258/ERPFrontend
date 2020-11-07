@@ -6,6 +6,7 @@ import {
   CustomOrderItemCompleteList,
   StandardOrderItemCompleteList,
 } from "../Lists";
+import { handleResponse } from "../../Api/handleResponse";
 const CompleteOrderModal = ({ visible, hideModal, order, toggleUpdate }) => {
   const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,9 +24,11 @@ const CompleteOrderModal = ({ visible, hideModal, order, toggleUpdate }) => {
         .then((res) => {
           hideModal();
           toggleUpdate();
+          handleResponse(res, "Pomyślnie zrealizowano zamówienie");
         })
         .catch((err) => {
           console.log(err);
+          handleResponse(err, "Coś poszło nie tak");
         })
         .finally(() => setIsSubmitting(false));
     } else {

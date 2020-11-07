@@ -23,22 +23,24 @@ const ClientsPage = () => {
     console.log(chosenClient);
   };
   return (
-    <div>
+    <div style={{ height: "100%" }}>
       {isLoading === false ? (
         <>
           {error === "" ? (
             response !== "" ? (
-              <Row>
-                <Col flex="auto">
-                  {client.address ? <ClientCard client={client} /> : ""}
-                </Col>
-                <Col flex="300px">
-                  <ClientsList
-                    items={[...response]}
-                    handleClick={handleChooseClient}
-                  />
-                </Col>
-              </Row>
+              <div style={{ height: "100%" }}>
+                <Row>
+                  <Col flex="auto">
+                    {client.address ? <ClientCard client={client} /> : ""}
+                  </Col>
+                  <Col flex="300px">
+                    <ClientsList
+                      items={[...response]}
+                      handleClick={handleChooseClient}
+                    />
+                  </Col>
+                </Row>
+              </div>
             ) : (
               <NoDataAlert content="Brak klientów w bazie" />
             )

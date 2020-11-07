@@ -6,6 +6,7 @@ import { layout } from "../../Utils/FormLayout";
 import { Form, Select, Input } from "antd";
 import { users } from "../../Api/erpApi";
 import { editUserSchema } from "../../Utils/yupSchemas";
+import { handleResponse } from "../../Api/handleResponse";
 
 const { Option } = Select;
 
@@ -34,9 +35,11 @@ const EditUserForm = (props) => {
         console.log(res);
         props.hideModal();
         props.toggleUpdate();
+        handleResponse(res, "Pomyślnie zmieniono dane użytkownika");
       })
       .catch((err) => {
         console.log(err);
+        handleResponse(err, "Coś poszło nie tak");
       })
       .finally(() => props.toggleSubmitting(false));
   };

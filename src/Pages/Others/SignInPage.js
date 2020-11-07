@@ -1,16 +1,17 @@
 import React, { useContext, useState } from "react";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { SignInForm } from "../../Components/Forms";
-import { UserContext, UserDispatchContext } from "../../Contexts/UserContext";
+import { UserDispatchContext } from "../../Contexts/UserContext";
 import { users } from "../../Api/erpApi";
 import { determinePath } from "../../Utils/authenticationFunctions";
 import { TokenDispatchContext } from "../../Contexts/TokenContext";
+import { handleResponse } from "../../Api/handleResponse";
 
 const SignInPage = () => {
   const [loading, setLoading] = useState(false);
-  const user = useContext(UserContext);
   const setUser = useContext(UserDispatchContext);
   const setToken = useContext(TokenDispatchContext);
+  const history = useHistory();
 
   const handleLogin = (data) => {
     console.log(data);
@@ -18,6 +19,7 @@ const SignInPage = () => {
     users
       .signIn(data)
       .then((res) => {
+        console.log("response");
         console.log(res);
         localStorage.setItem("token", res.data.token);
         setToken(res.data.token);
@@ -26,13 +28,18 @@ const SignInPage = () => {
           .then((res) => {
             console.log(res);
             setUser(res.data);
+            history.push(`${determinePath(res.data)}`);
           })
           .catch((err) => {
             console.log(err);
+            handleResponse(
+              err,
+              "Coś poszło nie tak przy pobieraniu danych użytkownika"
+            );
           });
       })
       .catch((err) => {
-        console.log(err);
+        handleResponse(err, "Nieporawny login lub hasło");
       })
       .finally(() => {
         setLoading(false);
@@ -40,11 +47,7 @@ const SignInPage = () => {
   };
   return (
     <div>
-      {user.role === "anonymous" ? (
-        <SignInForm handleLogin={handleLogin} confirmLoading={loading} />
-      ) : (
-        <Redirect to={`/${determinePath(user)}`} />
-      )}
+      <SignInForm handleLogin={handleLogin} confirmLoading={loading} />
     </div>
   );
 };

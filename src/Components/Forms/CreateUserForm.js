@@ -8,6 +8,7 @@ import "./index.css";
 import { users } from "../../Api/erpApi";
 import { userSchema } from "../../Utils/yupSchemas";
 import { formCardStyle } from "../../Utils/sharedStyles";
+import { handleResponse } from "../../Api/handleResponse";
 
 const { Option } = Select;
 
@@ -31,9 +32,11 @@ const CreateUserForm = (props) => {
           password: "",
           role: "",
         });
+        handleResponse(res, "Pomyślnie dodano pracownika");
       })
       .catch((err) => {
         console.log(err);
+        handleResponse(err, "Coś poszło nie tak");
       })
       .finally(() => {
         setIsSubmitting(false);

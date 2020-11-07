@@ -2,12 +2,13 @@ import React from "react";
 import useFetch from "../../Api/useFetch";
 import { ComponentLoader } from "../Loaders";
 import { StandardProductPickerList } from "../Lists";
+import { NetworkErrorAlert } from "../Alerts";
 
 const StandardProductsPicker = ({
   standardOrderItems,
   setStandardOrderItems,
 }) => {
-  const { response, isLoading } = useFetch({
+  const { response, isLoading, error } = useFetch({
     method: "get",
     url: "/standard-products",
   });
@@ -15,14 +16,18 @@ const StandardProductsPicker = ({
     <div>
       {isLoading === false ? (
         <div>
-          {response !== "" ? (
-            <StandardProductPickerList
-              products={[...response]}
-              standardOrderItems={standardOrderItems}
-              setStandardOrderItems={setStandardOrderItems}
-            />
+          {error === "" ? (
+            response !== "" ? (
+              <StandardProductPickerList
+                products={[...response]}
+                standardOrderItems={standardOrderItems}
+                setStandardOrderItems={setStandardOrderItems}
+              />
+            ) : (
+              ""
+            )
           ) : (
-            ""
+            <NetworkErrorAlert />
           )}
         </div>
       ) : (

@@ -23,7 +23,7 @@ const MissingStandardProductsPage = () => {
               ))}
             </Space>
           ) : (
-            <NoDataAlert content="W magazynie nie brakuje produktów standardowych" />
+            <NoDataAlert content="W magazynie nie brakuje produktów" />
           )
         ) : (
           <NetworkErrorAlert />

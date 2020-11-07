@@ -4,11 +4,12 @@ import useFetch from "../../Api/useFetch";
 import ClientInfo from "./ClientInfo";
 import { ComponentLoader } from "../Loaders";
 import { UserContext } from "../../Contexts/UserContext";
+import { NetworkErrorAlert } from "../Alerts";
 
 const { Option } = Select;
 const ClientPicker = ({ clientId, setClientId, client, setClient }) => {
   const user = useContext(UserContext);
-  const { response, isLoading } = useFetch({
+  const { response, isLoading, error } = useFetch({
     method: "get",
     url: `/salesmen/${user.userId}/clients`,
   });
@@ -28,25 +29,29 @@ const ClientPicker = ({ clientId, setClientId, client, setClient }) => {
         Wybierz odbiorcę
       </div>
       {isLoading === false ? (
-        <div>
-          <div style={{ paddingBottom: "20px", paddingTop: "20px" }}>
-            <Select
-              style={{ width: "300px" }}
-              value={clientId}
-              placeholder="Wybierz klienta"
-              onChange={(value) => {
-                onChange(value);
-              }}
-            >
-              {[...response].map((client) => (
-                <Option key={client.clientId} value={client.clientId}>
-                  {client.companyName}
-                </Option>
-              ))}
-            </Select>
+        error === "" ? (
+          <div>
+            <div style={{ paddingBottom: "20px", paddingTop: "20px" }}>
+              <Select
+                style={{ width: "300px" }}
+                value={clientId}
+                placeholder="Wybierz klienta"
+                onChange={(value) => {
+                  onChange(value);
+                }}
+              >
+                {[...response].map((client) => (
+                  <Option key={client.clientId} value={client.clientId}>
+                    {client.companyName}
+                  </Option>
+                ))}
+              </Select>
+            </div>
+            {client.address ? <ClientInfo client={client} /> : ""}
           </div>
-          {client.address ? <ClientInfo client={client} /> : ""}
-        </div>
+        ) : (
+          <NetworkErrorAlert />
+        )
       ) : (
         <>
           <ComponentLoader />

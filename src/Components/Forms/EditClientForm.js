@@ -5,6 +5,7 @@ import { layout } from "../../Utils/FormLayout";
 import { Form, Input } from "antd";
 import { clients } from "../../Api/erpApi";
 import { clientSchema } from "../../Utils/yupSchemas";
+import { handleResponse } from "../../Api/handleResponse";
 
 const EditClientForm = (props) => {
   const { client, toggleSubmitting } = props;
@@ -35,8 +36,10 @@ const EditClientForm = (props) => {
         console.log(res);
         props.hideModal();
         props.toggleUpdate();
+        handleResponse(res, "Pomyślnie zmieniono dane klienta");
       })
       .catch((err) => {
+        handleResponse(err, "Nastąpił błąd przy zmianie danych klienta");
         console.log(err);
       })
       .finally(() => toggleSubmitting(false));

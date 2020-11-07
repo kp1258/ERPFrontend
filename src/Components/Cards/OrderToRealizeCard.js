@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { CardDivider } from "../Dividers";
 import { PopconfirmButton } from "../Buttons";
 import { OrderTimeline } from "../Timelines";
@@ -6,11 +6,14 @@ import { CustomOrderItemList, StandardOrderItemList } from "../Lists";
 import { OrderWithTabsCard } from "../Cards";
 import { orders } from "../../Api/erpApi";
 import { UserContext } from "../../Contexts/UserContext";
+import { handleResponse } from "../../Api/handleResponse";
 
 const OrderToRealizeCard = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const user = useContext(UserContext);
   const { order } = props;
   const handleClick = () => {
+    setIsLoading(true);
     var status = "W realizacji";
     var patch = [{ op: "replace", path: "/status", value: `${status}` }];
     orders
@@ -18,8 +21,13 @@ const OrderToRealizeCard = (props) => {
       .then((res) => {
         console.log(res);
         props.toggleUpdate();
+        handleResponse(res, "Pomyślnie przyjęto zamówienie do realizacji");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        handleResponse(err, "Coś poszło nie tak");
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const footer = (
@@ -28,6 +36,7 @@ const OrderToRealizeCard = (props) => {
       <PopconfirmButton
         name="Przyjmij do realizacji"
         handleClick={handleClick}
+        loading={isLoading}
       />
     </>
   );

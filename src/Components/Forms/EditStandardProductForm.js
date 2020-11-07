@@ -8,6 +8,7 @@ import useFetch from "../../Api/useFetch";
 import { ComponentLoader } from "../Loaders";
 import { standardProducts } from "../../Api/erpApi";
 import { NetworkErrorAlert } from "../Alerts";
+import { handleResponse } from "../../Api/handleResponse";
 
 const { Option } = Select;
 const EditStandardProductForm = (props) => {
@@ -41,9 +42,11 @@ const EditStandardProductForm = (props) => {
         console.log(res);
         props.hideModal();
         props.toggleUpdate();
+        handleResponse(res, "Pomyślnie zmieniono dane produktu");
       })
       .catch((err) => {
         console.log(err);
+        handleResponse(err, "Coś poszło nie tak");
       })
       .finally(() => toggleSubmitting(false));
   };

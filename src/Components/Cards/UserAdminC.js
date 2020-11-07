@@ -6,10 +6,12 @@ import { PopconfirmButton } from "../../Components/Buttons";
 import { users } from "../../Api/erpApi";
 
 import "./index.css";
+import { handleResponse } from "../../Api/handleResponse";
 const btnStyle = {
   marginRight: "10px",
 };
 const UserAdminCard = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = props;
   const [visibleEdit, setVisibleEdit] = useState(false);
   const [visiblePassword, setVisiblePassword] = useState(false);
@@ -21,6 +23,7 @@ const UserAdminCard = (props) => {
     `Status: ${user.status}`,
   ];
   const handleClick = () => {
+    setIsLoading(true);
     var status = user.status === "Aktywny" ? "Nieaktywny" : "Aktywny";
     var patch = [{ op: "replace", path: "/status", value: `${status}` }];
     console.log(patch);
@@ -29,8 +32,13 @@ const UserAdminCard = (props) => {
       .then((res) => {
         console.log(res);
         props.toggleUpdate();
+        handleResponse(res, "Pomyślnie zmieniono status pracownika");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        handleResponse(err, "Coś poszło nie tak");
+      })
+      .finally(() => setIsLoading(false));
   };
   return (
     <div className="userCard">
@@ -61,6 +69,7 @@ const UserAdminCard = (props) => {
           handleClick={() => handleClick()}
           style={btnStyle}
           name="Zmień status"
+          loading={isLoading}
         />
         <Button
           type="primary"

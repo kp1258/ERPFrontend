@@ -9,11 +9,13 @@ import { layout } from "../../Utils/FormLayout";
 import { standardProducts } from "../../Api/erpApi";
 import { formCardStyle } from "../../Utils/sharedStyles";
 import { NetworkErrorAlert } from "../Alerts";
+import { handleResponse } from "../../Api/handleResponse";
 
 const { Option } = Select;
 const defaultImageSrc = "/assets/productIcon.png";
 const CreateStandardProductForm = () => {
   const [imageSrc, setImageSrc] = useState(defaultImageSrc);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { response, isLoading, error } = useFetch({
     method: "get",
@@ -35,6 +37,7 @@ const CreateStandardProductForm = () => {
     }
   };
   const onSubmit = (data) => {
+    setIsSubmitting(true);
     let formData = new FormData();
     formData.set("name", data.name);
     formData.set("dimensions", data.dimensions);
@@ -54,8 +57,13 @@ const CreateStandardProductForm = () => {
           dimensions: "",
           standardProductCategoryId: "",
         });
+        handleResponse(res, "Pomyślnie dodano produkt");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        handleResponse(err, "Coś poszło nie tak");
+      })
+      .finally(() => setIsSubmitting(false));
   };
   return (
     <div style={formCardStyle}>
@@ -138,7 +146,7 @@ const CreateStandardProductForm = () => {
               </Form.Item>
               <div className="errorMessage">{errors.category?.message}</div>
 
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" loading={isSubmitting}>
                 Dodaj
               </Button>
             </Form>

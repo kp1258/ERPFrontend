@@ -7,6 +7,7 @@ import { formCardStyle } from "../../Utils/sharedStyles";
 import { layout } from "../../Utils/FormLayout";
 import { users } from "../../Api/erpApi";
 import { UserContext } from "../../Contexts/UserContext";
+import { handleResponse } from "../../Api/handleResponse";
 
 const ChangePasswordForm = () => {
   const user = useContext(UserContext);
@@ -25,9 +26,14 @@ const ChangePasswordForm = () => {
           oldPassword: "",
           newPassword: "",
         });
+        handleResponse(res, "Pomyślnie zmieniono hasło");
       })
       .catch((err) => {
         console.log(err);
+        handleResponse(
+          err,
+          "Nie udało się zmienić hasła. Proszę sprawdzić poprawność podawanego hasła"
+        );
       })
       .finally(() => setIsLoading(false));
   };

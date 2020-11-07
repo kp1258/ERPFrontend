@@ -6,6 +6,7 @@ import { layout } from "../../Utils/FormLayout";
 import { categorySchema } from "../../Utils/yupSchemas";
 import { categories } from "../../Api/erpApi";
 import { formCardStyle } from "../../Utils/sharedStyles";
+import { handleResponse } from "../../Api/handleResponse";
 
 const CreateCategoryForm = (props) => {
   const { toggleUpdate } = props;
@@ -22,9 +23,11 @@ const CreateCategoryForm = (props) => {
         console.log(res);
         toggleUpdate();
         reset({ name: "" });
+        handleResponse(res, "Pomyślnie dodano kategorię");
       })
       .catch((err) => {
         console.log(err);
+        handleResponse(err, "Coś poszło nie tak");
       })
       .finally(() => {
         setIsSubmitting(false);

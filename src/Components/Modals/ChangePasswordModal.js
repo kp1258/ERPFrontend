@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { layout } from "../../Utils/FormLayout";
 import { Modal, Form, Input } from "antd";
 import { users } from "../../Api/erpApi";
+import { handleResponse } from "../../Api/handleResponse";
 
 const ChangePasswordModal = ({ visible, userId, hideModal }) => {
   const [isSubmitting, setIsSumitting] = useState(false);
@@ -22,9 +23,11 @@ const ChangePasswordModal = ({ visible, userId, hideModal }) => {
           newPasssword: "",
         });
         hideModal();
+        handleResponse(res, "Pomyślnie zmieniono hasło pracownika");
       })
       .catch((err) => {
         console.log(err);
+        handleResponse(err, "Coś poszło nie tak");
       })
       .finally(() => {
         setIsSumitting(false);

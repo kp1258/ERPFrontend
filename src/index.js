@@ -6,11 +6,17 @@ import { BrowserRouter as Router } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "antd/dist/antd.css";
+import { UserContextProvider } from "./Contexts/UserContext";
+import { TokenContextProvider } from "./Contexts/TokenContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <App />
+      <UserContextProvider>
+        <TokenContextProvider>
+          <App />
+        </TokenContextProvider>
+      </UserContextProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

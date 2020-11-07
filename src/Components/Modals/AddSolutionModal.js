@@ -5,6 +5,7 @@ import { layout } from "../../Utils/FormLayout";
 import { customProducts } from "../../Api/erpApi";
 import { FileItemButton } from "../Buttons";
 import { UserContext } from "../../Contexts/UserContext";
+import { handleResponse } from "../../Api/handleResponse";
 
 const { TextArea } = Input;
 
@@ -40,9 +41,11 @@ const AddSolutionModal = (props) => {
         props.hideModal();
         props.toggleUpdate();
         setInputKey(generateRandomString());
+        handleResponse(res, "Pomyślnie dodano rozwiązanie");
       })
       .catch((err) => {
         console.log(err);
+        handleResponse(err, "Coś poszło nie tak przy dodawaniu rozwiązania");
       })
       .finally(() => setIsSubmitting(false));
   };
