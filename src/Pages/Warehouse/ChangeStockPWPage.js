@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { ChangeStockModal } from "../../Components/Modals";
 import { ProductWarehouseChangeStockCard } from "../../Components/Cards";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const ChangeStockProductWarehousePage = () => {
   const [triggerUpdate, setTriggerUpdate] = useState(false);
@@ -47,16 +48,18 @@ const ChangeStockProductWarehousePage = () => {
         <div>
           {error === "" ? (
             response !== "" ? (
-              <Space>
+              <Row gutter={[...pageRowGutter]}>
                 {[...response].map((item) => (
-                  <ProductWarehouseChangeStockCard
-                    key={item.productWarehouseItemId}
-                    item={item}
-                    handleEntry={handleEntry}
-                    handleWithdrawal={handleWithdrawal}
-                  />
+                  <Col>
+                    <ProductWarehouseChangeStockCard
+                      key={item.productWarehouseItemId}
+                      item={item}
+                      handleEntry={handleEntry}
+                      handleWithdrawal={handleWithdrawal}
+                    />
+                  </Col>
                 ))}
-              </Space>
+              </Row>
             ) : (
               <NoDataAlert content="Brak produktów w magazynie" />
             )

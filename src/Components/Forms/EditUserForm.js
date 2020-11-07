@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { roles } from "../../Utils/UserRoles";
-import { layout } from "../../Utils/FormLayout";
+import { layout } from "../../Utils/layoutConstants";
 import { Form, Select, Input } from "antd";
 import { users } from "../../Api/erpApi";
 import { editUserSchema } from "../../Utils/yupSchemas";

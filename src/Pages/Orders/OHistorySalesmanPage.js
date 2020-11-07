@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
-import { Space } from "antd";
 import { OrderHistoryCard } from "../../Components/Cards";
 import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 import { UserContext } from "../../Contexts/UserContext";
+import { Row, Col } from "antd";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const OrdersHistorySalesmanPage = () => {
   const user = useContext(UserContext);
@@ -18,11 +19,13 @@ const OrdersHistorySalesmanPage = () => {
       {isLoading === false ? (
         error === "" ? (
           response !== "" ? (
-            <Space>
+            <Row gutter={[...pageRowGutter]}>
               {[...response].map((order) => (
-                <OrderHistoryCard order={order} />
+                <Col>
+                  <OrderHistoryCard order={order} />
+                </Col>
               ))}
-            </Space>
+            </Row>
           ) : (
             <NoDataAlert content="Brak zamówień w historii" />
           )

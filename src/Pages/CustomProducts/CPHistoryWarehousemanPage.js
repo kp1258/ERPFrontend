@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import { CustomOrderItemHistoryCard } from "../../Components/Cards";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
 import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 import { UserContext } from "../../Contexts/UserContext";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const CustomProductsHistoryWarehousemanPage = () => {
   const user = useContext(UserContext);
@@ -18,11 +19,13 @@ const CustomProductsHistoryWarehousemanPage = () => {
       {isLoading === false ? (
         error === "" ? (
           response !== "" ? (
-            <Space>
+            <Row gutter={[...pageRowGutter]}>
               {[...response].map((item) => (
-                <CustomOrderItemHistoryCard item={item} />
+                <Col>
+                  <CustomOrderItemHistoryCard item={item} />
+                </Col>
               ))}
-            </Space>
+            </Row>
           ) : (
             <NoDataAlert content="Brak producktów na zamówienie w historii zamównień" />
           )

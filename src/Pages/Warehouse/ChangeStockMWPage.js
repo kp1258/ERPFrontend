@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { MaterialWarehouseChangeStockCard } from "../../Components/Cards";
 import { ChangeStockModal } from "../../Components/Modals";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const ChangeStockMaterialWarehousePage = () => {
   const [triggerUpdate, setTriggerUpdate] = useState(false);
@@ -49,16 +50,18 @@ const ChangeStockMaterialWarehousePage = () => {
         <>
           {error === "" ? (
             response !== "" ? (
-              <Space>
+              <Row gutter={[...pageRowGutter]}>
                 {[...response].map((item) => (
-                  <MaterialWarehouseChangeStockCard
-                    key={item.materialWarehouseItemId}
-                    item={item}
-                    handleEntry={handleEntry}
-                    handleWithdrawal={handleWithdrawal}
-                  />
+                  <Col>
+                    <MaterialWarehouseChangeStockCard
+                      key={item.materialWarehouseItemId}
+                      item={item}
+                      handleEntry={handleEntry}
+                      handleWithdrawal={handleWithdrawal}
+                    />
+                  </Col>
                 ))}
-              </Space>
+              </Row>
             ) : (
               <NoDataAlert content="Brak materiałów w magazynie" />
             )

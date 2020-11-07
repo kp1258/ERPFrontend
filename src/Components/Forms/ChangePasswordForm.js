@@ -4,7 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Form, Card, Input, Button } from "antd";
 import { formCardStyle } from "../../Utils/sharedStyles";
-import { layout } from "../../Utils/FormLayout";
+import { layout } from "../../Utils/layoutConstants";
 import { users } from "../../Api/erpApi";
 import { UserContext } from "../../Contexts/UserContext";
 import { handleResponse } from "../../Api/handleResponse";

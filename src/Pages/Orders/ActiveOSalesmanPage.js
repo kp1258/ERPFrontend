@@ -2,9 +2,10 @@ import React, { useContext } from "react";
 import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import { OrderActiveCard } from "../../Components/Cards";
 import { UserContext } from "../../Contexts/UserContext";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const ActiveOrdersSalesmanPage = () => {
   const user = useContext(UserContext);
@@ -18,11 +19,13 @@ const ActiveOrdersSalesmanPage = () => {
       {isLoading === false ? (
         error === "" ? (
           response !== "" ? (
-            <Space>
+            <Row gutter={[...pageRowGutter]}>
               {[...response].map((order) => (
-                <OrderActiveCard order={order} />
+                <Col>
+                  <OrderActiveCard order={order} />
+                </Col>
               ))}
-            </Space>
+            </Row>
           ) : (
             <NoDataAlert content="Brak aktywnych zamówień" />
           )

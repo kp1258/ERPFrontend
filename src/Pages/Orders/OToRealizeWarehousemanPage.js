@@ -3,7 +3,8 @@ import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
 import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 import { OrderToRealizeCard } from "../../Components/Cards";
-import { Space } from "antd";
+import { Row, Col } from "antd";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const OrdersToRealizeWarehousemanPage = () => {
   const [triggerUpdate, setTriggerUpdate] = useState(false);
@@ -25,15 +26,17 @@ const OrdersToRealizeWarehousemanPage = () => {
         error === "" ? (
           response !== "" ? (
             <div>
-              <Space>
+              <Row gutter={[...pageRowGutter]}>
                 {[...response].map((order) => (
-                  <OrderToRealizeCard
-                    key={order.orderId}
-                    order={order}
-                    toggleUpdate={toggleTrigger}
-                  />
+                  <Col>
+                    <OrderToRealizeCard
+                      key={order.orderId}
+                      order={order}
+                      toggleUpdate={toggleTrigger}
+                    />
+                  </Col>
                 ))}
-              </Space>
+              </Row>
             </div>
           ) : (
             <NoDataAlert content="Brak zamówień do zrealizowania" />

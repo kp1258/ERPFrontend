@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import { StandardProductAdminCard } from "../../Components/Cards";
 import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 import { EditStandardProductModal } from "../../Components/Modals";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const StandardProductsManagerPage = () => {
   const [triggerUpdate, setTriggerUpdate] = useState(false);
@@ -44,19 +45,21 @@ const StandardProductsManagerPage = () => {
         error === "" ? (
           response !== "" ? (
             <>
-              <Space>
+              <Row gutter={[...pageRowGutter]}>
                 {[...response].map((product) => {
                   return (
-                    <StandardProductAdminCard
-                      key={product.standardProductId}
-                      product={product}
-                      showModal={() => setVisible(true)}
-                      toggleUpdate={toggleTrigger}
-                      handleClick={handleChooseProduct}
-                    />
+                    <Col>
+                      <StandardProductAdminCard
+                        key={product.standardProductId}
+                        product={product}
+                        showModal={() => setVisible(true)}
+                        toggleUpdate={toggleTrigger}
+                        handleClick={handleChooseProduct}
+                      />
+                    </Col>
                   );
                 })}
-              </Space>
+              </Row>
               {product.name ? (
                 <EditStandardProductModal
                   visible={visible}

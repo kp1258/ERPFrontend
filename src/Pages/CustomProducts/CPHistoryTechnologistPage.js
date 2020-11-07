@@ -1,9 +1,10 @@
 import React from "react";
 import { CustomProductHistoryCard } from "../../Components/Cards";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
 import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const CustomProductsHistoryTechnologistsPage = () => {
   const { response, isLoading, error } = useFetch({
@@ -15,11 +16,13 @@ const CustomProductsHistoryTechnologistsPage = () => {
       {isLoading === false ? (
         error === "" ? (
           response !== "" ? (
-            <Space>
+            <Row gutter={[...pageRowGutter]}>
               {[...response].map((customProduct) => (
-                <CustomProductHistoryCard customProduct={customProduct} />
+                <Col>
+                  <CustomProductHistoryCard customProduct={customProduct} />
+                </Col>
               ))}
-            </Space>
+            </Row>
           ) : (
             <NoDataAlert content="Brak produktów na zamówienie w historii" />
           )

@@ -4,7 +4,8 @@ import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 import { MaterialCard } from "../../Components/Cards";
-import { Space } from "antd";
+import { Col, Row } from "antd";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const MaterialsPage = () => {
   const [triggerUpdate, setTriggerUpdate] = useState(false);
@@ -36,15 +37,17 @@ const MaterialsPage = () => {
         error === "" ? (
           response !== "" ? (
             <>
-              <Space>
+              <Row gutter={[...pageRowGutter]}>
                 {[...response].map((material) => (
-                  <MaterialCard
-                    key={material.materialId}
-                    material={material}
-                    handleClick={handleChooseMaterial}
-                  />
+                  <Col>
+                    <MaterialCard
+                      key={material.materialId}
+                      material={material}
+                      handleClick={handleChooseMaterial}
+                    />
+                  </Col>
                 ))}
-              </Space>
+              </Row>
               {material.materialId !== 0 && (
                 <EditMaterialModal
                   visible={visible}

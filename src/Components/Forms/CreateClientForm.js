@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Form, Card, Button, Input } from "antd";
-import { layout } from "../../Utils/FormLayout";
+import { layout } from "../../Utils/layoutConstants";
 import { clients } from "../../Api/erpApi";
 import { clientSchema } from "../../Utils/yupSchemas";
 import { formCardStyle } from "../../Utils/sharedStyles";

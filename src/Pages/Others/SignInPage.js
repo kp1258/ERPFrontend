@@ -39,7 +39,7 @@ const SignInPage = () => {
           });
       })
       .catch((err) => {
-        handleResponse(err, "Nieporawny login lub hasło");
+        handleResponse(err, "Niepoprawny login lub hasło");
       })
       .finally(() => {
         setLoading(false);

@@ -2,9 +2,10 @@ import React, { useContext } from "react";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
 import { OrderHistoryCard } from "../../Components/Cards";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 import { UserContext } from "../../Contexts/UserContext";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const OrdersHistoryWarehousemanPage = () => {
   const user = useContext(UserContext);
@@ -18,11 +19,13 @@ const OrdersHistoryWarehousemanPage = () => {
       {isLoading === false ? (
         error === "" ? (
           response !== "" ? (
-            <Space>
+            <Row gutter={[...pageRowGutter]}>
               {[...response].map((order) => (
-                <OrderHistoryCard order={order} />
+                <Col>
+                  <OrderHistoryCard order={order} />
+                </Col>
               ))}
-            </Space>
+            </Row>
           ) : (
             <NoDataAlert content="Brak zmówień w historii" />
           )

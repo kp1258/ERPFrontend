@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import { UserAdminCard } from "../../Components/Cards";
 import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const UsersAdminPage = () => {
   const [triggerUpdate, setTriggerUpdate] = useState(false);
@@ -38,16 +39,18 @@ const UsersAdminPage = () => {
         error === "" ? (
           response !== "" ? (
             <>
-              <Space>
+              <Row gutter={[...pageRowGutter]}>
                 {[...response].map((user) => (
-                  <UserAdminCard
-                    key={user.userId}
-                    user={user}
-                    handleChooseUser={handleChooseUser}
-                    toggleUpdate={toggleTrigger}
-                  />
+                  <Col>
+                    <UserAdminCard
+                      key={user.userId}
+                      user={user}
+                      handleChooseUser={handleChooseUser}
+                      toggleUpdate={toggleTrigger}
+                    />
+                  </Col>
                 ))}
-              </Space>
+              </Row>
             </>
           ) : (
             <NoDataAlert content="Brak pracowników w bazie" />

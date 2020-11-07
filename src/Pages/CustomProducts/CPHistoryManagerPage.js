@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
 import { CustomOrderItemHistoryCard } from "../../Components/Cards";
@@ -17,11 +17,13 @@ const CustomProductsHistoryManagerPage = () => {
       {isLoading === false ? (
         error === "" ? (
           response !== "" ? (
-            <Space>
+            <Row>
               {[...response].map((item) => (
-                <CustomOrderItemHistoryCard item={item} />
+                <Col>
+                  <CustomOrderItemHistoryCard item={item} />
+                </Col>
               ))}
-            </Space>
+            </Row>
           ) : (
             <NoDataAlert content="Brak produktów na zamówienie wyprodukowanych przez kierownika" />
           )

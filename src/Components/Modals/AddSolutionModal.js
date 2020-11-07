@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Modal, Form, Input, Space } from "antd";
 import { useForm, Controller } from "react-hook-form";
-import { layout } from "../../Utils/FormLayout";
+import { layout } from "../../Utils/layoutConstants";
 import { customProducts } from "../../Api/erpApi";
 import { FileItemButton } from "../Buttons";
 import { UserContext } from "../../Contexts/UserContext";

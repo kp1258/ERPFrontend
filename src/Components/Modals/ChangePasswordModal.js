@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { changePasswordAdminSchema } from "../../Utils/yupSchemas";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { layout } from "../../Utils/FormLayout";
+import { layout } from "../../Utils/layoutConstants";
 import { Modal, Form, Input } from "antd";
 import { users } from "../../Api/erpApi";
 import { handleResponse } from "../../Api/handleResponse";

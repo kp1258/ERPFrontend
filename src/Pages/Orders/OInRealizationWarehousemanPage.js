@@ -3,9 +3,10 @@ import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
 import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 import { OrderInRealizationCard } from "../../Components/Cards";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import { CompleteOrderModal } from "../../Components/Modals";
 import { UserContext } from "../../Contexts/UserContext";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const OrdersInRealizationWarehousemanPage = () => {
   const user = useContext(UserContext);
@@ -40,17 +41,19 @@ const OrdersInRealizationWarehousemanPage = () => {
         error === "" ? (
           response !== "" ? (
             <div>
-              <Space>
+              <Row gutter={[...pageRowGutter]}>
                 {[...response].map((order) => [
-                  <OrderInRealizationCard
-                    key={order.orderId}
-                    order={order}
-                    showModal={() => setVisible(true)}
-                    toggleUpdate={toggleTrigger}
-                    handleClick={handleChooseOrder}
-                  />,
+                  <Col>
+                    <OrderInRealizationCard
+                      key={order.orderId}
+                      order={order}
+                      showModal={() => setVisible(true)}
+                      toggleUpdate={toggleTrigger}
+                      handleClick={handleChooseOrder}
+                    />
+                  </Col>,
                 ])}
-              </Space>
+              </Row>
               {order.orderId ? (
                 <CompleteOrderModal
                   visible={visible}

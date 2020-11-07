@@ -3,7 +3,7 @@ import { Form, Input, InputNumber, Space } from "antd";
 import { FileItemButton } from "../Buttons";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { layout } from "../../Utils/FormLayout";
+import { layout } from "../../Utils/layoutConstants";
 import { customOrderItemSchema } from "../../Utils/yupSchemas";
 
 const { TextArea } = Input;

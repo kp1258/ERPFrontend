@@ -1,9 +1,10 @@
 import React from "react";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import { UserInfoCard } from "../../Components/Cards";
 import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const UsersPage = () => {
   const { response, isLoading, error } = useFetch({
@@ -15,11 +16,13 @@ const UsersPage = () => {
       {isLoading === false ? (
         error === "" ? (
           response !== "" ? (
-            <Space>
+            <Row gutter={[...pageRowGutter]}>
               {[...response].map((user) => (
-                <UserInfoCard key={user.userId} {...user} />
+                <Col>
+                  <UserInfoCard key={user.userId} {...user} />
+                </Col>
               ))}
-            </Space>
+            </Row>
           ) : (
             <NoDataAlert content="Brak pracowników" />
           )

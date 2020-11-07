@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import { CustomOrderItemInProductionCard } from "../../Components/Cards";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
 import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 import { UserContext } from "../../Contexts/UserContext";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const CustomProductsInProductionPage = () => {
   const user = useContext(UserContext);
@@ -26,15 +27,17 @@ const CustomProductsInProductionPage = () => {
       {isLoading === false ? (
         error === "" ? (
           response !== "" ? (
-            <Space>
+            <Row gutter={[...pageRowGutter]}>
               {[...response].map((item) => (
-                <CustomOrderItemInProductionCard
-                  key={item.customOrderItemId}
-                  item={item}
-                  toggleUpdate={toggleTrigger}
-                />
+                <Col>
+                  <CustomOrderItemInProductionCard
+                    key={item.customOrderItemId}
+                    item={item}
+                    toggleUpdate={toggleTrigger}
+                  />
+                </Col>
               ))}
-            </Space>
+            </Row>
           ) : (
             <NoDataAlert content="Brak produktów na zamówienie będących w produkcji" />
           )

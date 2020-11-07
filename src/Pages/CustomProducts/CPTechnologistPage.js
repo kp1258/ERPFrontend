@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { CustomProductHistoryCard } from "../../Components/Cards";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 import { UserContext } from "../../Contexts/UserContext";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 //moje rozwiązania
 const CustomProductsTechnologistPage = () => {
@@ -19,11 +20,13 @@ const CustomProductsTechnologistPage = () => {
       {isLoading === false ? (
         error === "" ? (
           response !== "" ? (
-            <Space>
+            <Row gutter={[...pageRowGutter]}>
               {[...response].map((customProduct) => (
-                <CustomProductHistoryCard customProduct={customProduct} />
+                <Col>
+                  <CustomProductHistoryCard customProduct={customProduct} />
+                </Col>
               ))}
-            </Space>
+            </Row>
           ) : (
             <NoDataAlert content="Brak rozwiązań dodanych przez technologa" />
           )

@@ -1,9 +1,10 @@
 import React from "react";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import { OrderActiveCard } from "../../Components/Cards";
 import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const ActiveOrdersAdminPage = () => {
   const { response, isLoading, error } = useFetch({
@@ -15,11 +16,13 @@ const ActiveOrdersAdminPage = () => {
       {isLoading === false ? (
         error === "" ? (
           response !== "" ? (
-            <Space>
+            <Row gutter={[...pageRowGutter]}>
               {[...response].map((order) => (
-                <OrderActiveCard order={order} />
+                <Col>
+                  <OrderActiveCard order={order} />
+                </Col>
               ))}
-            </Space>
+            </Row>
           ) : (
             <NoDataAlert content="Brak aktywnych zamówień" />
           )

@@ -1,9 +1,10 @@
 import React from "react";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import { MaterialWarehouseCard } from "../../Components/Cards";
 import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
 import { NetworkErrorAlert, NoDataAlert } from "../../Components/Alerts";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const ShowMaterialWarehousePage = () => {
   const { response, isLoading, error } = useFetch({
@@ -16,14 +17,16 @@ const ShowMaterialWarehousePage = () => {
       {isLoading === false ? (
         error === "" ? (
           response !== "" ? (
-            <Space>
+            <Row gutter={[...pageRowGutter]}>
               {[...response].map((item) => (
-                <MaterialWarehouseCard
-                  key={item.materialWarehouseItemId}
-                  item={item}
-                />
+                <Col>
+                  <MaterialWarehouseCard
+                    key={item.materialWarehouseItemId}
+                    item={item}
+                  />
+                </Col>
               ))}
-            </Space>
+            </Row>
           ) : (
             <NoDataAlert content="Brak materiałów w magazynie" />
           )

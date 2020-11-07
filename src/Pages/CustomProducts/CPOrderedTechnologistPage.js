@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import { CustomProductOrderedCard } from "../../Components/Cards";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
 import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const CustomProductsOrderedPage = () => {
   const [triggerUpdate, setTriggerUpdate] = useState(false);
@@ -24,15 +25,17 @@ const CustomProductsOrderedPage = () => {
       {isLoading === false ? (
         error === "" ? (
           response !== "" ? (
-            <Space>
+            <Row gutter={[...pageRowGutter]}>
               {[...response].map((customProduct) => (
-                <CustomProductOrderedCard
-                  key={customProduct.customProductId}
-                  customProduct={customProduct}
-                  toggleUpdate={toggleTrigger}
-                />
+                <Col>
+                  <CustomProductOrderedCard
+                    key={customProduct.customProductId}
+                    customProduct={customProduct}
+                    toggleUpdate={toggleTrigger}
+                  />
+                </Col>
               ))}
-            </Space>
+            </Row>
           ) : (
             <NoDataAlert content="Brak produktów na zamówienie oczekujących na rozwiązanie" />
           )

@@ -1,9 +1,10 @@
 import React from "react";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import { StandardProductCard } from "../../Components/Cards";
 import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
 import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const StandardProductsPage = () => {
   const { response, isLoading, error } = useFetch({
@@ -15,16 +16,18 @@ const StandardProductsPage = () => {
       {isLoading === false ? (
         error === "" ? (
           response !== "" ? (
-            <Space>
+            <Row gutter={[...pageRowGutter]}>
               {[...response].map((product) => {
                 return (
-                  <StandardProductCard
-                    key={product.standardProductId}
-                    product={product}
-                  />
+                  <Col>
+                    <StandardProductCard
+                      key={product.standardProductId}
+                      product={product}
+                    />
+                  </Col>
                 );
               })}
-            </Space>
+            </Row>
           ) : (
             <NoDataAlert content="Brak produtków standardowych" />
           )

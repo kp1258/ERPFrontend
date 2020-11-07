@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import useFetch from "../../Api/useFetch";
 import { PageLoader } from "../../Components/Loaders";
 import { CustomProductInPreparationCard } from "../../Components/Cards";
 import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 import { AddSolutionModal } from "../../Components/Modals";
 import { UserContext } from "../../Contexts/UserContext";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const CustomProductsInPreparationPage = () => {
   const user = useContext(UserContext);
@@ -40,16 +41,18 @@ const CustomProductsInPreparationPage = () => {
         error === "" ? (
           response !== "" ? (
             <>
-              <Space>
+              <Row gutter={[...pageRowGutter]}>
                 {[...response].map((product) => (
-                  <CustomProductInPreparationCard
-                    key={product.customProductId}
-                    customProduct={product}
-                    showModal={() => setVisible(true)}
-                    handleClick={handleChooseProduct}
-                  />
+                  <Col>
+                    <CustomProductInPreparationCard
+                      key={product.customProductId}
+                      customProduct={product}
+                      showModal={() => setVisible(true)}
+                      handleClick={handleChooseProduct}
+                    />
+                  </Col>
                 ))}
-              </Space>
+              </Row>
               {product.name ? (
                 <AddSolutionModal
                   visible={visible}
