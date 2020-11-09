@@ -4,7 +4,7 @@ import "./index.css";
 const defaultImageSrc = "/assets/materialIcon.png";
 const MaterialWarehouseCard = (props) => {
   const { item } = props;
-  const data = [`Ilość: ${item.quantity}`];
+  const data = [`Jednostka: ${item.material.unit}`, `Ilość: ${item.quantity}`];
   return (
     <Card
       hoverable

@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import { StandardProductAdminCard } from "../../Components/Cards";
-import { PageLoader } from "../../Components/Others";
+import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 import { EditStandardProductModal } from "../../Components/Modals";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const StandardProductsManagerPage = () => {
   const [triggerUpdate, setTriggerUpdate] = useState(false);
   const [product, setProduct] = useState({});
   const [visible, setVisible] = useState(false);
 
-  const { response, isLoading, refetch } = useFetch({
+  const { response, isLoading, refetch, error } = useFetch({
     method: "get",
     url: "/standard-products",
   });
@@ -41,34 +42,40 @@ const StandardProductsManagerPage = () => {
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <>
-            <Space>
-              {[...response].map((product) => {
-                return (
-                  <StandardProductAdminCard
-                    key={product.standardProductId}
-                    product={product}
-                    showModal={() => setVisible(true)}
-                    toggleUpdate={toggleTrigger}
-                    handleClick={handleChooseProduct}
-                  />
-                );
-              })}
-            </Space>
-            {product.name ? (
-              <EditStandardProductModal
-                visible={visible}
-                product={product}
-                toggleUpdate={toggleTrigger}
-                hideModal={() => setVisible(false)}
-              />
-            ) : (
-              ""
-            )}
-          </>
+        error === "" ? (
+          response !== "" ? (
+            <>
+              <Row gutter={[...pageRowGutter]}>
+                {[...response].map((product) => {
+                  return (
+                    <Col>
+                      <StandardProductAdminCard
+                        key={product.standardProductId}
+                        product={product}
+                        showModal={() => setVisible(true)}
+                        toggleUpdate={toggleTrigger}
+                        handleClick={handleChooseProduct}
+                      />
+                    </Col>
+                  );
+                })}
+              </Row>
+              {product.name ? (
+                <EditStandardProductModal
+                  visible={visible}
+                  product={product}
+                  toggleUpdate={toggleTrigger}
+                  hideModal={() => setVisible(false)}
+                />
+              ) : (
+                ""
+              )}
+            </>
+          ) : (
+            <NoDataAlert content="Brak produktów standardowych" />
+          )
         ) : (
-          <NoDataAlert content="Brak produktów standardowych" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

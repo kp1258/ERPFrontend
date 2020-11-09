@@ -1,26 +1,36 @@
-import React from "react";
-import { Space } from "antd";
+import React, { useContext } from "react";
+import { Row, Col } from "antd";
 import { CustomOrderItemHistoryCard } from "../../Components/Cards";
 import useFetch from "../../Api/useFetch";
-import { PageLoader } from "../../Components/Others";
-import { NoDataAlert } from "../../Components/Alerts";
+import { PageLoader } from "../../Components/Loaders";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { UserContext } from "../../Contexts/UserContext";
+import { pageRowGutter } from "../../Utils/layoutConstants";
+
 const CustomProductsHistoryWarehousemanPage = () => {
-  const { response, isLoading } = useFetch({
+  const user = useContext(UserContext);
+  const { response, isLoading, error } = useFetch({
     method: "get",
-    url: "/custom-order-items/orders-history?WarehousemanId=5",
+    url: `/custom-order-items/orders-history?WarehousemanId=${user.userId}`,
   });
   console.log(response);
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <Space>
-            {[...response].map((item) => (
-              <CustomOrderItemHistoryCard item={item} />
-            ))}
-          </Space>
+        error === "" ? (
+          response !== "" ? (
+            <Row gutter={[...pageRowGutter]}>
+              {[...response].map((item) => (
+                <Col>
+                  <CustomOrderItemHistoryCard item={item} />
+                </Col>
+              ))}
+            </Row>
+          ) : (
+            <NoDataAlert content="Brak producktów na zamówienie w historii zamównień" />
+          )
         ) : (
-          <NoDataAlert content="Brak producktów na zamówienie w historii zamównień" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

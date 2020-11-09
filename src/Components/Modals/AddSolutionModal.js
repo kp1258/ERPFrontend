@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Modal, Form, Input, Space } from "antd";
 import { useForm, Controller } from "react-hook-form";
-import { layout } from "../../Utils/FormLayout";
+import { layout } from "../../Utils/layoutConstants";
 import { customProducts } from "../../Api/erpApi";
 import { FileItemButton } from "../Buttons";
+import { UserContext } from "../../Contexts/UserContext";
+import { handleResponse } from "../../Api/handleResponse";
 import "./index.css";
+
 const { TextArea } = Input;
 
 const AddSolutionModal = (props) => {
+  const user = useContext(UserContext);
   const { product, visible } = props;
   const generateRandomString = () => {
     return Math.random().toString(36);
@@ -32,15 +36,17 @@ const AddSolutionModal = (props) => {
       console.log(pair[0] + ", " + pair[1]);
     }
     customProducts
-      .addSolution(4, product.customProductId, formData)
+      .addSolution(user.userId, product.customProductId, formData)
       .then((res) => {
         console.log(res);
         props.hideModal();
         props.toggleUpdate();
         setInputKey(generateRandomString());
+        handleResponse(res, "Pomyślnie dodano rozwiązanie");
       })
       .catch((err) => {
         console.log(err);
+        handleResponse(err, "Coś poszło nie tak przy dodawaniu rozwiązania");
       })
       .finally(() => setIsSubmitting(false));
   };
@@ -94,28 +100,32 @@ const AddSolutionModal = (props) => {
               {errors.solutionDescription?.message}
             </div>
           </Form.Item>
-          <Form.Item>
-            <input
-              id="f02"
-              type="file"
-              name="files"
-              onChange={onChange}
-              key={inputKey || ""}
-            />
-            <label for="f02">Dodaj plik</label>
+          <Form.Item label="Pliki">
+            <div style={{ marginInline: "50%" }}>
+              <input
+                id="f02"
+                type="file"
+                name="files"
+                onChange={onChange}
+                key={inputKey || ""}
+              />
+              <label for="f02">Dodaj plik</label>
+            </div>
           </Form.Item>
+          <div style={{ marginInline: "50%" }}>
+            <Space direction="vertical">
+              {files.length > 0
+                ? [...files].map((file) => (
+                    <FileItemButton
+                      key={file.filePath}
+                      file={file}
+                      handleCancel={removeFile}
+                    />
+                  ))
+                : ""}
+            </Space>
+          </div>
         </Form>
-        <Space direction="vertical">
-          {files.length > 0
-            ? [...files].map((file) => (
-                <FileItemButton
-                  key={file.filePath}
-                  file={file}
-                  handleCancel={removeFile}
-                />
-              ))
-            : ""}
-        </Space>
       </Modal>
     </>
   );

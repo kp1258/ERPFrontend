@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Space } from "antd";
+import React, { useState, useEffect, useContext } from "react";
+import { Row, Col } from "antd";
 import { CustomOrderItemInProductionCard } from "../../Components/Cards";
 import useFetch from "../../Api/useFetch";
-import { PageLoader } from "../../Components/Others";
-import { NoDataAlert } from "../../Components/Alerts";
+import { PageLoader } from "../../Components/Loaders";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { UserContext } from "../../Contexts/UserContext";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const CustomProductsInProductionPage = () => {
+  const user = useContext(UserContext);
   const [triggerUpdate, setTriggerUpdate] = useState(false);
-  const { response, isLoading, refetch } = useFetch({
+  const { response, isLoading, refetch, error } = useFetch({
     method: "get",
-    url: "/custom-order-items/active?ProductionManager=3",
+    url: `/custom-order-items/active?ProductionManager=${user.userId}`,
   });
   useEffect(() => {
     console.log("useEfffect triggered");
@@ -22,18 +25,24 @@ const CustomProductsInProductionPage = () => {
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <Space>
-            {[...response].map((item) => (
-              <CustomOrderItemInProductionCard
-                key={item.customOrderItemId}
-                item={item}
-                toggleUpdate={toggleTrigger}
-              />
-            ))}
-          </Space>
+        error === "" ? (
+          response !== "" ? (
+            <Row gutter={[...pageRowGutter]}>
+              {[...response].map((item) => (
+                <Col>
+                  <CustomOrderItemInProductionCard
+                    key={item.customOrderItemId}
+                    item={item}
+                    toggleUpdate={toggleTrigger}
+                  />
+                </Col>
+              ))}
+            </Row>
+          ) : (
+            <NoDataAlert content="Brak produktów na zamówienie będących w produkcji" />
+          )
         ) : (
-          <NoDataAlert content="Brak produktów na zamówienie będących w produkcji" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

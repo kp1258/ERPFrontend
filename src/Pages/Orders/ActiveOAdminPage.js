@@ -1,26 +1,33 @@
 import React from "react";
 import useFetch from "../../Api/useFetch";
-import { PageLoader } from "../../Components/Others";
-import { Space } from "antd";
+import { PageLoader } from "../../Components/Loaders";
+import { Row, Col } from "antd";
 import { OrderActiveCard } from "../../Components/Cards";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const ActiveOrdersAdminPage = () => {
-  const { response, isLoading } = useFetch({
+  const { response, isLoading, error } = useFetch({
     method: "get",
     url: "/orders/active",
   });
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <Space>
-            {[...response].map((order) => (
-              <OrderActiveCard order={order} />
-            ))}
-          </Space>
+        error === "" ? (
+          response !== "" ? (
+            <Row gutter={[...pageRowGutter]}>
+              {[...response].map((order) => (
+                <Col>
+                  <OrderActiveCard order={order} />
+                </Col>
+              ))}
+            </Row>
+          ) : (
+            <NoDataAlert content="Brak aktywnych zamówień" />
+          )
         ) : (
-          <NoDataAlert content="Brak aktywnych zamówień" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

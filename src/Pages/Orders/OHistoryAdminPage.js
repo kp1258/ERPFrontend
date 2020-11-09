@@ -1,26 +1,33 @@
 import React from "react";
 import { OrderHistoryCard } from "../../Components/Cards";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import useFetch from "../../Api/useFetch";
-import { PageLoader } from "../../Components/Others";
-import { NoDataAlert } from "../../Components/Alerts";
+import { PageLoader } from "../../Components/Loaders";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const OrdersHistoryAdminPage = () => {
-  const { response, isLoading } = useFetch({
+  const { response, isLoading, error } = useFetch({
     method: "get",
     url: "/orders/history",
   });
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <Space>
-            {[...response].map((order) => (
-              <OrderHistoryCard order={order} />
-            ))}
-          </Space>
+        error === "" ? (
+          response !== "" ? (
+            <Row gutter={[...pageRowGutter]}>
+              {[...response].map((order) => (
+                <Col>
+                  <OrderHistoryCard order={order} />
+                </Col>
+              ))}
+            </Row>
+          ) : (
+            <NoDataAlert content="Brak zamówień w historii" />
+          )
         ) : (
-          <NoDataAlert content="Brak zamówień w historii" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

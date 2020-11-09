@@ -1,31 +1,39 @@
 import React from "react";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import { StandardProductCard } from "../../Components/Cards";
-import { PageLoader } from "../../Components/Others";
+import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const StandardProductsPage = () => {
-  const { response, isLoading } = useFetch({
+  const { response, isLoading, error } = useFetch({
     method: "get",
-    url: "/standard-products",
+    url: "/standard-products/produced",
   });
+  console.log(response);
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <Space>
-            {[...response].map((product) => {
-              return (
-                <StandardProductCard
-                  key={product.standardProductId}
-                  product={product}
-                />
-              );
-            })}
-          </Space>
+        error === "" ? (
+          response !== "" ? (
+            <Row gutter={[...pageRowGutter]}>
+              {[...response].map((product) => {
+                return (
+                  <Col>
+                    <StandardProductCard
+                      key={product.standardProductId}
+                      product={product}
+                    />
+                  </Col>
+                );
+              })}
+            </Row>
+          ) : (
+            <NoDataAlert content="Brak produktów standardowych" />
+          )
         ) : (
-          <NoDataAlert content="Brak produtków standardowych" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

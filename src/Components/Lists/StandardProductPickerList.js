@@ -45,7 +45,7 @@ const StandardProductPickerList = ({
   return (
     <div>
       <List
-        grid={{ gutter: 16, column: 4 }}
+        grid={{ gutter: 16, column: 5 }}
         dataSource={products}
         pagination={{
           onChange: (page) => {
@@ -79,7 +79,11 @@ const StandardProductPickerList = ({
                 hoverable
                 cover={
                   <img
-                    style={{ width: "256px", maxHeight: "256px" }}
+                    style={{
+                      width: "256px",
+                      maxHeight: "256px",
+                      margin: "auto",
+                    }}
                     alt="Produkt"
                     src={
                       item.imagePath !== null ? item.imagePath : defaultImageSrc
@@ -89,7 +93,6 @@ const StandardProductPickerList = ({
               >
                 <div>{`Wymiary: ${item.dimensions}`}</div>
                 <div>{`Kategoria: ${item.standardProductCategory.name}`}</div>
-                <div>{`Status: ${item.status}`}</div>
               </Card>
             </List.Item>
           );

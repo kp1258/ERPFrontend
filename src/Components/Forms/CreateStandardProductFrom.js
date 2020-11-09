@@ -4,17 +4,20 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Card, Form, Button, Input, Select } from "antd";
 import { standardProductSchema } from "../../Utils/yupSchemas";
 import useFetch from "../../Api/useFetch";
-import { ComponentLoader } from "../../Components/Others";
-import { layout } from "../../Utils/FormLayout";
+import { ComponentLoader } from "../../Components/Loaders";
+import { layout } from "../../Utils/layoutConstants";
 import { standardProducts } from "../../Api/erpApi";
 import { formCardStyle } from "../../Utils/sharedStyles";
+import { NetworkErrorAlert } from "../Alerts";
+import { handleResponse } from "../../Api/handleResponse";
 
 const { Option } = Select;
 const defaultImageSrc = "/assets/productIcon.png";
 const CreateStandardProductForm = () => {
   const [imageSrc, setImageSrc] = useState(defaultImageSrc);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { response, isLoading } = useFetch({
+  const { response, isLoading, error } = useFetch({
     method: "get",
     url: "/standard-products/categories",
   });
@@ -34,12 +37,16 @@ const CreateStandardProductForm = () => {
     }
   };
   const onSubmit = (data) => {
+    setIsSubmitting(true);
+    console.log(data);
     let formData = new FormData();
     formData.set("name", data.name);
     formData.set("dimensions", data.dimensions);
     formData.set("standardProductCategoryId", data.standardProductCategoryId);
-    formData.set("imageName", data.image[0].name);
-    formData.set("imageFile", data.image[0]);
+    if (data.image.length !== 0) {
+      formData.set("imageName", data.image[0].name);
+      formData.set("imageFile", data.image[0]);
+    }
 
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
@@ -48,99 +55,109 @@ const CreateStandardProductForm = () => {
       .create(formData)
       .then((res) => {
         console.log(res);
+        setImageSrc(defaultImageSrc);
         reset({
           name: "",
           dimensions: "",
           standardProductCategoryId: "",
         });
+        handleResponse(res, "Pomyślnie dodano produkt");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        handleResponse(err, "Coś poszło nie tak");
+      })
+      .finally(() => setIsSubmitting(false));
   };
   return (
     <div style={formCardStyle}>
       {isLoading === false ? (
-        <Card title="Formularz tworzenia produktu standardowego">
-          <div
-            style={{
-              margin: "auto",
-              height: "256px",
-              width: "256px",
-              border: "1px solid gray",
-              color: "gray",
-              position: "flex",
-            }}
-            className="center"
-          >
-            <img
-              style={{ maxHeight: "256px", maxWidth: "256px" }}
-              alt="Brak zdjęcia"
-              src={imageSrc}
-            />
-          </div>
-          <Form onFinish={handleSubmit(onSubmit)} {...layout}>
+        error === "" ? (
+          <Card title="Formularz tworzenia produktu standardowego">
             <div
               style={{
-                marginLeft: "110px",
-                paddingTop: "20px",
-                paddingBottom: "30px",
+                margin: "auto",
+                height: "256px",
+                width: "256px",
+                border: "1px solid gray",
+                color: "gray",
+                position: "flex",
               }}
+              className="center"
             >
-              <Form.Item>
-                <input
-                  id="f02"
-                  type="file"
-                  name="image"
-                  ref={register}
-                  onChange={showPreview}
-                />
-                <label for="f02">Dodaj plik</label>
-              </Form.Item>
+              <img
+                style={{ maxHeight: "256px", maxWidth: "256px" }}
+                alt="Brak zdjęcia"
+                src={imageSrc}
+              />
             </div>
-            <Form.Item label="Nazwa">
-              <Controller
-                name="name"
-                control={control}
-                as={<Input />}
-                defaultValue=""
-                placeHolder="Podaj nazwę"
-              />
-              <div className="errorMessage">{errors.name?.message}</div>
-            </Form.Item>
+            <Form onFinish={handleSubmit(onSubmit)} {...layout}>
+              <div
+                style={{
+                  marginLeft: "110px",
+                  paddingTop: "20px",
+                  paddingBottom: "30px",
+                }}
+              >
+                <Form.Item>
+                  <input
+                    id="f02"
+                    type="file"
+                    name="image"
+                    ref={register}
+                    onChange={showPreview}
+                  />
+                  <label for="f02">Dodaj plik</label>
+                </Form.Item>
+              </div>
+              <Form.Item label="Nazwa">
+                <Controller
+                  name="name"
+                  control={control}
+                  as={<Input />}
+                  defaultValue=""
+                  placeHolder="Podaj nazwę"
+                />
+                <div className="errorMessage">{errors.name?.message}</div>
+              </Form.Item>
 
-            <Form.Item label="Wymiary">
-              <Controller
-                name="dimensions"
-                control={control}
-                as={<Input />}
-                defaultValue=""
-                placeHolder="Podaj wymiary produktu"
-              />
-              <div className="errorMessage">{errors.dimensions?.message}</div>
-            </Form.Item>
-            <Form.Item label="Kategoria">
-              <Controller
-                name="standardProductCategoryId"
-                control={control}
-                as={
-                  <Select>
-                    {[...response].map((category) => (
-                      <Option value={category.standardProductCategoryId}>
-                        {category.name}
-                      </Option>
-                    ))}
-                  </Select>
-                }
-                placeholder="Wybierz kategorię"
-                defaultValue=""
-              />
-            </Form.Item>
-            <div className="errorMessage">{errors.category?.message}</div>
+              <Form.Item label="Wymiary">
+                <Controller
+                  name="dimensions"
+                  control={control}
+                  as={<Input />}
+                  defaultValue=""
+                  placeHolder="Podaj wymiary produktu"
+                />
+                <div className="errorMessage">{errors.dimensions?.message}</div>
+              </Form.Item>
+              <Form.Item label="Kategoria">
+                <Controller
+                  name="standardProductCategoryId"
+                  control={control}
+                  as={
+                    <Select placeholder="Wybierz kategorię">
+                      {[...response].map((category) => (
+                        <Option value={category.standardProductCategoryId}>
+                          {category.name}
+                        </Option>
+                      ))}
+                    </Select>
+                  }
+                />
+              </Form.Item>
+              <div className="errorMessage">
+                {errors.standardProductCategoryId?.message}
+              </div>
 
-            <Button type="primary" htmlType="submit">
-              Dodaj
-            </Button>
-          </Form>
-        </Card>
+              <Button type="primary" htmlType="submit" loading={isSubmitting}>
+                Dodaj
+              </Button>
+            </Form>
+          </Card>
+        ) : (
+          <NetworkErrorAlert />
+        )
       ) : (
         <ComponentLoader />
       )}

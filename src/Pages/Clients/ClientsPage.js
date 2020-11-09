@@ -3,13 +3,15 @@ import { Row, Col } from "antd";
 import { ClientsList } from "../../Components/Lists";
 import { ClientCard } from "../../Components/Cards";
 import useFetch from "../../Api/useFetch";
-import { PageLoader } from "../../Components/Others";
-import { NoDataAlert } from "../../Components/Alerts";
+import { PageLoader } from "../../Components/Loaders";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
 
 const ClientsPage = () => {
-  const { response, isLoading } = useFetch({
+  const token = localStorage.getItem("token");
+  const { response, isLoading, error } = useFetch({
     method: "get",
     url: "/clients",
+    token: token,
   });
   const [client, setClient] = useState({});
   const handleChooseClient = (id) => {
@@ -21,23 +23,29 @@ const ClientsPage = () => {
     console.log(chosenClient);
   };
   return (
-    <div>
+    <div style={{ height: "100%" }}>
       {isLoading === false ? (
         <>
-          {response !== "" ? (
-            <Row>
-              <Col flex="auto">
-                {client.address ? <ClientCard client={client} /> : ""}
-              </Col>
-              <Col flex="300px">
-                <ClientsList
-                  items={[...response]}
-                  handleClick={handleChooseClient}
-                />
-              </Col>
-            </Row>
+          {error === "" ? (
+            response !== "" ? (
+              <div style={{ height: "100%" }}>
+                <Row>
+                  <Col flex="auto">
+                    {client.address ? <ClientCard client={client} /> : ""}
+                  </Col>
+                  <Col flex="300px">
+                    <ClientsList
+                      items={[...response]}
+                      handleClick={handleChooseClient}
+                    />
+                  </Col>
+                </Row>
+              </div>
+            ) : (
+              <NoDataAlert content="Brak klientów w bazie" />
+            )
           ) : (
-            <NoDataAlert content="Brak klientów w bazie" />
+            <NetworkErrorAlert />
           )}
         </>
       ) : (

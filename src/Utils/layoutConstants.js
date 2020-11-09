@@ -6,3 +6,5 @@ export const layout = {
     span: 10,
   },
 };
+
+export const pageRowGutter = [12, 12];

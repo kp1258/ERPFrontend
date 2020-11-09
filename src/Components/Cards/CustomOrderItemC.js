@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Card } from "antd";
-import { CardDivider, OrderDetails } from "../Others";
+import { CardDivider } from "../Dividers";
+import { OrderDetails } from "../Others";
 import { SolutionDetails } from "../Others";
 import { CustomOrderItemTimeline } from "../Timelines";
 

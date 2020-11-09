@@ -1,6 +1,6 @@
 import React from "react";
 const StandardOrderItemStatus = ({ status }) => {
-  const color = status === "dostępny" ? "green" : "red";
+  const color = status === "Dostępny" ? "green" : "red";
   const style = {
     color: `${color}`,
     border: `1px solid ${color}`,

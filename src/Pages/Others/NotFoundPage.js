@@ -1,6 +1,7 @@
 import React from "react";
+import { NotFoundAlert } from "../../Components/Alerts";
 const NotFoundPage = () => {
-  return <div>Not Found Page</div>;
+  return <NotFoundAlert />;
 };
 
 export default NotFoundPage;

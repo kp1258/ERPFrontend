@@ -1,28 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Form, Card, Button, Input } from "antd";
-import { layout } from "../../Utils/FormLayout";
+import { layout } from "../../Utils/layoutConstants";
 import { clients } from "../../Api/erpApi";
 import { clientSchema } from "../../Utils/yupSchemas";
-import {
-  formCardStyle,
-  formContainerStyle,
-  formStyle,
-} from "../../Utils/sharedStyles";
+import { formCardStyle } from "../../Utils/sharedStyles";
+import { UserContext } from "../../Contexts/UserContext";
+import { handleResponse } from "../../Api/handleResponse";
 
 const CreateClientForm = () => {
+  const user = useContext(UserContext);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { control, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(clientSchema),
   });
   const onSubmit = (data) => {
     console.log(data);
+    var params = { ...data, salesmanId: user.userId };
     setIsSubmitting(true);
     clients
-      .create(data)
+      .create(params)
       .then((res) => {
         console.log(res);
+        handleResponse(res, "Pomyślnie dodano klienta");
         reset({
           companyName: "",
           firstName: "",
@@ -38,6 +39,7 @@ const CreateClientForm = () => {
       })
       .catch((err) => {
         console.log(err);
+        handleResponse(err, "Nastąpił błąd przy dodawaniu klienta");
       })
       .finally(() => {
         setIsSubmitting(false);
@@ -130,9 +132,6 @@ const CreateClientForm = () => {
               placeHolder="Podaj miasto"
             />
             <div className="errorMessage">{errors.address?.city?.message}</div>
-          </Form.Item>
-          <Form.Item>
-            <Controller control={control} name="salesmanId" defaultValue={2} />
           </Form.Item>
           <Button type="primary" htmlType="submit" loading={isSubmitting}>
             Dodaj

@@ -1,6 +1,6 @@
 import React from "react";
 import { OrderTimeline } from "../Timelines";
-import { CardDivider } from "../Others";
+import { CardDivider } from "../Dividers";
 import { OrderWithTabsCard } from "../Cards";
 import {
   CustomOrderItemStatusList,
@@ -11,7 +11,7 @@ const OrderActiveCard = ({ order }) => {
   const content = (
     <>
       <CardDivider content="Zawartość zamówienia" />
-      {order.type !== "standardowy" ? (
+      {order.type !== "Standardowy" ? (
         <CustomOrderItemStatusList items={order.customOrderItems} />
       ) : (
         <StandardOrderItemStatusList items={order.standardOrderItemDetails} />

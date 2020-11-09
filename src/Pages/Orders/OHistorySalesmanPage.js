@@ -1,27 +1,36 @@
-import React from "react";
+import React, { useContext } from "react";
 import useFetch from "../../Api/useFetch";
-import { PageLoader } from "../../Components/Others";
-import { Space } from "antd";
+import { PageLoader } from "../../Components/Loaders";
 import { OrderHistoryCard } from "../../Components/Cards";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { UserContext } from "../../Contexts/UserContext";
+import { Row, Col } from "antd";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const OrdersHistorySalesmanPage = () => {
-  const { response, isLoading } = useFetch({
+  const user = useContext(UserContext);
+  const { response, isLoading, error } = useFetch({
     method: "get",
-    url: "/orders/history?SalesmanId=2",
+    url: `/orders/history?SalesmanId=${user.userId}`,
   });
   console.log(response);
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <Space>
-            {[...response].map((order) => (
-              <OrderHistoryCard order={order} />
-            ))}
-          </Space>
+        error === "" ? (
+          response !== "" ? (
+            <Row gutter={[...pageRowGutter]}>
+              {[...response].map((order) => (
+                <Col>
+                  <OrderHistoryCard order={order} />
+                </Col>
+              ))}
+            </Row>
+          ) : (
+            <NoDataAlert content="Brak zamówień w historii" />
+          )
         ) : (
-          <NoDataAlert content="Brak zamówień w historii" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

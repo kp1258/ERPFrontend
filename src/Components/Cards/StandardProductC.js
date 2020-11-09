@@ -1,9 +1,12 @@
 import React from "react";
-import { Card, List } from "antd";
+import { Card, List, Image } from "antd";
+import { inactiveCardColor } from "../../Utils/sharedStyles";
 
 const defaultImageSrc = "/assets/productIcon.png";
 const StandardProductCard = (props) => {
   const { product } = props;
+  const color = product.status === "Produkowany" ? "" : inactiveCardColor;
+  const hoverable = product.status === "Produkowany" ? true : false;
   const data = [
     `Wymiary: ${product.dimensions}`,
     `Kategoria: ${product.standardProductCategory.name}`,
@@ -13,9 +16,9 @@ const StandardProductCard = (props) => {
   return (
     <div>
       <Card
-        hoverable
+        hoverable={hoverable}
         title={product.name}
-        style={{ fontSize: "150%" }}
+        style={{ fontSize: "150%", backgroundColor: color }}
         cover={
           <img
             style={{ width: "256px", maxHeight: "256px" }}

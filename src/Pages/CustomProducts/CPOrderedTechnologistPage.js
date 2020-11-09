@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import { CustomProductOrderedCard } from "../../Components/Cards";
 import useFetch from "../../Api/useFetch";
-import { PageLoader } from "../../Components/Others";
-import { NoDataAlert } from "../../Components/Alerts";
+import { PageLoader } from "../../Components/Loaders";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const CustomProductsOrderedPage = () => {
   const [triggerUpdate, setTriggerUpdate] = useState(false);
-  const { response, isLoading, refetch } = useFetch({
+  const { response, isLoading, refetch, error } = useFetch({
     method: "get",
     url: "/custom-products/ordered",
   });
@@ -22,18 +23,24 @@ const CustomProductsOrderedPage = () => {
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <Space>
-            {[...response].map((customProduct) => (
-              <CustomProductOrderedCard
-                key={customProduct.customProductId}
-                customProduct={customProduct}
-                toggleUpdate={toggleTrigger}
-              />
-            ))}
-          </Space>
+        error === "" ? (
+          response !== "" ? (
+            <Row gutter={[...pageRowGutter]}>
+              {[...response].map((customProduct) => (
+                <Col>
+                  <CustomProductOrderedCard
+                    key={customProduct.customProductId}
+                    customProduct={customProduct}
+                    toggleUpdate={toggleTrigger}
+                  />
+                </Col>
+              ))}
+            </Row>
+          ) : (
+            <NoDataAlert content="Brak produktów na zamówienie oczekujących na rozwiązanie" />
+          )
         ) : (
-          <NoDataAlert content="Brak produktów na zamówienie oczekujących na rozwiązanie" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { ChangeStockModal } from "../../Components/Modals";
 import { ProductWarehouseChangeStockCard } from "../../Components/Cards";
-import { Space } from "antd";
-import { PageLoader } from "../../Components/Others";
+import { Row, Col } from "antd";
+import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const ChangeStockProductWarehousePage = () => {
   const [triggerUpdate, setTriggerUpdate] = useState(false);
   const [visible, setVisible] = useState(false);
   const [item, setItem] = useState();
   const [type, setType] = useState();
-  const { response, isLoading, refetch } = useFetch({
+  const { response, isLoading, refetch, error } = useFetch({
     method: "get",
     url: "/product-warehouse",
   });
@@ -45,19 +46,25 @@ const ChangeStockProductWarehousePage = () => {
     <div>
       {isLoading === false ? (
         <div>
-          {response !== "" ? (
-            <Space>
-              {[...response].map((item) => (
-                <ProductWarehouseChangeStockCard
-                  key={item.productWarehouseItemId}
-                  item={item}
-                  handleEntry={handleEntry}
-                  handleWithdrawal={handleWithdrawal}
-                />
-              ))}
-            </Space>
+          {error === "" ? (
+            response !== "" ? (
+              <Row gutter={[...pageRowGutter]}>
+                {[...response].map((item) => (
+                  <Col>
+                    <ProductWarehouseChangeStockCard
+                      key={item.productWarehouseItemId}
+                      item={item}
+                      handleEntry={handleEntry}
+                      handleWithdrawal={handleWithdrawal}
+                    />
+                  </Col>
+                ))}
+              </Row>
+            ) : (
+              <NoDataAlert content="Brak produktów w magazynie" />
+            )
           ) : (
-            <NoDataAlert content="Brak produktów w magazynie" />
+            <NetworkErrorAlert />
           )}
           {item ? (
             <ChangeStockModal

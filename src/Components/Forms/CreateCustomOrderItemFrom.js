@@ -3,7 +3,7 @@ import { Form, Input, InputNumber, Space } from "antd";
 import { FileItemButton } from "../Buttons";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { layout } from "../../Utils/FormLayout";
+import { layout } from "../../Utils/layoutConstants";
 import { customOrderItemSchema } from "../../Utils/yupSchemas";
 
 const { TextArea } = Input;
@@ -101,27 +101,31 @@ const CreateCustomOrderItemForm = ({
           <div className="errorMessage">{errors.quantity?.message}</div>
         </Form.Item>
         <Form.Item>
-          <input
-            id="abc"
-            type="file"
-            name="files"
-            onChange={onChange}
-            key={inputKey || ""}
-          />
-          <label for="abc">Dodaj plik</label>
+          <div style={{ marginInline: "50%" }}>
+            <input
+              id="abc"
+              type="file"
+              name="files"
+              onChange={onChange}
+              key={inputKey || ""}
+            />
+            <label for="abc">Dodaj plik</label>
+          </div>
         </Form.Item>
       </Form>
-      <Space direction="vertical">
-        {files.length > 0
-          ? [...files].map((file) => (
-              <FileItemButton
-                key={file.fileName}
-                file={file}
-                handleCancel={removeFile}
-              />
-            ))
-          : ""}
-      </Space>
+      <div style={{ marginInline: "50%" }}>
+        <Space direction="vertical">
+          {files.length > 0
+            ? [...files].map((file) => (
+                <FileItemButton
+                  key={file.fileName}
+                  file={file}
+                  handleCancel={removeFile}
+                />
+              ))
+            : ""}
+        </Space>
+      </div>
     </div>
   );
 };

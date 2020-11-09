@@ -2,26 +2,26 @@ export const roles = [
   {
     id: 1,
     name: "Administrator",
-    value: "administrator",
+    value: "Administrator",
   },
   {
     id: 2,
     name: "Handlowiec",
-    value: "handlowiec",
+    value: "Handlowiec",
   },
   {
     id: 3,
     name: "Kierownik produkcji",
-    value: "kierownik produkcji",
+    value: "Kierownik produkcji",
   },
   {
     id: 4,
     name: "Technolog",
-    value: "technolog",
+    value: "Technolog",
   },
   {
     id: 5,
     name: "Magazynier",
-    value: "magazynier",
+    value: "Magazynier",
   },
 ];

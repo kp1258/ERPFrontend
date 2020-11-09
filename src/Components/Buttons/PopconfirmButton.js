@@ -9,7 +9,12 @@ const PopconfirmButton = (props) => {
       cancelText="Nie"
       onConfirm={props.handleClick}
     >
-      <Button style={props.btnStyle} type="primary" disabled={props.disabled}>
+      <Button
+        style={props.btnStyle}
+        type="primary"
+        disabled={props.disabled}
+        loading={props.loading}
+      >
         {props.name}
       </Button>
     </Popconfirm>

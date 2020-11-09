@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Card, Form, Button, Input } from "antd";
-import { layout } from "../../Utils/FormLayout";
+import { layout } from "../../Utils/layoutConstants";
 import { materialSchema } from "../../Utils/yupSchemas";
 import { materials } from "../../Api/erpApi";
 import { formCardStyle } from "../../Utils/sharedStyles";
+import { handleResponse } from "../../Api/handleResponse";
 
 const CreateMaterialForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -19,9 +20,14 @@ const CreateMaterialForm = () => {
       .create(data)
       .then((res) => {
         console.log(res);
-        reset();
+        reset({
+          name: "",
+          unit: "",
+        });
+        handleResponse(res, "Pomyślnie dodano materiał");
       })
       .catch((err) => {
+        handleResponse(err, "Coś poszło nie tak");
         console.log(err);
       })
       .finally(() => {
@@ -32,7 +38,7 @@ const CreateMaterialForm = () => {
     <div style={formCardStyle}>
       <Card title="Formularz dodawania materiałów">
         <Form onFinish={handleSubmit(onSubmit)} {...layout}>
-          <Form.Item label="Nazwa materiału">
+          <Form.Item label="Nazwa">
             <Controller
               name="name"
               control={control}
@@ -42,7 +48,16 @@ const CreateMaterialForm = () => {
             />
             <div className="errorMessage">{errors.name?.message}</div>
           </Form.Item>
-
+          <Form.Item label="Jednostka">
+            <Controller
+              name="unit"
+              control={control}
+              as={<Input />}
+              defaultValue=""
+              placeHolder="Podaj jednostkę"
+            />
+            <div className="errorMessage">{errors.unit?.message}</div>
+          </Form.Item>
           <Button type="primary" htmlType="submit" loading={isSubmitting}>
             Dodaj
           </Button>

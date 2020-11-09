@@ -8,7 +8,12 @@ const FileItemButton = (props) => {
     <Space>
       <FileItem {...props} />
       <Button
-        style={{ backgroundColor: "red" }}
+        style={{
+          backgroundColor: "#1890FF",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
         shape="circle-outline"
         icon={<CancelIcon />}
         onClick={() => handleCancel(props.file.filePath)}

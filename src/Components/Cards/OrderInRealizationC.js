@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "antd";
-import { CardDivider } from "../Others";
+import { CardDivider } from "../Dividers";
 import { OrderTimeline } from "../Timelines";
 import { OrderWithTabsCard } from "../Cards";
 import {
@@ -25,7 +25,7 @@ const OrderInRealizationCard = ({ order, showModal, handleClick }) => {
   const content = (
     <>
       <CardDivider content="Zawartość zamówienia" />
-      {order.type !== "standardowy" ? (
+      {order.type !== "Standardowy" ? (
         <CustomOrderItemStatusList items={order.customOrderItems} />
       ) : (
         <StandardOrderItemStatusList items={order.standardOrderItemDetails} />

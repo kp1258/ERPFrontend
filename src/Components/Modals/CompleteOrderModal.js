@@ -1,29 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Modal, message } from "antd";
 import { orders } from "../../Api/erpApi";
+import { UserContext } from "../../Contexts/UserContext";
 import {
   CustomOrderItemCompleteList,
   StandardOrderItemCompleteList,
 } from "../Lists";
+import { handleResponse } from "../../Api/handleResponse";
 const CompleteOrderModal = ({ visible, hideModal, order, toggleUpdate }) => {
   const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const user = useContext(UserContext);
   const handleClick = () => {
     var length =
-      order.type === "standardowy"
+      order.type === "Standardowy"
         ? order.standardOrderItemDetails.length
         : order.customOrderItems.length;
     if (selectedCheckboxes.length === length) {
       setIsSubmitting(true);
-      var patch = [{ op: "replace", path: "/status", value: "zrealizowane" }];
+      var patch = [{ op: "replace", path: "/status", value: "Zrealizowane" }];
       orders
-        .complete(5, order.orderId, patch)
+        .complete(user.userId, order.orderId, patch)
         .then((res) => {
           hideModal();
           toggleUpdate();
+          handleResponse(res, "Pomyślnie zrealizowano zamówienie");
         })
         .catch((err) => {
           console.log(err);
+          handleResponse(err, "Coś poszło nie tak");
         })
         .finally(() => setIsSubmitting(false));
     } else {
@@ -48,7 +53,7 @@ const CompleteOrderModal = ({ visible, hideModal, order, toggleUpdate }) => {
         confirmLoading={isSubmitting}
       >
         <>
-          {order.type !== "standardowy" ? (
+          {order.type !== "Standardowy" ? (
             <CustomOrderItemCompleteList
               items={order.customOrderItems}
               selectedCheckboxes={selectedCheckboxes}

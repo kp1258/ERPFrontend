@@ -17,3 +17,5 @@ export const formStyle = {
   marginLeft: "10%",
   backgroundColor: "green",
 };
+
+export const inactiveCardColor = "#D4D4D4";

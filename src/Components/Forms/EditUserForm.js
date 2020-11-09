@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { roles } from "../../Utils/UserRoles";
-import { layout } from "../../Utils/FormLayout";
+import { layout } from "../../Utils/layoutConstants";
 import { Form, Select, Input } from "antd";
 import { users } from "../../Api/erpApi";
 import { editUserSchema } from "../../Utils/yupSchemas";
+import { handleResponse } from "../../Api/handleResponse";
 
 const { Option } = Select;
 
@@ -22,7 +23,6 @@ const EditUserForm = (props) => {
       phoneNumber: user.phoneNumber,
       email: user.email,
       login: user.login,
-      password: user.password,
       role: user.role,
     });
   }, [props.user]);
@@ -35,9 +35,11 @@ const EditUserForm = (props) => {
         console.log(res);
         props.hideModal();
         props.toggleUpdate();
+        handleResponse(res, "Pomyślnie zmieniono dane użytkownika");
       })
       .catch((err) => {
         console.log(err);
+        handleResponse(err, "Coś poszło nie tak");
       })
       .finally(() => props.toggleSubmitting(false));
   };
@@ -100,24 +102,14 @@ const EditUserForm = (props) => {
             name="role"
             control={control}
             as={
-              <Select>
+              <Select placeholder="Wybierz stanowisko">
                 {roles.map((role) => (
                   <Option value={role.value}>{role.name}</Option>
                 ))}
               </Select>
             }
-            placeholder="Wybierz stanowisko"
-            defaultValue=""
           />
           <div className="errorMessage">{errors.role?.message}</div>
-        </Form.Item>
-        <Form.Item>
-          <Controller
-            control={control}
-            name="password"
-            as={<div />}
-            defaultValue={props.user.password}
-          />
         </Form.Item>
       </Form>
     </>

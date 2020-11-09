@@ -25,7 +25,7 @@ const OrderTypePicker = ({ type, setType }) => {
               paddingBlock: "10px",
               paddingInline: "10px",
             }}
-            value="standardowy"
+            value="Standardowy"
           >
             Standardowe
           </Radio>
@@ -35,7 +35,7 @@ const OrderTypePicker = ({ type, setType }) => {
               paddingBlock: "10px",
               paddingInline: "10px",
             }}
-            value="niestandardowy"
+            value="Niestandardowy"
           >
             Niestandardowe
           </Radio>

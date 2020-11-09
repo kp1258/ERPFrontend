@@ -1,28 +1,37 @@
-import React from "react";
+import React, { useContext } from "react";
 import { CustomProductHistoryCard } from "../../Components/Cards";
-import { Space } from "antd";
-import { PageLoader } from "../../Components/Others";
+import { Row, Col } from "antd";
+import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { UserContext } from "../../Contexts/UserContext";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
+//moje rozwiązania
 const CustomProductsTechnologistPage = () => {
-  //moje rozwiązania
-  const { response, isLoading } = useFetch({
+  const user = useContext(UserContext);
+  const { response, isLoading, error } = useFetch({
     method: "get",
-    url: "/technologists/4/custom-products/prepared",
+    url: `/technologists/${user.userId}/custom-products/prepared`,
   });
   console.log(response);
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <Space>
-            {[...response].map((customProduct) => (
-              <CustomProductHistoryCard customProduct={customProduct} />
-            ))}
-          </Space>
+        error === "" ? (
+          response !== "" ? (
+            <Row gutter={[...pageRowGutter]}>
+              {[...response].map((customProduct) => (
+                <Col>
+                  <CustomProductHistoryCard customProduct={customProduct} />
+                </Col>
+              ))}
+            </Row>
+          ) : (
+            <NoDataAlert content="Brak rozwiązań dodanych przez technologa" />
+          )
         ) : (
-          <NoDataAlert content="Brak rozwiązań dodanych przez technologa" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

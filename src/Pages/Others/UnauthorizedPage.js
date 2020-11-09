@@ -1,6 +1,7 @@
 import React from "react";
+import { UnauthorizedAlert } from "../../Components/Alerts";
 const UnauthorizedPage = () => {
-  return <div>Not Authorized Page</div>;
+  return <UnauthorizedAlert />;
 };
 
 export default UnauthorizedPage;

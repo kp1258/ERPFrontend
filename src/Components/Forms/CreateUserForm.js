@@ -3,11 +3,12 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Form, Card, Button, Input, Select } from "antd";
 import { roles } from "../../Utils/UserRoles";
-import { layout } from "../../Utils/FormLayout";
+import { layout } from "../../Utils/layoutConstants";
 import "./index.css";
 import { users } from "../../Api/erpApi";
 import { userSchema } from "../../Utils/yupSchemas";
 import { formCardStyle } from "../../Utils/sharedStyles";
+import { handleResponse } from "../../Api/handleResponse";
 
 const { Option } = Select;
 
@@ -31,9 +32,11 @@ const CreateUserForm = (props) => {
           password: "",
           role: "",
         });
+        handleResponse(res, "Pomyślnie dodano pracownika");
       })
       .catch((err) => {
         console.log(err);
+        handleResponse(err, "Coś poszło nie tak");
       })
       .finally(() => {
         setIsSubmitting(false);
@@ -109,14 +112,12 @@ const CreateUserForm = (props) => {
               name="role"
               control={control}
               as={
-                <Select>
+                <Select placeholder="Wybierz stanowisko">
                   {roles.map((role) => (
                     <Option value={role.value}>{role.name}</Option>
                   ))}
                 </Select>
               }
-              placeholder="Wybierz stanowisko"
-              defaultValue=""
             />
             <div className="errorMessage">{errors.role?.message}</div>
           </Form.Item>

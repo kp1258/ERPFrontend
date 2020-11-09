@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Steps, Button, Divider, message } from "antd";
 import { PopconfirmButton } from "../Buttons";
 import ClientPicker from "./ClientPicker";
 import OrderTypePicker from "./OrderTypePicker";
 import OrderItemsPicker from "./OrderItemsPicker";
 import { orders } from "../../Api/erpApi";
+import { objectToFormData } from "../../Utils/dataFormattingFunctions";
+import { UserContext } from "../../Contexts/UserContext";
+import { handleResponse } from "../../Api/handleResponse";
 
 const { Step } = Steps;
 const OrderSteps = () => {
+  const user = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(false);
   const [current, setCurrent] = useState(0);
   const [clientId, setClientId] = useState();
   const [client, setClient] = useState({});
@@ -48,41 +53,6 @@ const OrderSteps = () => {
     },
   ];
 
-  function objectToFormData(obj, rootName) {
-    var formData = new FormData();
-
-    function appendFormData(data, root) {
-      root = root || "";
-      if (data instanceof File) {
-        formData.append(root, data);
-      } else if (Array.isArray(data)) {
-        for (var i = 0; i < data.length; i++) {
-          if (data[i] instanceof File) {
-            appendFormData(data[i], root);
-          } else {
-            appendFormData(data[i], root + "[" + i + "]");
-          }
-        }
-      } else if (typeof data === "object" && data) {
-        for (var key in data) {
-          if (data.hasOwnProperty(key)) {
-            if (root === "") {
-              appendFormData(data[key], key);
-            } else {
-              appendFormData(data[key], root + "." + key);
-            }
-          }
-        }
-      } else {
-        if (data !== null && typeof data !== "undefined") {
-          formData.append(root, data);
-        }
-      }
-    }
-    appendFormData(obj, rootName);
-
-    return formData;
-  }
   const next = () => {
     const nextStep = current + 1;
     setCurrent(nextStep);
@@ -104,8 +74,9 @@ const OrderSteps = () => {
       : true;
   const onSubmit = () => {
     console.log(standardOrderItems);
+    setIsLoading(true);
     var customOrderItemsWithFiles = [];
-    if (type === "niestandardowy") {
+    if (type === "Niestandardowy") {
       for (let i = 0; i < customOrderItems.length; i++) {
         console.log(customOrderItems[i]);
         var files = [];
@@ -117,7 +88,7 @@ const OrderSteps = () => {
           var newFile = {
             BlobName: "mock",
             FilePath: "mock",
-            Type: "order",
+            Type: "Order",
             FileName: customOrderItems[i].customProduct.fileList[j].file.name,
             File: customOrderItems[i].customProduct.fileList[j].file,
           };
@@ -141,7 +112,7 @@ const OrderSteps = () => {
     var data = {
       clientId: clientId,
       type: type,
-      salesmanId: 2,
+      salesmanId: user.userId,
       standardOrderItems: [...standardOrderItems],
       customOrderItems: [...customOrderItemsWithFiles],
     };
@@ -157,11 +128,13 @@ const OrderSteps = () => {
         setType();
         setCustomOrderItems([]);
         setStandardOrderItems([]);
-        message.success("Pomyślnie złożono zamówienie");
+        handleResponse(res, "Pomyślnie złożono zamówienie");
       })
       .catch((err) => {
         console.log(err);
-      });
+        handleResponse(err, "Coś poszło nie tak");
+      })
+      .finally(() => setIsLoading(false));
   };
   return (
     <div style={{ width: "100%", backgroundColor: "white", height: "100%" }}>
@@ -196,6 +169,7 @@ const OrderSteps = () => {
             disabled={submitButtonStatus}
             name="Zatwierdź"
             handleClick={onSubmit}
+            loading={isLoading}
           />
         )}
         {current < steps.length - 1 && (

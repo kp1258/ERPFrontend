@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { warehouseSchema } from "../../Utils/yupSchemas";
-import { layout } from "../../Utils/FormLayout";
+import { layout } from "../../Utils/layoutConstants";
 import { materialWarehouse, productWarehouse } from "../../Api/erpApi";
+import { handleResponse } from "../../Api/handleResponse";
 
 const ChangeStockModal = (props) => {
   const {
@@ -50,9 +51,11 @@ const ChangeStockModal = (props) => {
               toggleUpdate();
               hideModal();
               reset();
+              handleResponse(res, "Pomyślnie zmieniono stan materiału");
             })
             .catch((err) => {
               console.log(err);
+              handleResponse(err, "Coś poszło nie tak");
             })
             .finally(() => {
               setIsSubmitting(false);
@@ -64,9 +67,11 @@ const ChangeStockModal = (props) => {
               toggleUpdate();
               hideModal();
               reset();
+              handleResponse(res, "Pomyślnie zmieniono stan produktu");
             })
             .catch((err) => {
               console.log(err);
+              handleResponse(err, "Coś poszło nie tak");
             })
             .finally(() => {
               setIsSubmitting(false);

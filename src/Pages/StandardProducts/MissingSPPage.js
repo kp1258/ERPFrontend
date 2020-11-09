@@ -1,26 +1,35 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StandardProductMissingCard } from "../../Components/Cards";
-import { Space } from "antd";
-import { PageLoader } from "../../Components/Others";
+import { Row, Col } from "antd";
+import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { UserContext } from "../../Contexts/UserContext";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const MissingStandardProductsPage = () => {
-  const { response, isLoading } = useFetch({
+  const user = useContext(UserContext);
+  const { response, isLoading, error } = useFetch({
     method: "get",
-    url: "/production-managers/3/standard-products",
+    url: `/production-managers/${user.userId}/standard-products`,
   });
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <Space>
-            {[...response].map((product) => (
-              <StandardProductMissingCard product={product} />
-            ))}
-          </Space>
+        error === "" ? (
+          response !== "" ? (
+            <Row gutter={[...pageRowGutter]}>
+              {[...response].map((product) => (
+                <Col>
+                  <StandardProductMissingCard product={product} />
+                </Col>
+              ))}
+            </Row>
+          ) : (
+            <NoDataAlert content="W magazynie nie brakuje produktów" />
+          )
         ) : (
-          <NoDataAlert content="W magazynie nie brakuje produktów standardowych" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

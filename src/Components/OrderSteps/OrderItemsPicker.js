@@ -15,7 +15,7 @@ const OrderItemsPicker = ({
       >
         Wybierz zawartość zamówienia
       </div>
-      {type === "standardowy" ? (
+      {type === "Standardowy" ? (
         <StandardProductsPicker
           standardOrderItems={standardOrderItems}
           setStandardOrderItems={setStandardOrderItems}

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Space } from "antd";
+import { Row, Col } from "antd";
 import { CustomOrderItemOrderedCard } from "../../Components/Cards";
 import useFetch from "../../Api/useFetch";
-import { PageLoader } from "../../Components/Others";
-import { NoDataAlert } from "../../Components/Alerts";
+import { PageLoader } from "../../Components/Loaders";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const CustomProductsOrderedManagerPage = () => {
   const [triggerUpdate, setTriggerUpdate] = useState(false);
-  const { response, isLoading, refetch } = useFetch({
+  const { response, isLoading, refetch, error } = useFetch({
     method: "get",
     url: "/custom-order-items/prepared",
   });
@@ -23,18 +24,24 @@ const CustomProductsOrderedManagerPage = () => {
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <Space>
-            {[...response].map((item) => (
-              <CustomOrderItemOrderedCard
-                key={item.customOrderItemId}
-                item={item}
-                toggleUpdate={toggleTrigger}
-              />
-            ))}
-          </Space>
+        error === "" ? (
+          response !== "" ? (
+            <Row gutter={[...pageRowGutter]}>
+              {[...response].map((item) => (
+                <Col>
+                  <CustomOrderItemOrderedCard
+                    key={item.customOrderItemId}
+                    item={item}
+                    toggleUpdate={toggleTrigger}
+                  />
+                </Col>
+              ))}
+            </Row>
+          ) : (
+            <NoDataAlert content="Brak produktów na zamówienie oczekujących na produkcję" />
+          )
         ) : (
-          <NoDataAlert content="Brak produktów na zamówienie oczekujących na produkcję" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

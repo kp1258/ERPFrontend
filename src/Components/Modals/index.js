@@ -1,4 +1,5 @@
 import AddSolutionModal from "./AddSolutionModal";
+import ChangePasswordModal from "./ChangePasswordModal";
 import ChangeStockModal from "./ChangeStockModal";
 import CompleteOrderModal from "./CompleteOrderModal";
 import CreateCustomOrderItemModal from "./CreateCustomOrderItemModal";
@@ -11,6 +12,7 @@ import EditUserModal from "./EditUserModal";
 
 export {
   AddSolutionModal,
+  ChangePasswordModal,
   ChangeStockModal,
   CompleteOrderModal,
   CreateCustomOrderItemModal,

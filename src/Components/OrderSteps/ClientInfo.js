@@ -1,6 +1,6 @@
 import React from "react";
 import { Space } from "antd";
-import { CenteredDivider } from "../Others";
+import { CenteredDivider } from "../Dividers";
 const ClientInfo = ({ client }) => {
   return (
     <div style={{ width: "500px", margin: "auto" }}>

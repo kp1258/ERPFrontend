@@ -29,7 +29,7 @@ const StandardOrderItemCompleteList = ({
         pagination={pagination}
         footer={<div>Liczba pozycji: {items.length}</div>}
         renderItem={(item) => {
-          const status = item.status !== "dostępny" ? true : false;
+          const status = item.status !== "Dostępny" ? true : false;
           return (
             <List.Item
               actions={[

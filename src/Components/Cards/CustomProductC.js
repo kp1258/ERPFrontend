@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Card } from "antd";
-import { CardDivider, OrderDetails } from "../Others";
+import { CardDivider } from "../Dividers";
+import { OrderDetails } from "../Others";
 import { SolutionDetails } from "../Others";
 import { CustomProductTimeline } from "../Timelines";
 const CustomProductCard = ({ customProduct, footer }) => {
@@ -29,7 +30,7 @@ const CustomProductCard = ({ customProduct, footer }) => {
 
     tab2: (
       <div>
-        {customProduct.status === "przygotowany" ? (
+        {customProduct.status === "Przygotowany" ? (
           <SolutionDetails product={customProduct} />
         ) : (
           <>

@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { WelcomeMessage } from "../../Components/Alerts";
+import { UserContext } from "../../Contexts/UserContext";
+
 const AdminHomePage = () => {
-  return <div>Admin Home Page</div>;
+  const user = useContext(UserContext);
+  return <WelcomeMessage user={user} />;
 };
 
 export default AdminHomePage;

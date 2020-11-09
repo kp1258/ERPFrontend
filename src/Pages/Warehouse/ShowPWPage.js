@@ -1,29 +1,36 @@
 import React from "react";
 import { ProductWarehouseCard } from "../../Components/Cards";
-import { Space } from "antd";
-import { PageLoader } from "../../Components/Others";
+import { Row, Col } from "antd";
+import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const ShowProductWarehousePage = () => {
-  const { response, isLoading } = useFetch({
+  const { response, isLoading, error } = useFetch({
     method: "get",
     url: "/product-warehouse",
   });
   return (
     <div>
       {isLoading === false ? (
-        response !== "" ? (
-          <Space>
-            {[...response].map((item) => (
-              <ProductWarehouseCard
-                key={item.productWarehouseItemId}
-                item={item}
-              />
-            ))}
-          </Space>
+        error === "" ? (
+          response !== "" ? (
+            <Row gutter={[...pageRowGutter]}>
+              {[...response].map((item) => (
+                <Col>
+                  <ProductWarehouseCard
+                    key={item.productWarehouseItemId}
+                    item={item}
+                  />
+                </Col>
+              ))}
+            </Row>
+          ) : (
+            <NoDataAlert content="Brak produktów w magazynie" />
+          )
         ) : (
-          <NoDataAlert content="Brak produktów w magazynie" />
+          <NetworkErrorAlert />
         )
       ) : (
         <PageLoader />

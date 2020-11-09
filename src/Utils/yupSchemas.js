@@ -36,7 +36,10 @@ export const clientSchema = yup.object().shape({
     .required("Adres email jest wymagany"),
   address: yup.object().shape({
     street: yup.string().required("Ulica jest wymagana"),
-    postalCode: yup.string().required("Kod pocztowy jest wymagany"),
+    postalCode: yup
+      .string()
+      .required("Kod pocztowy jest wymagany")
+      .length(6, "Kod pocztowy musi mieć 6 znaków"),
     city: yup.string().required("Miasto jest wymagane"),
   }),
 });
@@ -57,7 +60,8 @@ export const standardProductSchema = yup.object().shape({
   standardProductCategoryId: yup
     .number()
     .positive("Wybór kategorii jest wymagany")
-    .required("Wybór kategorii jest wymagany"),
+    .required("Wybór kategorii jest wymagany")
+    .typeError("Wybór kategorii jest wymagany"),
 });
 
 export const categorySchema = yup.object().shape({
@@ -66,6 +70,7 @@ export const categorySchema = yup.object().shape({
 
 export const materialSchema = yup.object().shape({
   name: yup.string().required("Nazwa materiału jest wymagana"),
+  unti: yup.string().required("Jednostka jest wymagana"),
 });
 
 export const customOrderItemSchema = yup.object().shape({
@@ -75,4 +80,18 @@ export const customOrderItemSchema = yup.object().shape({
     .number()
     .typeError("Wartość musi być liczbą")
     .required("Ilość jest wymagana"),
+});
+
+export const signInSchema = yup.object().shape({
+  login: yup.string().required("Login jest wymagany"),
+  password: yup.string().required("Hasło jest wymagane"),
+});
+
+export const changePasswordUserSchema = yup.object().shape({
+  oldPassword: yup.string().required("Obecne hasło jest wymagane"),
+  newPassword: yup.string().required("Nowe hasło jest wymagane"),
+});
+
+export const changePasswordAdminSchema = yup.object().shape({
+  newPassword: yup.string().required("Nowe hasło jest wymagane"),
 });

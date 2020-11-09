@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { MaterialWarehouseChangeStockCard } from "../../Components/Cards";
 import { ChangeStockModal } from "../../Components/Modals";
-import { Space } from "antd";
-import { PageLoader } from "../../Components/Others";
+import { Row, Col } from "antd";
+import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
-import { NoDataAlert } from "../../Components/Alerts";
+import { NoDataAlert, NetworkErrorAlert } from "../../Components/Alerts";
+import { pageRowGutter } from "../../Utils/layoutConstants";
 
 const ChangeStockMaterialWarehousePage = () => {
   const [triggerUpdate, setTriggerUpdate] = useState(false);
   const [visible, setVisible] = useState(false);
   const [item, setItem] = useState();
   const [type, setType] = useState();
-  const { response, isLoading, refetch } = useFetch({
+  const { response, isLoading, refetch, error } = useFetch({
     method: "get",
     url: "/material-warehouse",
   });
@@ -47,19 +48,25 @@ const ChangeStockMaterialWarehousePage = () => {
     <div>
       {isLoading === false ? (
         <>
-          {response !== "" ? (
-            <Space>
-              {[...response].map((item) => (
-                <MaterialWarehouseChangeStockCard
-                  key={item.materialWarehouseItemId}
-                  item={item}
-                  handleEntry={handleEntry}
-                  handleWithdrawal={handleWithdrawal}
-                />
-              ))}
-            </Space>
+          {error === "" ? (
+            response !== "" ? (
+              <Row gutter={[...pageRowGutter]}>
+                {[...response].map((item) => (
+                  <Col>
+                    <MaterialWarehouseChangeStockCard
+                      key={item.materialWarehouseItemId}
+                      item={item}
+                      handleEntry={handleEntry}
+                      handleWithdrawal={handleWithdrawal}
+                    />
+                  </Col>
+                ))}
+              </Row>
+            ) : (
+              <NoDataAlert content="Brak materiałów w magazynie" />
+            )
           ) : (
-            <NoDataAlert content="Brak materiałów w magazynie" />
+            <NetworkErrorAlert />
           )}
           {item ? (
             <ChangeStockModal
