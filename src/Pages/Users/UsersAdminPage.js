@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col } from "antd";
+import { Row, Col, Pagination } from "antd";
 import { UserAdminCard } from "../../Components/Cards";
 import { PageLoader } from "../../Components/Loaders";
 import useFetch from "../../Api/useFetch";
@@ -51,6 +51,11 @@ const UsersAdminPage = () => {
                   </Col>
                 ))}
               </Row>
+              {/* <Pagination
+                defaultCurrent={1}
+                total={[...response].length}
+                defaultPageSize={3}
+              /> */}
             </>
           ) : (
             <NoDataAlert content="Brak pracowników w bazie" />

@@ -6,6 +6,7 @@ import { customProducts } from "../../Api/erpApi";
 import { FileItemButton } from "../Buttons";
 import { UserContext } from "../../Contexts/UserContext";
 import { handleResponse } from "../../Api/handleResponse";
+import "./index.css";
 
 const { TextArea } = Input;
 
@@ -99,28 +100,32 @@ const AddSolutionModal = (props) => {
               {errors.solutionDescription?.message}
             </div>
           </Form.Item>
-          <Form.Item>
-            <input
-              id="f02"
-              type="file"
-              name="files"
-              onChange={onChange}
-              key={inputKey || ""}
-            />
-            <label for="f02">Dodaj plik</label>
+          <Form.Item label="Pliki">
+            <div style={{ marginInline: "50%" }}>
+              <input
+                id="f02"
+                type="file"
+                name="files"
+                onChange={onChange}
+                key={inputKey || ""}
+              />
+              <label for="f02">Dodaj plik</label>
+            </div>
           </Form.Item>
+          <div style={{ marginInline: "50%" }}>
+            <Space direction="vertical">
+              {files.length > 0
+                ? [...files].map((file) => (
+                    <FileItemButton
+                      key={file.filePath}
+                      file={file}
+                      handleCancel={removeFile}
+                    />
+                  ))
+                : ""}
+            </Space>
+          </div>
         </Form>
-        <Space direction="vertical">
-          {files.length > 0
-            ? [...files].map((file) => (
-                <FileItemButton
-                  key={file.filePath}
-                  file={file}
-                  handleCancel={removeFile}
-                />
-              ))
-            : ""}
-        </Space>
       </Modal>
     </>
   );

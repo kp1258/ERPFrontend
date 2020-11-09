@@ -10,7 +10,7 @@ const StandardProductsPicker = ({
 }) => {
   const { response, isLoading, error } = useFetch({
     method: "get",
-    url: "/standard-products",
+    url: "/standard-products/produced",
   });
   return (
     <div>

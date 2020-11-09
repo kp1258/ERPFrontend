@@ -110,27 +110,31 @@ const EditCustomOrderItemForm = ({
           <div className="errorMessage">{errors.quantity?.message}</div>
         </Form.Item>
         <Form.Item>
-          <input
-            id="xxx"
-            type="file"
-            name="orderFiles"
-            onChange={(e) => onChange(e)}
-            key={inputKey || ""}
-          />
-          <label for="xxx">Dodaj plik</label>
+          <div style={{ marginInline: "50%" }}>
+            <input
+              id="xxx"
+              type="file"
+              name="orderFiles"
+              onChange={(e) => onChange(e)}
+              key={inputKey || ""}
+            />
+            <label for="xxx">Dodaj plik</label>
+          </div>
         </Form.Item>
       </Form>
-      <Space direction="vertical">
-        {orderFiles.length > 0
-          ? [...orderFiles].map((file) => (
-              <FileItemButton
-                key={file.filePath}
-                file={file}
-                handleCancel={removeFile}
-              />
-            ))
-          : ""}
-      </Space>
+      <div style={{ marginInline: "50%" }}>
+        <Space direction="vertical">
+          {orderFiles.length > 0
+            ? [...orderFiles].map((file) => (
+                <FileItemButton
+                  key={file.filePath}
+                  file={file}
+                  handleCancel={removeFile}
+                />
+              ))
+            : ""}
+        </Space>
+      </div>
     </div>
   );
 };

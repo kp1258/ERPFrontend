@@ -60,7 +60,8 @@ export const standardProductSchema = yup.object().shape({
   standardProductCategoryId: yup
     .number()
     .positive("Wybór kategorii jest wymagany")
-    .required("Wybór kategorii jest wymagany"),
+    .required("Wybór kategorii jest wymagany")
+    .typeError("Wybór kategorii jest wymagany"),
 });
 
 export const categorySchema = yup.object().shape({
@@ -69,6 +70,7 @@ export const categorySchema = yup.object().shape({
 
 export const materialSchema = yup.object().shape({
   name: yup.string().required("Nazwa materiału jest wymagana"),
+  unti: yup.string().required("Jednostka jest wymagana"),
 });
 
 export const customOrderItemSchema = yup.object().shape({

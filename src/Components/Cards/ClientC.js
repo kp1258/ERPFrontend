@@ -1,11 +1,18 @@
 import React from "react";
 import { Card, Space } from "antd";
 import { CenteredDivider } from "../Dividers";
+import { inactiveCardColor } from "../../Utils/sharedStyles";
 const ClientCard = (props) => {
   const { client } = props;
+  const color = client.status === "Nieaktywny" ? inactiveCardColor : "";
+  const hoverable = client.status === "Nieaktywny" ? false : true;
   return (
     <div>
-      <Card title="Dane klienta" hoverable>
+      <Card
+        title="Dane klienta"
+        hoverable={hoverable}
+        style={{ backgroundColor: color }}
+      >
         <Space direction="vertical">
           <li>{client.companyName}</li>
           <li>

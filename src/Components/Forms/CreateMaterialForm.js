@@ -22,6 +22,7 @@ const CreateMaterialForm = () => {
         console.log(res);
         reset({
           name: "",
+          unit: "",
         });
         handleResponse(res, "Pomyślnie dodano materiał");
       })
@@ -37,7 +38,7 @@ const CreateMaterialForm = () => {
     <div style={formCardStyle}>
       <Card title="Formularz dodawania materiałów">
         <Form onFinish={handleSubmit(onSubmit)} {...layout}>
-          <Form.Item label="Nazwa materiału">
+          <Form.Item label="Nazwa">
             <Controller
               name="name"
               control={control}
@@ -47,7 +48,16 @@ const CreateMaterialForm = () => {
             />
             <div className="errorMessage">{errors.name?.message}</div>
           </Form.Item>
-
+          <Form.Item label="Jednostka">
+            <Controller
+              name="unit"
+              control={control}
+              as={<Input />}
+              defaultValue=""
+              placeHolder="Podaj jednostkę"
+            />
+            <div className="errorMessage">{errors.unit?.message}</div>
+          </Form.Item>
           <Button type="primary" htmlType="submit" loading={isSubmitting}>
             Dodaj
           </Button>

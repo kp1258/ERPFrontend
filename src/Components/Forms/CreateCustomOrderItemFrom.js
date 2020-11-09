@@ -101,27 +101,31 @@ const CreateCustomOrderItemForm = ({
           <div className="errorMessage">{errors.quantity?.message}</div>
         </Form.Item>
         <Form.Item>
-          <input
-            id="abc"
-            type="file"
-            name="files"
-            onChange={onChange}
-            key={inputKey || ""}
-          />
-          <label for="abc">Dodaj plik</label>
+          <div style={{ marginInline: "50%" }}>
+            <input
+              id="abc"
+              type="file"
+              name="files"
+              onChange={onChange}
+              key={inputKey || ""}
+            />
+            <label for="abc">Dodaj plik</label>
+          </div>
         </Form.Item>
       </Form>
-      <Space direction="vertical">
-        {files.length > 0
-          ? [...files].map((file) => (
-              <FileItemButton
-                key={file.fileName}
-                file={file}
-                handleCancel={removeFile}
-              />
-            ))
-          : ""}
-      </Space>
+      <div style={{ marginInline: "50%" }}>
+        <Space direction="vertical">
+          {files.length > 0
+            ? [...files].map((file) => (
+                <FileItemButton
+                  key={file.fileName}
+                  file={file}
+                  handleCancel={removeFile}
+                />
+              ))
+            : ""}
+        </Space>
+      </div>
     </div>
   );
 };

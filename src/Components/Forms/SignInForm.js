@@ -6,7 +6,7 @@ import { layout } from "../../Utils/layoutConstants";
 import { formCardStyle } from "../../Utils/sharedStyles";
 import { signInSchema } from "../../Utils/yupSchemas";
 
-const SignInForm = ({ handleLogin, loading }) => {
+const SignInForm = ({ handleLogin, confirmLoading }) => {
   const { control, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(signInSchema),
   });
@@ -45,7 +45,7 @@ const SignInForm = ({ handleLogin, loading }) => {
             />
             <div className="errorMessage">{errors.password?.message}</div>
           </Form.Item>
-          <Button type="primary" htmlType="submit" loading={loading}>
+          <Button type="primary" htmlType="submit" loading={confirmLoading}>
             Zaloguj
           </Button>
         </Form>

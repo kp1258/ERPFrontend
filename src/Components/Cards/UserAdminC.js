@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, List, Button } from "antd";
-
+import { inactiveCardColor } from "../../Utils/sharedStyles";
 import { EditUserModal, ChangePasswordModal } from "../../Components/Modals";
 import { PopconfirmButton } from "../../Components/Buttons";
 import { users } from "../../Api/erpApi";
@@ -22,6 +22,8 @@ const UserAdminCard = (props) => {
     `Stanowisko: ${user.role}`,
     `Status: ${user.status}`,
   ];
+  const color = user.status === "Nieaktywny" ? inactiveCardColor : "";
+  const hoverable = user.status === "Nieaktywny" ? false : true;
   const handleClick = () => {
     setIsLoading(true);
     var status = user.status === "Aktywny" ? "Nieaktywny" : "Aktywny";
@@ -43,9 +45,9 @@ const UserAdminCard = (props) => {
   return (
     <div className="userCard">
       <Card
-        hoverable
+        hoverable={hoverable}
         title={`${user.firstName} ${user.lastName}`}
-        style={{ fontSize: "150%" }}
+        style={{ fontSize: "150%", backgroundColor: color }}
         cover={<img alt="example" src={"/assets/userIcon.png"} />}
       >
         <List

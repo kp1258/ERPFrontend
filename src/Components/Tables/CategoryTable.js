@@ -35,7 +35,7 @@ const CategoryTable = (props) => {
                 props.handleClick(row.standardProductCategoryId);
               }}
             >
-              Edit
+              Edytuj
             </button>
           ),
         };

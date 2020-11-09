@@ -102,14 +102,12 @@ const EditUserForm = (props) => {
             name="role"
             control={control}
             as={
-              <Select>
+              <Select placeholder="Wybierz stanowisko">
                 {roles.map((role) => (
                   <Option value={role.value}>{role.name}</Option>
                 ))}
               </Select>
             }
-            placeholder="Wybierz stanowisko"
-            defaultValue=""
           />
           <div className="errorMessage">{errors.role?.message}</div>
         </Form.Item>

@@ -11,7 +11,7 @@ const ClientPicker = ({ clientId, setClientId, client, setClient }) => {
   const user = useContext(UserContext);
   const { response, isLoading, error } = useFetch({
     method: "get",
-    url: `/salesmen/${user.userId}/clients`,
+    url: `/salesmen/${user.userId}/clients/active`,
   });
   const onChange = (value) => {
     setClientId(value);

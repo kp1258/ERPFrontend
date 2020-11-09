@@ -13,11 +13,13 @@ const EditMaterialForm = (props) => {
     resolver: yupResolver(materialSchema),
     defaultValues: {
       name: props.material.name,
+      unit: props.material.unit,
     },
   });
   useEffect(() => {
     reset({
       name: material.name,
+      unit: material.unit,
     });
   }, [props.material]);
 
@@ -40,7 +42,7 @@ const EditMaterialForm = (props) => {
   };
   return (
     <Form form={props.form} onFinish={handleSubmit(onSubmit)} {...layout}>
-      <Form.Item label="Nazwa materiału">
+      <Form.Item label="Nazwa">
         <Controller
           name="name"
           control={control}
@@ -49,6 +51,16 @@ const EditMaterialForm = (props) => {
           placeHolder="Podaj nazwę materiału"
         />
         <div className="errorMessage">{errors.name?.message}</div>
+      </Form.Item>
+      <Form.Item label="Jednostka">
+        <Controller
+          name="unit"
+          control={control}
+          as={<Input />}
+          defaultValue=""
+          placeHolder="Podaj jednostkę"
+        />
+        <div className="errorMessage">{errors.unit?.message}</div>
       </Form.Item>
     </Form>
   );

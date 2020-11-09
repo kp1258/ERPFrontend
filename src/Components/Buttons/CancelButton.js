@@ -4,15 +4,15 @@ import React from "react";
 const CancelButton = ({ item, handleCancel }) => {
   return (
     <Button
-      style={{ backgroundColor: "red", border: "2px solid white" }}
+      style={{
+        backgroundColor: "#1890FF",
+        border: "2px solid white",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
       shape="circle-outline"
-      icon={
-        <div style={{ height: "40px" }}>
-          <div style={{ marign: "auto" }}>
-            <CloseOutlined style={{ fontSize: "20px", color: "white" }} />
-          </div>
-        </div>
-      }
+      icon={<CloseOutlined style={{ fontSize: "20px", color: "white" }} />}
       onClick={() => handleCancel(item.id)}
     />
   );

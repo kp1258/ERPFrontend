@@ -9,7 +9,7 @@ const FileItemButton = (props) => {
       <FileItem {...props} />
       <Button
         style={{
-          backgroundColor: "red",
+          backgroundColor: "#1890FF",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",

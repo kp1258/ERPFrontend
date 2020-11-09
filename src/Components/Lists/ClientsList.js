@@ -1,5 +1,6 @@
 import React from "react";
 import { List } from "antd";
+import { inactiveCardColor } from "../../Utils/sharedStyles";
 
 const ClientsList = (props) => {
   const { items } = props;
@@ -17,19 +18,23 @@ const ClientsList = (props) => {
           header={<div style={{ fontSize: "large" }}>Klienci</div>}
           bordered
           dataSource={items}
-          renderItem={(item) => (
-            <List.Item
-              key={item.clientId}
-              onClick={() => {
-                props.handleClick(item.clientId);
-              }}
-            >
-              <List.Item.Meta
-                title={item.companyName}
-                description={`${item.firstName} ${item.lastName}`}
-              />
-            </List.Item>
-          )}
+          renderItem={(item) => {
+            var color = item.status === "Nieaktywny" ? inactiveCardColor : "";
+            return (
+              <List.Item
+                style={{ backgroundColor: color }}
+                key={item.clientId}
+                onClick={() => {
+                  props.handleClick(item.clientId);
+                }}
+              >
+                <List.Item.Meta
+                  title={item.companyName}
+                  description={`${item.firstName} ${item.lastName}`}
+                />
+              </List.Item>
+            );
+          }}
         />
       </div>
     </div>

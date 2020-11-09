@@ -9,8 +9,9 @@ import { pageRowGutter } from "../../Utils/layoutConstants";
 const StandardProductsPage = () => {
   const { response, isLoading, error } = useFetch({
     method: "get",
-    url: "/standard-products",
+    url: "/standard-products/produced",
   });
+  console.log(response);
   return (
     <div>
       {isLoading === false ? (
@@ -29,7 +30,7 @@ const StandardProductsPage = () => {
               })}
             </Row>
           ) : (
-            <NoDataAlert content="Brak produtków standardowych" />
+            <NoDataAlert content="Brak produktów standardowych" />
           )
         ) : (
           <NetworkErrorAlert />

@@ -38,12 +38,15 @@ const CreateStandardProductForm = () => {
   };
   const onSubmit = (data) => {
     setIsSubmitting(true);
+    console.log(data);
     let formData = new FormData();
     formData.set("name", data.name);
     formData.set("dimensions", data.dimensions);
     formData.set("standardProductCategoryId", data.standardProductCategoryId);
-    formData.set("imageName", data.image[0].name);
-    formData.set("imageFile", data.image[0]);
+    if (data.image.length !== 0) {
+      formData.set("imageName", data.image[0].name);
+      formData.set("imageFile", data.image[0]);
+    }
 
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
@@ -52,6 +55,7 @@ const CreateStandardProductForm = () => {
       .create(formData)
       .then((res) => {
         console.log(res);
+        setImageSrc(defaultImageSrc);
         reset({
           name: "",
           dimensions: "",
@@ -132,7 +136,7 @@ const CreateStandardProductForm = () => {
                   name="standardProductCategoryId"
                   control={control}
                   as={
-                    <Select>
+                    <Select placeholder="Wybierz kategorię">
                       {[...response].map((category) => (
                         <Option value={category.standardProductCategoryId}>
                           {category.name}
@@ -140,11 +144,11 @@ const CreateStandardProductForm = () => {
                       ))}
                     </Select>
                   }
-                  placeholder="Wybierz kategorię"
-                  defaultValue=""
                 />
               </Form.Item>
-              <div className="errorMessage">{errors.category?.message}</div>
+              <div className="errorMessage">
+                {errors.standardProductCategoryId?.message}
+              </div>
 
               <Button type="primary" htmlType="submit" loading={isSubmitting}>
                 Dodaj
@@ -152,10 +156,10 @@ const CreateStandardProductForm = () => {
             </Form>
           </Card>
         ) : (
-          <ComponentLoader />
+          <NetworkErrorAlert />
         )
       ) : (
-        <NetworkErrorAlert />
+        <ComponentLoader />
       )}
     </div>
   );
