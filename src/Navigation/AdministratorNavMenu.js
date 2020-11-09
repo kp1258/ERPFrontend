@@ -231,11 +231,175 @@ const options = [
     ],
   },
 ];
-
+const options2 = [
+  {
+    id: 1,
+    sectionName: "Pracownicy",
+    subsections: [
+      {
+        id: 1,
+        name: "Przeglądaj",
+        ref: "/users/admin",
+      },
+      {
+        id: 3,
+        name: "Dodaj",
+        ref: "/users/create",
+      },
+    ],
+  },
+  {
+    id: 2,
+    sectionName: "Klienci",
+    subsections: [
+      {
+        id: 5,
+        name: "Przeglądaj",
+        ref: "/clients",
+      },
+    ],
+  },
+  {
+    id: 3,
+    sectionName: "Zamówienia",
+    subsections: [
+      {
+        id: 51,
+        name: "Aktywne zamówienia",
+        ref: "/orders/active/admin",
+      },
+      {
+        id: 52,
+        name: "Historia",
+        ref: "/orders/history/admin",
+      },
+    ],
+  },
+  {
+    id: 4,
+    sectionName: "Magazyn produktów",
+    subsections: [
+      {
+        id: 15,
+        name: "Przeglądaj",
+        ref: "/warehouse/products",
+      },
+    ],
+  },
+  {
+    id: 5,
+    sectionName: "Magazyn materiałów",
+    subsections: [
+      {
+        id: 20,
+        name: "Przeglądaj",
+        ref: "/warehouse/materials",
+      },
+    ],
+  },
+  {
+    id: 6,
+    sectionName: "Produkty standardowe",
+    subsections: [
+      {
+        id: 26,
+        name: "Przeglądaj",
+        ref: "/standard-products/manage",
+      },
+      {
+        id: 27,
+        name: "Dodaj",
+        ref: "/standard-products/create",
+      },
+      {
+        id: 29,
+        name: "Kategorie produktów",
+        ref: "/standard-products/category",
+      },
+    ],
+  },
+  {
+    id: 7,
+    sectionName: "Produkty na zamówienie",
+    subsections: [
+      {
+        id: 30,
+        name: "Z moich zamówień (h)",
+        ref: "/custom-products/salesman",
+      },
+      {
+        id: 31,
+        name: "Historia (h)",
+        ref: "/custom-products/history/salesman",
+      },
+      {
+        id: 32,
+        name: "Do wykonania (kp)",
+        ref: "/custom-products/ordered/production-manager",
+      },
+      {
+        id: 33,
+        name: "W realizacji (kp)",
+        ref: "/custom-products/in-production",
+      },
+      {
+        id: 34,
+        name: "Historia (kp)",
+        ref: "/custom-products/history/production-manager",
+      },
+      {
+        id: 35,
+        name: "Do wykonania (t)",
+        ref: "/custom-products/ordered/technologist",
+      },
+      {
+        id: 36,
+        name: "W realizacji (t)",
+        ref: "/custom-products/in-preparation",
+      },
+      {
+        id: 37,
+        name: "Moje rozwiązania (t)",
+        ref: "/custom-products/technologist",
+      },
+      {
+        id: 38,
+        name: "Historia (t)",
+        ref: "/custom-products/history/technologist",
+      },
+      {
+        id: 39,
+        name: "Historia (m)",
+        ref: "/custom-products/history/warehouseman",
+      },
+      {
+        id: 42,
+        name: "W realizacji (m)",
+        ref: "/custom-products/warehouseman",
+      },
+    ],
+  },
+  {
+    id: 8,
+    sectionName: "Materiały",
+    subsections: [
+      {
+        id: 40,
+        name: "Przeglądaj",
+        ref: "/materials",
+      },
+      {
+        id: 41,
+        name: "Dodaj",
+        ref: "/materials/create",
+      },
+    ],
+  },
+];
 const AdministratorNavMenu = () => {
   return (
     <>
-      <NavMenu options={options} />
+      <NavMenu options={options2} />
     </>
   );
 };
