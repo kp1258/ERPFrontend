@@ -201,7 +201,12 @@ const Page = () => {
           path="/warehouse/products"
           component={ShowProductWarehousePage}
           user={user}
-          permitedRoles={["Handlowiec", "Administrator", "Kierownik produkcji"]}
+          permitedRoles={[
+            "Handlowiec",
+            "Administrator",
+            "Kierownik produkcji",
+            "Technolog",
+          ]}
         />
         <SecuredRoute
           path="/warehouse/products/change-stock"
@@ -216,7 +221,12 @@ const Page = () => {
           path="/warehouse/materials"
           component={ShowMaterialWarehousePage}
           user={user}
-          permitedRoles={["Handlowiec", "Administrator", "Kierownik produkcji"]}
+          permitedRoles={[
+            "Handlowiec",
+            "Administrator",
+            "Kierownik produkcji",
+            "Technolog",
+          ]}
         />
         <SecuredRoute
           path="/warehouse/materials/change-stock"
@@ -243,7 +253,7 @@ const Page = () => {
           path="/standard-products/create"
           component={CreateStandardProductPage}
           user={user}
-          permitedRoles={["Kierownik produkcji"]}
+          permitedRoles={["Kierownik produkcji", "Administrator"]}
         />
         <SecuredRoute
           path="/standard-products/missing"
@@ -255,7 +265,7 @@ const Page = () => {
           path="/standard-products/category"
           component={StandardProductCategoriesPage}
           user={user}
-          permitedRoles={["Kierownik produkcji"]}
+          permitedRoles={["Kierownik produkcji", "Administrator"]}
         />
 
         {/* Custom products pages */}

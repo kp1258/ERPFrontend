@@ -7,7 +7,7 @@ const StandardOrderItemCompleteList = ({
   selectedCheckboxes,
   setSelectedCheckboxes,
 }) => {
-  const pagination = items.length > 5 ? { pagesize: 5 } : false;
+  const pagination = items.length > 5 ? { pageSize: 5 } : false;
   const toggleCheckbox = (e, item) => {
     const checkedBoxes = [...selectedCheckboxes];
     if (e.target.checked) {

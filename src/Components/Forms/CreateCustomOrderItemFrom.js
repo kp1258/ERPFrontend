@@ -94,7 +94,7 @@ const CreateCustomOrderItemForm = ({
           <Controller
             name="quantity"
             control={control}
-            as={<InputNumber min={1} />}
+            as={<InputNumber />}
             defaultValue=""
             placeHolder="Podaj ilość"
           />

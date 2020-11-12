@@ -27,7 +27,7 @@ const CustomProductsHistorySalesmanPage = () => {
               ))}
             </Row>
           ) : (
-            <NoDataAlert content="Brak producktów na zamówienie w historii zamównień" />
+            <NoDataAlert content="Brak produktów na zamówienie w historii zamównień" />
           )
         ) : (
           <NetworkErrorAlert />

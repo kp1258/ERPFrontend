@@ -13,16 +13,16 @@ const SalesmanHomePage = () => {
   const orders = () => {
     const count = [...response].length;
     if (count === 1) {
-      return "zamówienie";
+      return "zamówienie jest";
     } else if (count <= 4) {
-      return "zamówienia";
+      return "zamówienia są";
     } else {
-      return "zamówień";
+      return "zamówień jest";
     }
   };
   const content =
     [...response].length > 0
-      ? `${[...response].length} ${orders()} są w trakcie realizacji`
+      ? `${[...response].length} ${orders()} w trakcie realizacji`
       : "Nie ma zamówień w realizacji";
   return (
     <div>

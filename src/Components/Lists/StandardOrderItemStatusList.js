@@ -5,7 +5,7 @@ import { listContainerStyle } from "../../Utils/sharedStyles";
 const defaultImageSrc = "/assets/productIcon.png";
 const StandardOrderItemStatusList = (props) => {
   const { items } = props;
-  const pagination = items.length > 3 ? { pagesize: 3 } : false;
+  const pagination = items.length > 3 ? { pageSize: 3 } : false;
   const footer =
     items.length > 3 ? <div>Liczba pozycji: {items.length}</div> : false;
   return (
@@ -23,19 +23,27 @@ const StandardOrderItemStatusList = (props) => {
           dataSource={items}
           pagination={pagination}
           footer={footer}
-          renderItem={(item) => (
-            <List.Item>
-              <List.Item.Meta
-                avatar={<Avatar src={defaultImageSrc} />}
-                title={item.standardProduct.name}
-                description={item.standardProduct.standardProductCategory.name}
-              />
-              <Space>
-                {`${item.quantity} sztuk`}
-                <StandardOrderItemStatus status={item.status} />
-              </Space>
-            </List.Item>
-          )}
+          renderItem={(item) => {
+            const imageSrc =
+              item.standardProduct.imagePath !== null
+                ? item.standardProduct.imagePath
+                : defaultImageSrc;
+            return (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={<Avatar src={imageSrc} />}
+                  title={item.standardProduct.name}
+                  description={
+                    item.standardProduct.standardProductCategory.name
+                  }
+                />
+                <Space>
+                  {`${item.quantity} sztuk`}
+                  <StandardOrderItemStatus status={item.status} />
+                </Space>
+              </List.Item>
+            );
+          }}
         />
       </div>
     </div>

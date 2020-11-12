@@ -11,7 +11,7 @@ const CustomProductOrderedCard = (props) => {
   const user = useContext(UserContext);
   const { customProduct } = props;
   const handleClick = () => {
-    isLoading(true);
+    setIsLoading(true);
     var status = "W przygotowaniu";
     var patch = [{ op: "replace", path: "/status", value: `${status}` }];
     customProducts

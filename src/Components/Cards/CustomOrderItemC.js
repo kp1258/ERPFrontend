@@ -32,7 +32,7 @@ const CustomOrderItemCard = ({ item, footer }) => {
     ),
     tab2: (
       <div>
-        {customProduct.status === "przygotowany" ? (
+        {customProduct.status === "Przygotowany" ? (
           <SolutionDetails product={customProduct} />
         ) : (
           <>
@@ -56,7 +56,7 @@ const CustomOrderItemCard = ({ item, footer }) => {
     ),
   };
   return (
-    <div style={{ height: "700px" }}>
+    <div style={{ height: "800px", width: "450px" }}>
       <Card
         hoverable
         title={customProduct.name}

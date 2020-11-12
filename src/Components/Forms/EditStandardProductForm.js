@@ -9,6 +9,7 @@ import { ComponentLoader } from "../Loaders";
 import { standardProducts } from "../../Api/erpApi";
 import { NetworkErrorAlert } from "../Alerts";
 import { handleResponse } from "../../Api/handleResponse";
+import { Image } from "../Others";
 
 const { Option } = Select;
 const defaultImageSrc = "/assets/productIcon.png";
@@ -80,23 +81,7 @@ const EditStandardProductForm = (props) => {
       {isLoading === false ? (
         error === "" ? (
           <div>
-            <div
-              style={{
-                margin: "auto",
-                height: "256px",
-                width: "256px",
-                border: "1px solid gray",
-                color: "gray",
-                position: "flex",
-              }}
-              className="center"
-            >
-              <img
-                style={{ maxHeight: "256px", maxWidth: "256px" }}
-                alt="Brak zdjęcia"
-                src={imageSrc}
-              />
-            </div>
+            <Image imageSrc={imageSrc} />
             <Form
               {...layout}
               form={props.form}

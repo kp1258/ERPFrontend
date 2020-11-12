@@ -54,7 +54,7 @@ const CustomProductCard = ({ customProduct, footer }) => {
     ),
   };
   return (
-    <div style={{ height: "600px", minWidth: "300px" }}>
+    <div style={{ height: "700px", width: "450px" }}>
       <Card
         hoverable
         title={customProduct.name}

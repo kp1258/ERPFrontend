@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, List, Image } from "antd";
 import { inactiveCardColor } from "../../Utils/sharedStyles";
+import { ImageCard } from "../Others";
 
 const defaultImageSrc = "/assets/productIcon.png";
 const StandardProductCard = (props) => {
@@ -13,21 +14,15 @@ const StandardProductCard = (props) => {
     `Status: ${product.status}`,
   ];
   console.log(product);
+  const imageSrc =
+    product.imagePath !== null ? product.imagePath : defaultImageSrc;
   return (
     <div>
       <Card
         hoverable={hoverable}
-        title={product.name}
-        style={{ fontSize: "150%", backgroundColor: color }}
-        cover={
-          <img
-            style={{ width: "256px", maxHeight: "256px" }}
-            alt="Produkt"
-            src={
-              product.imagePath !== null ? product.imagePath : defaultImageSrc
-            }
-          />
-        }
+        title={<div>{product.name}</div>}
+        style={{ fontSize: "150%", backgroundColor: color, width: "320px" }}
+        cover={<ImageCard imageSrc={imageSrc} />}
       >
         <List
           dataSource={data}

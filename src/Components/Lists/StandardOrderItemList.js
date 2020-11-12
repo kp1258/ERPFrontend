@@ -24,16 +24,24 @@ const StadnardOrderItemList = (props) => {
           pagination={pagination}
           footer={footer}
           dataSource={items}
-          renderItem={(item) => (
-            <List.Item>
-              <List.Item.Meta
-                avatar={<Avatar src={defaultImageSrc} />}
-                title={item.standardProduct.name}
-                description={item.standardProduct.standardProductCategory.name}
-              />
-              <Space>{`${item.quantity} sztuk`}</Space>
-            </List.Item>
-          )}
+          renderItem={(item) => {
+            const imageSrc =
+              item.standardProduct.imagePath !== null
+                ? item.standardProduct.imagePath
+                : defaultImageSrc;
+            return (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={<Avatar src={imageSrc} />}
+                  title={item.standardProduct.name}
+                  description={
+                    item.standardProduct.standardProductCategory.name
+                  }
+                />
+                <Space>{`${item.quantity} sztuk`}</Space>
+              </List.Item>
+            );
+          }}
         />
       </div>
     </div>

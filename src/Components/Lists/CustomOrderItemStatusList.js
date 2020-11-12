@@ -4,7 +4,7 @@ import { CustomOrderItemStatus } from "../Others";
 import { listContainerStyle } from "../../Utils/sharedStyles";
 const CustomOrderItemStatusList = (props) => {
   const { items } = props;
-  const pagination = items.length > 3 ? { pagesize: 3 } : false;
+  const pagination = items.length > 3 ? { pageSize: 3 } : false;
   const footer =
     items.length > 3 ? <div>Liczba pozycji: {items.length}</div> : false;
   return (

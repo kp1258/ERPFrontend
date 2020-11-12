@@ -5,7 +5,7 @@ const SolutionDetails = ({ product }) => {
   return (
     <>
       <CardDivider content="Szczegóły rozwiązania" />
-      <span>{product.solutionDescription}</span>
+      <p>{product.solutionDescription}</p>
       {[...product.fileList]
         .filter((file) => {
           return file.type === "Solution";

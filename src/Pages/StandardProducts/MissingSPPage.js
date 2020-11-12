@@ -13,6 +13,7 @@ const MissingStandardProductsPage = () => {
     method: "get",
     url: `/production-managers/${user.userId}/standard-products`,
   });
+  console.log(response);
   return (
     <div>
       {isLoading === false ? (

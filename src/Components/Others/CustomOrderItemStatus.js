@@ -1,6 +1,6 @@
 import React from "react";
 const CustomOrderItemStatus = ({ status }) => {
-  const color = status === "Wyprodukowany" ? "green" : "red";
+  const color = status === "Zrealizowany" ? "green" : "red";
   const style = {
     color: `${color}`,
     border: `1px solid ${color}`,

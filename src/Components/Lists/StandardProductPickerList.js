@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { List, Card, InputNumber, Checkbox } from "antd";
+import { ImageCard } from "../Others";
 const defaultImageSrc = "/assets/productIcon.png";
 const StandardProductPickerList = ({
   products,
@@ -45,22 +46,25 @@ const StandardProductPickerList = ({
   return (
     <div>
       <List
-        grid={{ gutter: 16, column: 5 }}
+        grid={{ gutter: 16, xs: 1, sm: 1, md: 1, lg: 2, xl: 3, xxl: 5 }}
         dataSource={products}
         pagination={{
           onChange: (page) => {
             console.log(page);
           },
-          pageSize: 4,
+          pageSize: 5,
         }}
         footer={<div>Liczba produktów: {products.length}</div>}
         renderItem={(item) => {
           const inputStatus = !selectedCheckboxes.find(
             (ch) => ch.standardProductId === item.standardProductId
           );
+          const imageSrc =
+            item.imagePath !== null ? item.imagePath : defaultImageSrc;
           return (
             <List.Item>
               <Card
+                style={{ width: "300px" }}
                 extra={[
                   <Checkbox
                     checked={selectedCheckboxes.find(
@@ -77,19 +81,7 @@ const StandardProductPickerList = ({
                 ]}
                 title={item.name}
                 hoverable
-                cover={
-                  <img
-                    style={{
-                      width: "256px",
-                      maxHeight: "256px",
-                      margin: "auto",
-                    }}
-                    alt="Produkt"
-                    src={
-                      item.imagePath !== null ? item.imagePath : defaultImageSrc
-                    }
-                  />
-                }
+                cover={<ImageCard imageSrc={imageSrc} />}
               >
                 <div>{`Wymiary: ${item.dimensions}`}</div>
                 <div>{`Kategoria: ${item.standardProductCategory.name}`}</div>

@@ -6,7 +6,7 @@ const CustomOrderItemCompleteList = ({
   selectedCheckboxes,
   setSelectedCheckboxes,
 }) => {
-  const pagination = items.length > 5 ? { pagesize: 5 } : false;
+  const pagination = items.length > 5 ? { pageSize: 5 } : false;
 
   const toggleCheckbox = (e, item) => {
     const checkedBoxes = [...selectedCheckboxes];
@@ -14,7 +14,7 @@ const CustomOrderItemCompleteList = ({
       checkedBoxes.push(item);
     } else {
       const index = checkedBoxes.findIndex(
-        (ch) => ch.standardOrderItemId === item.standardOrderItemId
+        (ch) => ch.customOrderItemId === item.customOrderItemId
       );
       checkedBoxes.splice(index, 1);
     }
@@ -29,13 +29,13 @@ const CustomOrderItemCompleteList = ({
         footer={<div>Liczba pozycji: {items.length}</div>}
         dataSource={items}
         renderItem={(item) => {
-          const status = item.status !== "Wyprodukowany" ? true : false;
+          const status = item.status !== "Zrealizowany" ? true : false;
           return (
             <List.Item
               actions={[
                 <Checkbox
                   checked={selectedCheckboxes.find(
-                    (ch) => ch.standardOrderItemId === item.standardOrderItemId
+                    (ch) => ch.customOrderItemId === item.customOrderItemId
                   )}
                   disabled={status}
                   onChange={(e) => toggleCheckbox(e, item)}

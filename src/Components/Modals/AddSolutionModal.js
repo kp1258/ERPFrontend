@@ -100,16 +100,16 @@ const AddSolutionModal = (props) => {
               {errors.solutionDescription?.message}
             </div>
           </Form.Item>
-          <Form.Item label="Pliki">
+          <Form.Item>
             <div style={{ marginInline: "50%" }}>
               <input
-                id="f02"
+                id="1234"
                 type="file"
                 name="files"
                 onChange={onChange}
                 key={inputKey || ""}
               />
-              <label for="f02">Dodaj plik</label>
+              <label for="1234">Dodaj plik</label>
             </div>
           </Form.Item>
           <div style={{ marginInline: "50%" }}>

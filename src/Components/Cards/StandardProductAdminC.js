@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Space } from "antd";
+import { Button, Divider, Space } from "antd";
 import StandardProductCard from "./StandardProductC";
 import { PopconfirmButton } from "../../Components/Buttons";
 import { standardProducts } from "../../Api/erpApi";
@@ -28,18 +28,21 @@ const StandardProductAdminCard = (props) => {
       .finally(() => setIsLoading(false));
   };
   const footer = (
-    <Space>
-      <Button
-        onClick={() => {
-          props.showModal();
-          props.handleClick(product.standardProductId);
-        }}
-        type="primary"
-      >
-        Edytuj dane
-      </Button>
-      <PopconfirmButton name="Zmień status" handleClick={handleClick} />
-    </Space>
+    <div>
+      <Divider />
+      <Space>
+        <Button
+          onClick={() => {
+            props.showModal();
+            props.handleClick(product.standardProductId);
+          }}
+          type="primary"
+        >
+          Edytuj dane
+        </Button>
+        <PopconfirmButton name="Zmień status" handleClick={handleClick} />
+      </Space>
+    </div>
   );
   return (
     <StandardProductCard
