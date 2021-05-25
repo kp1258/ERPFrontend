@@ -9,8 +9,8 @@ Project is created with:
 ## Key features
 * Placing and processing orders
 * Warehouse state management
-* Users' accounts management
-* Standard products' catalogue management
+* User accounts management
+* Standard products catalog management
 
 ## Additional information
 ### Security
@@ -23,8 +23,8 @@ Authorization is role-based. Available roles:
 * Warehouseman
 
 ### Forms
-* Forms management: [React Hook Form](https://react-hook-form.com/)
-* Forms validation: [Yup](https://github.com/jquense/yup)
+* Forms validation: [React Hook Form](https://react-hook-form.com/)
+* Validation schemas: [Yup](https://github.com/jquense/yup)
 
 ## Related projects
 * [ERPBackend](https://github.com/kp1258/ERPBackend)
