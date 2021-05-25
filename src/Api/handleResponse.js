@@ -9,7 +9,7 @@ export const handleResponse = (response, message) => {
         }),
       600
     );
-  } else if (response.status === 401) {
+  } else if (response.status === 401 || response.status === 403) {
     Modal.error({
       content: "Brak uprawnień do wykonania żądanej operacji",
     });

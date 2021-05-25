@@ -7,15 +7,11 @@ import { formCardStyle } from "../../Utils/sharedStyles";
 import { signInSchema } from "../../Utils/yupSchemas";
 
 const SignInForm = ({ handleLogin, confirmLoading }) => {
-  const { control, handleSubmit, errors, reset } = useForm({
+  const { control, handleSubmit, errors } = useForm({
     resolver: yupResolver(signInSchema),
   });
   const onSubmit = (data) => {
     handleLogin(data);
-    // reset({
-    //   login: "",
-    //   password: "",
-    // });
   };
   return (
     <div style={formCardStyle}>
