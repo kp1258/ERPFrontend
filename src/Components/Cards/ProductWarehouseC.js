@@ -13,7 +13,7 @@ const ProductWarehouseCard = (props) => {
     `Wymiary: ${standardProduct.dimensions}`,
     `Kategoria: ${standardProduct.standardProductCategory.name}`,
     `Status: ${standardProduct.status}`,
-    `Ilość: ${item.quantity}`,
+    `Liczba: ${item.quantity}`,
   ];
   const imageSrc =
     standardProduct.imagePath !== null

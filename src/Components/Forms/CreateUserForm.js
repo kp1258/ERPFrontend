@@ -44,7 +44,7 @@ const CreateUserForm = (props) => {
   };
   return (
     <div style={formCardStyle}>
-      <Card title="Formularz tworzenia pracownika">
+      <Card title="Formularz dodawania pracownika" style={{}}>
         <Form {...layout} onFinish={handleSubmit(onSubmit)}>
           <Form.Item label="Imię">
             <Controller
@@ -97,13 +97,13 @@ const CreateUserForm = (props) => {
             />
             <div className="errorMessage">{errors.phoneNumber?.message}</div>
           </Form.Item>
-          <Form.Item label="Adres E-Mail">
+          <Form.Item label="Adres e-mail">
             <Controller
               name="email"
               control={control}
               as={<Input />}
               defaultValue=""
-              placeHolder="Podaj adres E-Mail"
+              placeHolder="Podaj adres e-mail"
             />
             <div className="errorMessage">{errors.email?.message}</div>
           </Form.Item>

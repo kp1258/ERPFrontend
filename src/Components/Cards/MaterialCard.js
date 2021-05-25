@@ -9,6 +9,7 @@ const MaterialCard = (props) => {
       hoverable
       title={material.name}
       cover={<img alt="material" src={defaultImageSrc} />}
+      style={{ width: "250px" }}
     >
       <List
         dataSource={data}

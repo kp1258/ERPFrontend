@@ -14,8 +14,9 @@ const CreateMaterialForm = () => {
     resolver: yupResolver(materialSchema),
   });
   const onSubmit = (data) => {
+    console.log("click");
     console.log(data);
-    setIsSubmitting(false);
+    setIsSubmitting(true);
     materials
       .create(data)
       .then((res) => {

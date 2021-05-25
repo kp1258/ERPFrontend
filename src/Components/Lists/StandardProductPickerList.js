@@ -46,13 +46,13 @@ const StandardProductPickerList = ({
   return (
     <div>
       <List
-        grid={{ gutter: 16, xs: 1, sm: 1, md: 1, lg: 2, xl: 3, xxl: 5 }}
+        grid={{ gutter: 16, xs: 1, sm: 2, md: 2, lg: 2, xl: 3, xxl: 4 }}
         dataSource={products}
         pagination={{
           onChange: (page) => {
             console.log(page);
           },
-          pageSize: 5,
+          pageSize: 4,
         }}
         footer={<div>Liczba produktów: {products.length}</div>}
         renderItem={(item) => {
@@ -64,7 +64,7 @@ const StandardProductPickerList = ({
           return (
             <List.Item>
               <Card
-                style={{ width: "300px" }}
+                style={{ width: "310px" }}
                 extra={[
                   <Checkbox
                     checked={selectedCheckboxes.find(

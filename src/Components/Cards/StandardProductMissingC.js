@@ -6,7 +6,7 @@ const StandardProductMissingCard = (props) => {
   const footer = (
     <div>
       <Divider />
-      <Divider style={{ color: "red" }}>Brakująca ilość</Divider>
+      <Divider style={{ color: "red" }}>Brakująca liczba</Divider>
       <h4 style={{ color: "red" }}>{product.quantity}</h4>
     </div>
   );

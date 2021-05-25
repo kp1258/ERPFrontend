@@ -30,6 +30,10 @@ const StandardOrderItemCompleteList = ({
         footer={<div>Liczba pozycji: {items.length}</div>}
         renderItem={(item) => {
           const status = item.status !== "Dostępny" ? true : false;
+          const imageSrc =
+            item.standardProduct.imagePath !== null
+              ? item.standardProduct.imagePath
+              : defaultImageSrc;
           return (
             <List.Item
               actions={[
@@ -43,7 +47,7 @@ const StandardOrderItemCompleteList = ({
               ]}
             >
               <List.Item.Meta
-                avatar={<Avatar src={defaultImageSrc} />}
+                avatar={<Avatar src={imageSrc} />}
                 title={item.standardProduct.name}
                 description={item.standardProduct.standardProductCategory.name}
               />

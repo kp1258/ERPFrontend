@@ -1,14 +1,30 @@
 import * as yup from "yup";
+import { nameRegex, loginRegex, phoneNumberRegex } from "./regexes";
 
 export const userSchema = yup.object().shape({
-  firstName: yup.string().required("Imie jest wymagane"),
-  lastName: yup.string().required("Nazwisko jest wymagane"),
-  login: yup.string().required("Login jest wymagany"),
-  password: yup.string().required("Hasło jest wymagane"),
-  phoneNumber: yup.string().required("Numer telefonu jest wymagany"),
+  firstName: yup
+    .string()
+    .required("Imie jest wymagane")
+    .matches(nameRegex, "Nieprawidłowy format imienia"),
+  lastName: yup
+    .string()
+    .required("Nazwisko jest wymagane")
+    .matches(nameRegex, "Nieprawidłowy format nazwiska"),
+  login: yup
+    .string()
+    .required("Login jest wymagany")
+    .matches(loginRegex, "Niepoprawny format loginu"),
+  password: yup
+    .string()
+    .required("Hasło jest wymagane")
+    .min(6, "Hasło jest za krótkie"),
+  phoneNumber: yup
+    .string()
+    .required("Numer telefonu jest wymagany")
+    .matches(phoneNumberRegex, "Niepoprawny format numeru telefonu"),
   email: yup
     .string()
-    .email("Niepoprawny adres E-Mail")
+    .email("Niepoprawny format adresu e-mail")
     .required("E-Mail jest wymagany"),
   role: yup.string().required("Wybór stanowiska jest wymagany"),
 });
@@ -51,7 +67,7 @@ export const warehouseSchema = yup.object().shape({
     .positive("Wprowadzona liczba musi być liczbą dodatnią")
     .integer("Ilość musi być liczbą całkowitą")
     .min(1, "Minimalna liczba to 1")
-    .max(100, "Maksymalna liczba to 100"),
+    .max(2000, "Maksymalna liczba to 2000"),
 });
 
 export const standardProductSchema = yup.object().shape({
@@ -70,7 +86,7 @@ export const categorySchema = yup.object().shape({
 
 export const materialSchema = yup.object().shape({
   name: yup.string().required("Nazwa materiału jest wymagana"),
-  unti: yup.string().required("Jednostka jest wymagana"),
+  unit: yup.string().required("Jednostka jest wymagana"),
 });
 
 export const customOrderItemSchema = yup.object().shape({

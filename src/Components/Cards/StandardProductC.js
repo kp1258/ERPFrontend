@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, List, Image } from "antd";
+import { Card, List } from "antd";
 import { inactiveCardColor } from "../../Utils/sharedStyles";
 import { ImageCard } from "../Others";
 
@@ -21,7 +21,11 @@ const StandardProductCard = (props) => {
       <Card
         hoverable={hoverable}
         title={<div>{product.name}</div>}
-        style={{ fontSize: "150%", backgroundColor: color, width: "320px" }}
+        style={{
+          fontSize: "150%",
+          backgroundColor: color,
+          width: "320px",
+        }}
         cover={<ImageCard imageSrc={imageSrc} />}
       >
         <List

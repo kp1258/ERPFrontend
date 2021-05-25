@@ -45,7 +45,11 @@ const OrderWithTabsCard = ({ order, tabContent, footer }) => {
     <div style={{ height: "700px", minWidth: "450px" }}>
       <Card
         hoverable
-        style={{ width: "100%", margin: "auto", height: "100%" }}
+        style={{
+          width: "100%",
+          margin: "auto",
+          height: "100%",
+        }}
         tabList={tabList}
         activeTabKey={activeKey}
         onTabChange={(key) => setActiveKey(key)}

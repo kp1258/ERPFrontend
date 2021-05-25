@@ -14,7 +14,7 @@ const options = [
   },
   {
     id: 2,
-    sectionName: "Magazyn Produktów",
+    sectionName: "Magazyn produktów",
     subsections: [
       {
         id: 2,
@@ -25,7 +25,7 @@ const options = [
   },
   {
     id: 3,
-    sectionName: "Magazyn Materiałów",
+    sectionName: "Magazyn materiałów",
     subsections: [
       {
         id: 3,
@@ -36,7 +36,7 @@ const options = [
   },
   {
     id: 4,
-    sectionName: "Produkty Standardowe",
+    sectionName: "Produkty standardowe",
     subsections: [
       {
         id: 4,
@@ -62,7 +62,7 @@ const options = [
   },
   {
     id: 5,
-    sectionName: "Produkty Na Zamówienie",
+    sectionName: "Produkty na zamówienie",
     subsections: [
       {
         id: 8,

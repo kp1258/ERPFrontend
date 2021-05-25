@@ -68,8 +68,7 @@ const AppBar = () => {
     ) : (
       ""
     );
-  const dropdownMenu =
-    user.role !== "anonymous" ? <DropdownMenu /> : <SignInButton />;
+  const dropdownMenu = user.role !== "anonymous" ? <DropdownMenu /> : <></>;
   return (
     <div>
       <PageHeader

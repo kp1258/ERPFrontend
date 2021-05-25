@@ -74,7 +74,7 @@ const CreateStandardProductForm = () => {
     <div style={formCardStyle}>
       {isLoading === false ? (
         error === "" ? (
-          <Card title="Formularz tworzenia produktu standardowego">
+          <Card>
             <Image imageSrc={imageSrc} />
             <Form onFinish={handleSubmit(onSubmit)} {...layout}>
               <div

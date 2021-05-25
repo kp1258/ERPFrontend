@@ -90,13 +90,13 @@ const CreateCustomOrderItemForm = ({
           />
           <div className="errorMessage">{errors.orderDescription?.message}</div>
         </Form.Item>
-        <Form.Item label="Ilość">
+        <Form.Item label="Liczba">
           <Controller
             name="quantity"
             control={control}
             as={<InputNumber />}
             defaultValue=""
-            placeHolder="Podaj ilość"
+            placeHolder="Podaj liczbę"
           />
           <div className="errorMessage">{errors.quantity?.message}</div>
         </Form.Item>

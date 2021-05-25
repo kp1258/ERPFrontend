@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Steps, Button, Divider, message } from "antd";
+import { Steps, Button, Divider } from "antd";
 import { PopconfirmButton } from "../Buttons";
 import ClientPicker from "./ClientPicker";
 import OrderTypePicker from "./OrderTypePicker";
@@ -137,11 +137,17 @@ const OrderSteps = () => {
       .finally(() => setIsLoading(false));
   };
   return (
-    <div style={{ width: "100%", backgroundColor: "white", height: "100%" }}>
+    <div
+      style={{
+        width: "100%",
+        backgroundColor: "white",
+        height: "100%",
+      }}
+    >
       <div
         style={{
           width: "100%",
-          paddingInline: "80px",
+          paddingInline: "40px",
           paddingTop: "40px",
           paddingBottom: "20px",
           margin: "auto",
@@ -154,7 +160,7 @@ const OrderSteps = () => {
         </Steps>
       </div>
       <Divider plain />
-      <div style={{ minHeight: "700px", paddingInline: "30px" }}>
+      <div style={{ minHeight: "250px", paddingInline: "30px" }}>
         {steps[current].content}
       </div>
       <Divider plain />

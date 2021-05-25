@@ -85,20 +85,24 @@ const ChangeStockModal = (props) => {
     <Modal
       title={`${title}: ${titleLabel}`}
       visible={visible}
+      style={{ borderStyle: "solid", borderWidth: "4px", borderColor: "gray" }}
       onOk={form.submit}
       onCancel={handleCancel}
       confirmLoading={isSubmitting}
     >
-      <div>{name}</div>
-      <div>Obecna ilosć: {item.quantity}</div>
+      <div style={{ fontSize: "125%", margin: "auto" }}>{name}</div>
+      <div style={{ fontSize: "110%", margin: "auto" }}>
+        Obecna liczba: {item.quantity}
+      </div>
+      <br />
       <Form form={form} {...layout} onFinish={handleSubmit(onSubmit)}>
-        <Form.Item label="Ilość">
+        <Form.Item label="Liczba">
           <Controller
             name="enteredQuantity"
             control={control}
             as={<Input />}
             defaultValue=""
-            placeHolder="Podaj ilość"
+            placeHolder="Podaj liczbę"
           />
           <div className="errorMessage">{errors.enteredQuantity?.message}</div>
         </Form.Item>

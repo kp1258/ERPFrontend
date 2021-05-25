@@ -23,7 +23,7 @@ const CustomOrderItemCard = ({ item, footer }) => {
     tab1: (
       <div>
         <OrderDetails product={customProduct} />
-        <CardDivider content="Ilość" />
+        <CardDivider content="Liczba" />
         <div>{item.quantity}</div>
         <CardDivider content="Status" />
         <div>{item.status}</div>
@@ -56,7 +56,12 @@ const CustomOrderItemCard = ({ item, footer }) => {
     ),
   };
   return (
-    <div style={{ height: "800px", width: "450px" }}>
+    <div
+      style={{
+        height: "700px",
+        width: "450px",
+      }}
+    >
       <Card
         hoverable
         title={customProduct.name}
