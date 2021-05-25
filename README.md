@@ -9,8 +9,8 @@ Project is created with:
 ## Key features
 * Placing and processing orders
 * Warehouse state management
-* Users' accounts management
-* Standard products' catalogue management
+* User accounts management
+* Standard products catalog management
 
 ## Additional information
 ### Security
