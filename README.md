@@ -1,12 +1,11 @@
 # ERPFrontend
-This project is a part of the ERP system supporting management of production and trade company. Client side application consuming web API. 
+This project is a part of the ERP system supporting management of production and trade company. The purpose of this system is to standarize order processing and support resource management. This project is client side application consuming web API. 
 
 ## Technologies
-Project is created with:
 * React.js 
 * JavaScript
 
-## Key features
+## Features
 * Placing and processing orders
 * Warehouse state management
 * User accounts management
